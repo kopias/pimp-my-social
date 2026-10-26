@@ -7,10 +7,11 @@ submissions close **Nov 4, 9 PM ET**). The idea is in [IDEA.md](IDEA.md).
 
 ```bash
 cd ~/Developer/muse-hackathon
+uv sync                            # first time only: makes .venv from uv.lock
 # 1. put your key in .env (dev.meta.ai/platform -> API keys)
 # 2. check every model:
-.venv/bin/python scripts/smoke.py            # text image vision sam video asr
-.venv/bin/python scripts/smoke.py sam        # one at a time
+uv run scripts/smoke.py            # text image vision sam video asr
+uv run scripts/smoke.py sam        # one at a time
 ```
 
 Before the first call: submit the Cerebral Valley form to claim the $150 credit

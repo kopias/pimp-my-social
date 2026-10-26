@@ -1,7 +1,7 @@
 """Exercise every Muse model once, end to end, on self-made fixtures.
 
-    .venv/bin/python scripts/smoke.py            # all checks
-    .venv/bin/python scripts/smoke.py text sam   # just some
+    uv run scripts/smoke.py            # all checks
+    uv run scripts/smoke.py text sam   # just some
 
 Cost of a full run is a few cents: 1 image ($0.01), a handful of short text
 calls, one SAM image, a 3s video, and ~4s of audio.
