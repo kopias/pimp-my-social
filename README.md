@@ -69,3 +69,20 @@ From the kickoff: new work only (built Oct 26 to Nov 4), the GitHub repo must be
 **public**, and judges must be able to tell what was built during the event, or the
 project is disqualified. Nothing here is copied from earlier projects. `.env` is
 git-ignored; never commit a key.
+
+## Event logistics
+
+- **Submissions close Wed Nov 4, 9:00 PM ET.** Judging Nov 5-8, closing ceremony
+  and live finals Nov 9 at 12:00 PM ET, community vote winner announced Nov 16 on
+  Discord.
+- **Prizes, indie track:** $150K / $100K / $75K / $50K / $25K, plus $50K in bonus
+  prizes across the event.
+- **Discord** (home base): https://cv.inc/e/meta-ai-developer-hackathon/discord
+  - `#questions`: ask the CV team (ping @CV). Rules and eligibility go here.
+  - `#office-hours`: ask the Meta team. API and model questions go here.
+  - `#resources`: docs, **credit forms**, session recordings.
+  - `#intros`: say what you're building.
+- **Live sessions** (12:00 PM ET, recorded to `#resources`):
+  - Tue Oct 27: Meta Engineering Workshop P1 (Suraj Subramanian)
+  - Wed Oct 28: Meta Engineering Workshop P2 (Yash Khare)
+  - Fri Oct 30: Fireworks AI Workshop (Sinan Ozdemir)
