@@ -135,7 +135,7 @@ Guardrails this puts on the build:
 
 - **Eligibility.** The rules exclude spouses of Meta employees and contractors.
   Settle this with the organisers in writing before Day 2.
-- **Latency.** Verdicts won't be instant. A 5 s clip plus a SAM pass plus a Spark
+- **Latency.** Measured on Day 1: SAM is 2.0 s per single frame, about 0.5 s per frame in video mode. The live loop uses single frames. Verdicts won't be instant. A 5 s clip plus a SAM pass plus a Spark
   call is likely 10-20 s. For cooking that's fine, since nothing goes from golden to
   burnt in 15 s, except garlic. Measure it on Day 2 and design to the number.
 - **Cost.** SAM video is $0.20 per 1,000 frames. A 10-minute cook at 4 fps is 2,400

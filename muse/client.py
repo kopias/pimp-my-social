@@ -17,7 +17,6 @@ from typing import Any
 import requests
 from dotenv import load_dotenv
 from meta_sam_parser import (
-    SegmentationBoxRecord,
     SegmentationMaskRecord,
     decode_mask_to_raster,
     image_segmentation_format,
@@ -125,8 +124,10 @@ def generate_image(prompt: str, out: str | Path, *, size: str = "auto",
 @dataclass
 class Segment:
     object_id: str
-    box: tuple[int, int, int, int]  # left, top, right, bottom (right/bottom half-open)
-    mask: bytes | None  # row-major 0/1, width * height
+    # Where the mask sits in the frame: left, top, right, bottom (right/bottom
+    # half-open). The mask is cropped to this box, not the whole frame.
+    box: tuple[int, int, int, int]
+    mask: bytes | None  # row-major 0/1, width * height of the box
     width: int
     height: int
     confidence: float | None
@@ -164,16 +165,14 @@ async def segment(concept: str, media: str | Path, *, video: bool = False,
     def frame_of(rec: Any) -> int | None:
         return getattr(rec.frame, "frame_index", None) if rec.frame else None
 
-    boxes = {(r.object_id, frame_of(r)): r for r in result.records
-             if isinstance(r, SegmentationBoxRecord)}
     out: list[Segment] = []
     for r in result.records:
         if not isinstance(r, SegmentationMaskRecord):
             continue
-        b = boxes.get((r.object_id, frame_of(r)))
+        b = r.bounds
         out.append(Segment(
             object_id=r.object_id,
-            box=(b.left, b.top, b.right, b.bottom) if b else (0, 0, 0, 0),
+            box=(b.left, b.top, b.right, b.bottom),
             mask=decode_mask_to_raster(r.mask),
             width=r.mask.width,
             height=r.mask.height,

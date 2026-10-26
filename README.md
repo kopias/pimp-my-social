@@ -45,10 +45,25 @@ Things worth knowing:
   search; turn that off (`fast=True`) for speed when realism isn't needed.
 - **Transcribe** wants mono 16-bit PCM WAV at 16 or 24 kHz, at most 10 minutes.
 
+## Measured so far (Oct 26)
+
+- SAM 3.1, one 960 px image: **2.0 s**. A 42-frame clip, one concept: **19.6 s**
+  (about 0.5 s per frame). Two concepts sent at once on the same clip took 104 s,
+  so don't run several SAM video jobs in parallel.
+- So the **live loop segments one frame at a time** every few seconds; video mode
+  is for replays and calibration.
+- Browning Index on the AI cook-through clip climbs 22 → 263 (piece 0) and
+  26 → 292 (piece 1), steadily, with SAM confidence ≥ 0.95 throughout. The
+  thresholds still need real footage.
+
 ## Layout
 
 ```
 muse/client.py     ask, ask_video, generate_image, segment, transcribe
+muse/browning.py   Browning Index inside SAM masks, lighting reference, per-piece readings
+scripts/browning.py      clip or photo -> out/<name>/{readings.json,curves.png,overlay.png}
+scripts/make_test_clip.py  AI cook-through clip (Muse Image edits) for testing without a stove
+tests/             offline tests: `uv run pytest -q`
 scripts/smoke.py   one live call per model, on fixtures it makes itself
 bin/claude-muse    Claude Code driven by Muse Wonder (Anthropic-compatible surface)
 fixtures/          generated test media (git-ignored)
