@@ -122,7 +122,7 @@ Spark judge (watch spec, verdicts, safety guard), tested on an AI-generated clip
 | Tue 27 | Run the real clips through `scripts/browning.py`. Onions are many small pieces, not two thighs: measure the pile as a whole plus a 3x3 grid of pan regions, so "the back is catching" is a measured fact. |
 | Wed 28 | Calibrate: label the clips by hand (raw / golden / deep brown / burnt) and set `SHADE_BI` and `BROWNED_BI` from them. Check the lighting correction against the stove or pan rim. Teach the judge "stir" (one region ahead of the rest) and "lower heat" (rate too fast for the step's time). |
 | Thu 29 | Judge eval on the real clips: replay each, compare calls to the hand labels. Fix what's wrong. |
-| Fri 30 | Live loop: a FastAPI backend plus a phone web page (getUserMedia → a frame every few seconds → verdict → speech). |
+| Fri 30 | ✅ (done Mon 26) Live loop: a FastAPI backend plus a phone web page (getUserMedia → a frame every few seconds → verdict → speech). |
 | Sat 31 | Hands-free voice (realtime ASR), "show me the target" with Muse Image. |
 | Sun 1 | Replay page. Latency and cost pass. |
 | Mon 2 | Replay mode for the live final. Hardening: no food in frame, steam and glare, phone moved, dropped connection. Deploy over HTTPS (camera access needs it). |

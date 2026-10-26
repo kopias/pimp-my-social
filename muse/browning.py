@@ -161,14 +161,9 @@ def split_regions(segs: list[Segment], n: int = 3) -> list[Segment]:
     return out
 
 
-def measure(frames: dict[int, np.ndarray], food: list[Segment],
-            reference: list[Segment] | None = None,
-            browned_bi: float = BROWNED_BI) -> list[Reading]:
-    """Readings for every food segment, frame by frame, oldest first.
-
-    `frames` maps frame index -> HxWx3 uint8 RGB. Image results (frame None)
-    are treated as frame 0.
-    """
+def reference_lightness(frames: dict[int, np.ndarray],
+                        reference: list[Segment] | None) -> dict[int, float]:
+    """Median L* of the reference region, per frame."""
     ref_l: dict[int, float] = {}
     for seg in reference or []:
         f = seg.frame or 0
@@ -176,9 +171,26 @@ def measure(frames: dict[int, np.ndarray], food: list[Segment],
             px = masked_pixels(frames[f], seg)
             if len(px):
                 ref_l.setdefault(f, float(np.median(srgb_to_lab(px)[:, 0])))
-    ref0 = ref_l[min(ref_l)] if ref_l else None
+    return ref_l
 
-    first_area: dict[str, int] = {}
+
+def measure(frames: dict[int, np.ndarray], food: list[Segment],
+            reference: list[Segment] | None = None,
+            browned_bi: float = BROWNED_BI, *, ref_l0: float | None = None,
+            first_area: dict[str, int] | None = None) -> list[Reading]:
+    """Readings for every food segment, frame by frame, oldest first.
+
+    `frames` maps frame index -> HxWx3 uint8 RGB. Image results (frame None)
+    are treated as frame 0.
+
+    A live session measures one frame per call, so it passes the state that
+    spans calls: `ref_l0`, the reference lightness at the start of the cook,
+    and `first_area`, each object's area in its first frame (updated in place).
+    """
+    ref_l = reference_lightness(frames, reference)
+    ref0 = ref_l0 if ref_l0 is not None else (ref_l[min(ref_l)] if ref_l else None)
+
+    first_area = {} if first_area is None else first_area
     out: list[Reading] = []
     for seg in sorted(food, key=lambda s: (s.frame or 0, s.object_id)):
         f = seg.frame or 0

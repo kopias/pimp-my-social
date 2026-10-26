@@ -53,12 +53,17 @@ STATES = ["not_started", "cooking", "almost", "ready", "overdone", "unclear"]
 SPEC_SCHEMA = {
     "type": "object",
     "additionalProperties": False,
-    "required": ["food", "reference", "target_shade", "minutes_min", "minutes_max",
+    "required": ["food", "pile", "reference", "target_shade", "minutes_min", "minutes_max",
                  "turn_action", "protein", "watch_for"],
     "properties": {
         "food": {"type": "string",
-                 "description": "ONE short noun phrase naming a single piece of the food, "
-                                "for an object segmenter, e.g. 'chicken thigh', 'onion'."},
+                 "description": "ONE short noun phrase for an object segmenter. For separate "
+                                "pieces, name one piece: 'chicken thigh'. For a pile, name "
+                                "the pile: 'sliced onions', 'sliced mushrooms'."},
+        "pile": {"type": "boolean",
+                 "description": "true when the food is many small pieces cooked as one mass "
+                                "and stirred (onions, mushrooms, garlic, a stir-fry); false "
+                                "for separate pieces you turn one by one (thighs, steaks)"},
         "reference": {"type": "string",
                       "description": "a nearby surface that will not change colour, as a "
                                      "segmenter phrase; 'pan handle' unless the step says "
@@ -95,6 +100,7 @@ class WatchSpec:
     turn_action: str
     protein: str
     watch_for: str
+    pile: bool = False  # measure as one mass split into pan regions
 
     @property
     def target_bi(self) -> float:

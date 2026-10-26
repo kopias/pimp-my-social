@@ -17,6 +17,25 @@ uv run scripts/smoke.py sam        # one at a time
 Before the first call: submit the Cerebral Valley form to claim the $150 credit
 (it arrives in batches and is not on the account yet), and set a spend alert on Billing.
 
+## Run Sous live
+
+```bash
+uv run scripts/serve.py            # http://localhost:8000 in a desktop browser
+uv run scripts/serve.py --https    # prints https://<LAN IP>:8443 for a phone on the same wifi
+```
+
+Pick or type the step, choose **Camera** or **Replay a clip**, press Start. A frame
+goes to SAM every 3 s; Spark judges in the background when progress crosses a band
+or every 15 s; the phone speaks each new call (repeats are held back for 45 s).
+Piles (onions, mushrooms) show a 3x3 map of the pan; separate pieces show a bar
+each. Replay runs a clip from `fixtures/` through the same pipeline: real SAM,
+real Spark, real speech. For the AI test clips use 120 cooking minutes per clip
+minute at ¼×. Every session is saved to `out/sessions/<id>/` (frames, readings,
+verdicts), so a real cook doubles as a calibration clip.
+
+On a phone, `--https` uses a self-signed certificate (in `certs/`, git-ignored):
+accept the warning once. iPhone: "Show Details" → "visit this website".
+
 ## Meta Model API at a glance
 
 One base URL (`https://api.meta.ai/v1`), one bearer key (`MODEL_API_KEY`). It is
@@ -70,6 +89,13 @@ Things worth knowing:
   overdone ×2. Verdicts 4-17 s. The lighting reference is `"pan handle"` (conf 0.94);
   `"gas stove"` finds nothing on a black stovetop. Muse Image refuses prompts with
   "burnt" in them.
+- **Live loop** (headless Chrome, phone viewport, onion clip replayed): ~2 s per
+  frame round trip (SAM 1.5-2.7 s), verdicts land a frame or two later. Spoken:
+  "let them cook slowly" → "stir well, the back is catching" → "a few more minutes"
+  → "take them off the heat". On single frames SAM loses `"sliced onions"` as they
+  darken (0.54, then nothing), while `"food"` holds at 0.91-0.93, so the session
+  falls back to `"food"` and stays there. Fake camera with no food: "I can't see
+  the food" once, after two empty frames.
 - So the **live loop segments one frame at a time** every few seconds; video mode
   is for replays and calibration.
 - Browning Index on the AI cook-through clip climbs 22 → 263 (piece 0) and
@@ -82,6 +108,9 @@ Things worth knowing:
 muse/client.py     ask, ask_video, generate_image, segment, transcribe
 muse/browning.py   Browning Index inside SAM masks, lighting reference, per-piece readings
 scripts/browning.py      clip or photo -> out/<name>/{readings.json,curves.png,overlay.png}; --regions for piles
+muse/live.py       one live cook: frame -> SAM -> readings -> background verdict; saves the session
+server/            FastAPI app + the phone page (server/static/index.html)
+scripts/serve.py   run it: localhost, or --https for a phone
 muse/judge.py      Spark judge: step -> watch spec, readings + frame -> verdict; hard safety rules
 scripts/judge.py   replay a measured clip through the judge, checkpoint by checkpoint
 scripts/make_test_clip.py  AI cook-through clips (sear | onions) for testing without a stove
