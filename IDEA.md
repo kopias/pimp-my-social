@@ -83,6 +83,36 @@ voice, "is it burning?". Close on the replay.
 | Tue 3 | Record the demo video and write the submission. |
 | Wed 4 | Buffer. Submit before 9 PM ET. |
 
+## Not an anti-project (for the submission)
+
+The kickoff listed overdone projects to skip. Sous sits next to three of them, so
+the submission says plainly why it is none of them:
+
+> **Not a simple image analyzer.** Sous never answers a one-off question about a
+> photo. It is a closed loop: it tracks each piece of food through continuous video
+> with SAM 3.1, measures how its surface changes over time, decides when a threshold
+> has been crossed, and acts by speaking to the cook, who answers by voice. The
+> output is a timed action ("flip the left one now"), not a description.
+>
+> **Not a nutrition coach.** Sous knows nothing about calories, macros or diet. It
+> is about technique, meaning heat and timing, the way a sous chef stands beside a
+> cook.
+>
+> **Not a dashboard.** The browning curve on screen is the evidence behind each
+> spoken call. The product is the call.
+>
+> **Not food-safety or medical advice.** A camera sees surfaces, not the inside of a
+> chicken thigh. Sous judges browning only, and for poultry and pork it always says
+> to confirm with a thermometer (74 °C / 165 °F for poultry). It never says "safe to
+> eat".
+
+Guardrails this puts on the build:
+- Never call it a "coach" anywhere: UI, README, video, submission.
+- No calorie, diet or health features, even as stretch goals.
+- Thermometer prompt hard-coded for poultry and pork; "done" means "surface done".
+- No Streamlit. The FastAPI backend and phone web page stay as planned.
+- The demo leads with the spoken call and the flip, not the chart.
+
 ## Risks, faced up front
 
 - **Eligibility.** The rules exclude spouses of Meta employees and contractors.
