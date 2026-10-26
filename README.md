@@ -82,6 +82,11 @@ git-ignored; never commit a key.
   - `#office-hours`: ask the Meta team. API and model questions go here.
   - `#resources`: docs, **credit forms**, session recordings.
   - `#intros`: say what you're building.
+- **Credits** (request forms in `#resources`, opened at kickoff):
+  - Meta Model API: $150 per participant. This is what Sous runs on.
+  - Baseten: $100 plus 2M TPM, **first 2,000 participants**. Open weights (Muse Spark Open).
+  - Modal: $100 for open weights and GPUs, **first 1,000 participants**.
+  - Fireworks: $25, select participants.
 - **Live sessions** (12:00 PM ET, recorded to `#resources`):
   - Tue Oct 27: Meta Engineering Workshop P1 (Suraj Subramanian)
   - Wed Oct 28: Meta Engineering Workshop P2 (Yash Khare)
