@@ -54,6 +54,11 @@ Things worth knowing:
   through the sear, calls the flip at progress ~1.0, and flags overdone past ~1.4.
   Given uneven pieces it says "flip the right one now, give the left one another
   minute", once positions come from the masks rather than from the model.
+- One verdict on that clip went wrong in a way that matters: the AI frames show the
+  skin facing up mid-sear, so Spark decided the thighs hadn't been flipped. A real
+  camera above the pan never sees a face-down sear. **So the demo is onions,
+  mushrooms and garlic, whose browning faces the camera**; seared meat waits for a
+  45° camera (stretch goal). See IDEA.md.
 - So the **live loop segments one frame at a time** every few seconds; video mode
   is for replays and calibration.
 - Browning Index on the AI cook-through clip climbs 22 → 263 (piece 0) and
