@@ -13,8 +13,8 @@ cd ~/Developer/muse-hackathon
 .venv/bin/python scripts/smoke.py sam        # one at a time
 ```
 
-Before the first call: claim the $150 credit form, add a card on the Billing page,
-and set a spend limit there.
+Before the first call: submit the Cerebral Valley form to claim the $150 credit
+(it arrives in batches and is not on the account yet), and set a spend alert on Billing.
 
 ## Meta Model API at a glance
 
@@ -62,3 +62,10 @@ fixtures/          generated test media (git-ignored)
   Read the installer before you run it.
 
 Docs: https://dev.meta.ai/docs
+
+## Rules that shape this repo
+
+From the kickoff: new work only (built Oct 26 to Nov 4), the GitHub repo must be
+**public**, and judges must be able to tell what was built during the event, or the
+project is disqualified. Nothing here is copied from earlier projects. `.env` is
+git-ignored; never commit a key.
