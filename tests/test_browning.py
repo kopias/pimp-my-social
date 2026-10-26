@@ -1,6 +1,6 @@
 import numpy as np
 
-from muse.browning import browning_index, erode, measure, srgb_to_lab
+from muse.browning import browning_index, erode, measure, positions, split_regions, srgb_to_lab
 from muse.client import Segment
 
 SWATCHES = {  # sRGB of chicken skin as it cooks
@@ -58,3 +58,15 @@ def test_reference_cancels_a_lighting_change():
     naive = measure(frames, f)
     fixed = measure(frames, f, reference=refs)
     assert abs(fixed[1].lightness - fixed[0].lightness) < abs(naive[1].lightness - naive[0].lightness) / 3
+
+
+def test_regions_find_the_corner_that_is_catching():
+    # A 60x60 pile, raw everywhere except the back-left ninth, which is brown.
+    frame = np.full((60, 60, 3), SWATCHES["raw"], np.uint8)
+    frame[:20, :20] = SWATCHES["deep brown"]
+    readings = measure({0: frame}, split_regions([_seg("0", 0, 60, 60)]))
+    where = positions(readings)
+    by_region = {where[r.object_id]: r.bi for r in readings}
+    assert set(by_region) >= {"whole pan", "back left", "middle", "front right"}
+    assert max(by_region, key=by_region.get) == "back left"
+    assert by_region["front right"] < by_region["whole pan"] < by_region["back left"]

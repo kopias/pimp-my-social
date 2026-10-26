@@ -113,6 +113,52 @@ class Reading:
     # Mask centre as a share of frame width / height (0 = left / back).
     cx: float | None = None
     cy: float | None = None
+    # Set when this reading is one cell of a pile split by `split_regions`:
+    # "back left", "middle", ... ; "whole pan" for the pile itself.
+    region: str | None = None
+
+
+ROWS = ("back", "", "front")  # top of the photo is the back of the pan
+COLS = ("left", "", "right")
+MIN_CELL_SHARE = 0.04  # drop grid cells holding less than this share of the pile
+
+
+def region_name(row: int, col: int) -> str:
+    return " ".join(w for w in (ROWS[row], COLS[col]) if w) or "middle"
+
+
+def split_regions(segs: list[Segment], n: int = 3) -> list[Segment]:
+    """Cut each pile mask into an n x n grid over its own box, one Segment per cell.
+
+    For food that SAM sees as one mass (a pan of onions), so the judge can tell
+    "the back is catching" from "it's all catching". Cell ids are
+    "<object>/<region>", e.g. "0/back left". Cells with little of the pile in
+    them (the corners of a round pan) are dropped. The original pile segments
+    are returned too, with region "whole pan".
+    """
+    out: list[Segment] = []
+    for seg in segs:
+        out.append(seg)
+        mask = mask_array(seg)
+        total = mask.sum()
+        if not total:
+            continue
+        left, top, _, _ = seg.box
+        ys = np.linspace(0, seg.height, n + 1).astype(int)
+        xs = np.linspace(0, seg.width, n + 1).astype(int)
+        for r in range(n):
+            for c in range(n):
+                cell = mask[ys[r]:ys[r + 1], xs[c]:xs[c + 1]]
+                if cell.sum() < MIN_CELL_SHARE * total:
+                    continue
+                h, w = cell.shape
+                out.append(Segment(
+                    object_id=f"{seg.object_id}/{region_name(r, c) if n == 3 else f'{r},{c}'}",
+                    box=(left + xs[c], top + ys[r], left + xs[c] + w, top + ys[r] + h),
+                    mask=cell.astype(np.uint8).tobytes(),
+                    width=w, height=h, confidence=seg.confidence, frame=seg.frame,
+                ))
+    return out
 
 
 def measure(frames: dict[int, np.ndarray], food: list[Segment],
@@ -159,8 +205,14 @@ def measure(frames: dict[int, np.ndarray], food: list[Segment],
             confidence=seg.confidence,
             cx=(seg.box[0] + seg.box[2]) / 2 / frames[f].shape[1],
             cy=(seg.box[1] + seg.box[3]) / 2 / frames[f].shape[0],
+            region=(seg.object_id.split("/", 1)[1] if "/" in seg.object_id
+                    else "whole pan" if _has_cells(food, seg.object_id) else None),
         ))
     return out
+
+
+def _has_cells(segs: list[Segment], oid: str) -> bool:
+    return any(s.object_id.startswith(oid + "/") for s in segs)
 
 
 def by_object(readings: list[Reading]) -> dict[str, list[Reading]]:
@@ -178,6 +230,8 @@ def positions(readings: list[Reading]) -> dict[str, str]:
     if both sit left of centre.
     """
     latest = {oid: rows[-1] for oid, rows in by_object(readings).items()}
+    if any(r.region for r in latest.values()):
+        return {oid: r.region or oid for oid, r in latest.items()}
     pts = {oid: (r.cx, r.cy) for oid, r in latest.items() if r.cx is not None}
     if len(pts) <= 1:
         return {oid: "the piece" for oid in latest}

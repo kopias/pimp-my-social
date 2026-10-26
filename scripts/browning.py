@@ -1,13 +1,16 @@
 """Browning curves for a pan clip (or one photo), measured inside SAM masks.
 
     uv run scripts/browning.py fixtures/thighs.mov --food "chicken thigh"
-    uv run scripts/browning.py fixtures/onions.mov --food "onion" --ref "frying pan"
+    uv run scripts/browning.py fixtures/onions.mov --food "sliced onions" --ref "gas stove" --regions
     uv run scripts/browning.py fixtures/pan.png --food "chicken thigh"
 
 Writes to out/<clip name>/:
     readings.json   one row per object per frame
     curves.png      BI and browned-share over time, one line per piece
     overlay.png     the last frame with each mask tinted by its browning
+
+--regions splits each mask into a 3x3 grid of pan regions ("back left", ...),
+for food SAM sees as one pile, like onions.
 
 The clip is first downsampled (default 4 fps, 960 px) because SAM bills per
 frame; the frame indices SAM returns refer to that prepared clip.
@@ -42,8 +45,10 @@ def plot_curves(readings: list[b.Reading], fps: float, out: Path, title: str) ->
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 6), sharex=True)
     for oid, rows in sorted(b.by_object(readings).items()):
         t = [r.frame / fps for r in rows]
-        ax1.plot(t, [r.bi for r in rows], label=f"piece {oid}")
-        ax2.plot(t, [100 * r.browned for r in rows], label=f"piece {oid}")
+        label = rows[-1].region or f"piece {oid}"
+        style = {"lw": 2.5, "color": "k"} if label == "whole pan" else {"lw": 1}
+        ax1.plot(t, [r.bi for r in rows], label=label, **style)
+        ax2.plot(t, [100 * r.browned for r in rows], label=label, **style)
     ax1.axhline(b.BROWNED_BI, color="0.6", ls="--", lw=1)
     ax1.set_ylabel("Browning Index")
     ax2.set_ylabel(f"% surface past BI {b.BROWNED_BI:.0f}")
@@ -70,7 +75,8 @@ def overlay(frame: np.ndarray, segs: list[m.Segment], out: Path) -> None:
     Image.fromarray(img.astype(np.uint8)).save(out)
 
 
-async def run(src: Path, food: str, ref: str | None, fps: float, out_dir: Path) -> None:
+async def run(src: Path, food: str, ref: str | None, fps: float, out_dir: Path,
+              regions: bool = False) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     video = src.suffix.lower() in VIDEO_SUFFIXES
     t0 = time.monotonic()
@@ -93,7 +99,8 @@ async def run(src: Path, food: str, ref: str | None, fps: float, out_dir: Path) 
     if not food_segs:
         raise SystemExit(f'SAM found no "{food}" in {src.name}')
 
-    readings = b.measure(frames, food_segs, reference=ref_segs)
+    readings = b.measure(frames, b.split_regions(food_segs) if regions else food_segs,
+                         reference=ref_segs)
     b.save_readings(readings, out_dir / "readings.json")
 
     last = max(r.frame for r in readings)
@@ -101,10 +108,10 @@ async def run(src: Path, food: str, ref: str | None, fps: float, out_dir: Path) 
     if video:
         plot_curves(readings, fps, out_dir / "curves.png", f"{src.name}: {food}")
 
-    print(f"{'piece':<6}{'BI start':>9}{'BI end':>8}{'browned':>9}{'area':>7}")
+    print(f"{'piece':<16}{'BI start':>9}{'BI end':>8}{'browned':>9}{'area':>7}")
     for oid, rows in sorted(b.by_object(readings).items()):
         a, z = rows[0], rows[-1]
-        print(f"{oid:<6}{a.bi:9.1f}{z.bi:8.1f}{100 * z.browned:8.0f}%{z.area_ratio:7.2f}")
+        print(f"{z.region or oid:<16}{a.bi:9.1f}{z.bi:8.1f}{100 * z.browned:8.0f}%{z.area_ratio:7.2f}")
     print(f"wrote {out_dir.relative_to(ROOT)}/")
 
 
@@ -114,8 +121,10 @@ def main() -> None:
     p.add_argument("--food", required=True, help='one SAM noun phrase, e.g. "chicken thigh"')
     p.add_argument("--ref", help='a region that should not change, e.g. "frying pan"')
     p.add_argument("--fps", type=float, default=4)
+    p.add_argument("--regions", action="store_true", help="also measure a 3x3 grid of pan regions")
     args = p.parse_args()
-    asyncio.run(run(args.media, args.food, args.ref, args.fps, ROOT / "out" / args.media.stem))
+    asyncio.run(run(args.media, args.food, args.ref, args.fps, ROOT / "out" / args.media.stem,
+                    regions=args.regions))
 
 
 if __name__ == "__main__":

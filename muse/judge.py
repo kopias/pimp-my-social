@@ -33,6 +33,12 @@ SHADE_BI = {
 }
 OVERDONE_MARGIN = 70.0  # BI past target that counts as over
 MIN_CONFIDENCE = 0.5  # below this SAM confidence, don't trust the reading
+# Going black. BI peaks around deep brown and then *falls* as the surface chars,
+# while L* keeps dropping (AI onion clip: BI 290 -> 239, L* 33 -> 28). So charring
+# is: very dark, or BI well off its peak while it got darker since. Recalibrate.
+CHAR_L = 30.0
+CHAR_DROP = 0.85
+UNEVEN_SPREAD = 0.3  # progress gap between pan regions that calls for a stir
 
 THERMOMETER = {"poultry": 74, "pork": 63, "ground_meat": 71}  # °C, USDA minimums
 
@@ -54,8 +60,9 @@ SPEC_SCHEMA = {
                  "description": "ONE short noun phrase naming a single piece of the food, "
                                 "for an object segmenter, e.g. 'chicken thigh', 'onion'."},
         "reference": {"type": "string",
-                      "description": "a nearby surface that will not change colour, e.g. "
-                                     "'gas stove', 'cutting board'"},
+                      "description": "a nearby surface that will not change colour, as a "
+                                     "segmenter phrase; 'pan handle' unless the step says "
+                                     "otherwise"},
         "target_shade": {"type": "string", "enum": SHADES},
         "minutes_min": {"type": "number"},
         "minutes_max": {"type": "number"},
@@ -141,9 +148,10 @@ Measured surface browning per piece. These numbers come from pixel measurement i
 segmentation mask and are more reliable than your eye for colour. "progress" is mean \
 browning divided by the target: 1.0 means the target shade is reached, above {over:.2f} \
 means overdone. "browned" is the share of the surface past golden. "rate" is progress \
-gained per minute over the last readings.
+gained per minute over the last readings. "L*" is lightness (100 white, 0 black). \
+"char" = yes means the surface is going black: browning has peaked and it is still \
+darkening. Treat a charring piece as overdone, whatever its progress says.
 {table}
-
 "position" is measured from where each piece sits in the frame; use exactly those words. \
 The photo is the latest frame. Use it for what numbers can't tell you: smoke, a piece out of \
 frame, the camera blocked, something unexpected.
@@ -153,6 +161,9 @@ Rules:
 (say so in reason).
 - Call each piece by its measured position, never by its id number.
 - If pieces differ, say so: "flip the left one, give the right one a minute".
+- When the rows are regions of one pan (one is "whole pan") and one region is well ahead \
+of the rest, the cook should stir, and say where: "stir, the back is catching". The \
+"whole pan" row alone decides ready and overdone; the regions only decide whether to stir.
 - "say" is spoken aloud: 15 words max, no numbers unless it's a time, no jargon.
 - Never say food is safe to eat or fully cooked inside. You only see the surface."""
 
@@ -172,17 +183,46 @@ class Verdict:
         return self.__dict__.copy()
 
 
+def charring(rows: list[Reading]) -> bool:
+    """Has this piece gone past brown towards black? `rows` oldest first."""
+    last = rows[-1]
+    valid = [r for r in rows if not math.isnan(r.bi)]
+    if not valid:
+        return False
+    peak = max(valid, key=lambda r: r.bi)
+    return last.lightness < CHAR_L or (
+        not math.isnan(last.bi) and last.bi < CHAR_DROP * peak.bi
+        and last.lightness < peak.lightness - 3)
+
+
+def spread_line(progress: dict[str, float], where: dict[str, str]) -> str:
+    """For a pan split into regions: which region leads and which lags."""
+    cells = {where[o]: p for o, p in progress.items()
+             if where.get(o) not in (None, "whole pan") and not math.isnan(p)}
+    if len(cells) < 2:
+        return ""
+    hi, lo = max(cells, key=cells.get), min(cells, key=cells.get)
+    gap = cells[hi] - cells[lo]
+    verdict = "uneven, stir" if gap > UNEVEN_SPREAD else "even"
+    return (f"\nSpread across the pan: {hi} leads at {cells[hi]:.2f}, {lo} lags at "
+            f"{cells[lo]:.2f}, gap {gap:.2f} ({verdict}; stir threshold {UNEVEN_SPREAD}).")
+
+
 def progress_table(readings: list[Reading], spec: WatchSpec, fps: float,
                    window_s: float = 20.0) -> tuple[str, dict[str, float], float]:
     """Latest reading per piece, as a small text table, plus the progress dict
     and the worst SAM confidence seen."""
-    lines = ["piece | position | progress | browned | rate/min | shrink | sam_conf"]
+    lines = ["piece | position | progress | browned | rate/min | shrink | L* | char | sam_conf"]
     where = positions(readings)
     progress: dict[str, float] = {}
     worst = 1.0
     for oid, rows in sorted(by_object(readings).items()):
         last = rows[-1]
         p = last.bi / spec.target_bi if not math.isnan(last.bi) else float("nan")
+        char = charring(rows)
+        if char:  # BI falls as it blackens; don't let that read as "almost there"
+            peak = max(r.bi for r in rows if not math.isnan(r.bi))
+            p = max(p, peak / spec.target_bi, 1 + OVERDONE_MARGIN / spec.target_bi + 0.05)
         earlier = [r for r in rows if (last.frame - r.frame) / fps <= window_s]
         span_min = (last.frame - earlier[0].frame) / fps / 60
         rate = ((last.bi - earlier[0].bi) / spec.target_bi / span_min) if span_min > 0 else 0.0
@@ -190,8 +230,9 @@ def progress_table(readings: list[Reading], spec: WatchSpec, fps: float,
         conf = last.confidence if last.confidence is not None else 1.0
         worst = min(worst, conf)
         lines.append(f"{oid} | {where.get(oid, '?')} | {p:.2f} | {100 * last.browned:.0f}% | {rate:+.2f} | "
-                     f"{100 * (1 - last.area_ratio):.0f}% | {conf:.2f}")
-    return "\n".join(lines), progress, worst
+                     f"{100 * (1 - last.area_ratio):.0f}% | {last.lightness:.0f} | "
+                     f"{'yes' if char else 'no'} | {conf:.2f}")
+    return "\n".join(lines) + spread_line(progress, where), progress, worst
 
 
 def verdict(spec: WatchSpec, readings: list[Reading], frame_path: str | Path, *,

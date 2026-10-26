@@ -59,6 +59,17 @@ Things worth knowing:
   camera above the pan never sees a face-down sear. **So the demo is onions,
   mushrooms and garlic, whose browning faces the camera**; seared meat waits for a
   45° camera (stretch goal). See IDEA.md.
+- **AI onion clip** (`uv run scripts/make_test_clip.py onions`, raw → catching at the
+  back → stirred → deep brown → nearly black). SAM sees onions as one pile
+  (`"sliced onions"`, conf 0.85; `"onion"` finds nothing), so `--regions` cuts the
+  mask into a 3x3 grid of pan regions. While the back catches, back cells read BI
+  250-280 against ~110 at the front. **BI peaks at deep brown (~290) and then falls
+  as the onions blacken (→ 239) while L\* keeps dropping (72 → 28)**, so the judge
+  flags charring from lightness and treats it as overdone. Judge replay at 120x: wait
+  ×4, "stir, the back is browning faster" ×2, almost, ready/remove at deep brown,
+  overdone ×2. Verdicts 4-17 s. The lighting reference is `"pan handle"` (conf 0.94);
+  `"gas stove"` finds nothing on a black stovetop. Muse Image refuses prompts with
+  "burnt" in them.
 - So the **live loop segments one frame at a time** every few seconds; video mode
   is for replays and calibration.
 - Browning Index on the AI cook-through clip climbs 22 → 263 (piece 0) and
@@ -70,10 +81,10 @@ Things worth knowing:
 ```
 muse/client.py     ask, ask_video, generate_image, segment, transcribe
 muse/browning.py   Browning Index inside SAM masks, lighting reference, per-piece readings
-scripts/browning.py      clip or photo -> out/<name>/{readings.json,curves.png,overlay.png}
+scripts/browning.py      clip or photo -> out/<name>/{readings.json,curves.png,overlay.png}; --regions for piles
 muse/judge.py      Spark judge: step -> watch spec, readings + frame -> verdict; hard safety rules
 scripts/judge.py   replay a measured clip through the judge, checkpoint by checkpoint
-scripts/make_test_clip.py  AI cook-through clip (Muse Image edits) for testing without a stove
+scripts/make_test_clip.py  AI cook-through clips (sear | onions) for testing without a stove
 tests/             offline tests: `uv run pytest -q`
 scripts/smoke.py   one live call per model, on fixtures it makes itself
 bin/claude-muse    Claude Code driven by Muse Wonder (Anthropic-compatible surface)
