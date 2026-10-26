@@ -68,6 +68,24 @@ tinted by doneness, and a browning curve climbing toward the target line. Sous c
 the flip, the cook flips, and the curve resets for side two. Then a cold question by
 voice, "is it burning?". Close on the replay.
 
+## How it gets judged, and what that means for the build
+
+1. **Pass/fail:** does it fit a theme and use Meta AI products? Sous names its theme
+   in the first line of the submission, and the README lists the Muse model behind
+   each feature.
+2. **Rubric, 0-10:** creativity, technical ambition, whether it works. (Fill in the
+   exact rubric once it is published.)
+3. **Live final, Nov 9, 12:00 PM ET:** the top 5 indie entries demo live and
+   judges rank them. A live cook is the strongest demo here, and also the riskiest.
+   So build for it from the start:
+   - **Replay mode.** Feed a recorded pan clip through the *same* live pipeline
+     (real SAM, real Spark, real speech), selectable with one switch. That is not a
+     faked demo: everything after the camera is live. Use it if the stove, the light
+     or the network misbehaves.
+   - **A kitchen rehearsal** at noon ET on a weekday before Nov 4: same light, same
+     phone stand, same wifi.
+   - **Cheap food on standby:** onions, which forgive a restart.
+
 ## The 10-day plan
 
 | Day | Deliverable |
@@ -79,7 +97,7 @@ voice, "is it burning?". Close on the replay.
 | Fri 30 | Live loop: a FastAPI backend plus a phone web page (getUserMedia → 5 s clips → verdict → speech). |
 | Sat 31 | Hands-free voice (realtime ASR), "show me the target" with Muse Image. |
 | Sun 1 | Replay page. Latency and cost pass. |
-| Mon 2 | Hardening: no food in frame, steam and glare, phone moved, dropped connection. Deploy over HTTPS (camera access needs it). |
+| Mon 2 | Replay mode for the live final. Hardening: no food in frame, steam and glare, phone moved, dropped connection. Deploy over HTTPS (camera access needs it). |
 | Tue 3 | Record the demo video and write the submission. |
 | Wed 4 | Buffer. Submit before 9 PM ET. |
 
