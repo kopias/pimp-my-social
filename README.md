@@ -50,6 +50,10 @@ Things worth knowing:
 - SAM 3.1, one 960 px image: **2.0 s**. A 42-frame clip, one concept: **19.6 s**
   (about 0.5 s per frame). Two concepts sent at once on the same clip took 104 s,
   so don't run several SAM video jobs in parallel.
+- Spark judge: watch spec in 2.4 s; verdicts 2.7-9.1 s each. On the AI clip it waits
+  through the sear, calls the flip at progress ~1.0, and flags overdone past ~1.4.
+  Given uneven pieces it says "flip the right one now, give the left one another
+  minute", once positions come from the masks rather than from the model.
 - So the **live loop segments one frame at a time** every few seconds; video mode
   is for replays and calibration.
 - Browning Index on the AI cook-through clip climbs 22 → 263 (piece 0) and
@@ -62,6 +66,8 @@ Things worth knowing:
 muse/client.py     ask, ask_video, generate_image, segment, transcribe
 muse/browning.py   Browning Index inside SAM masks, lighting reference, per-piece readings
 scripts/browning.py      clip or photo -> out/<name>/{readings.json,curves.png,overlay.png}
+muse/judge.py      Spark judge: step -> watch spec, readings + frame -> verdict; hard safety rules
+scripts/judge.py   replay a measured clip through the judge, checkpoint by checkpoint
 scripts/make_test_clip.py  AI cook-through clip (Muse Image edits) for testing without a stove
 tests/             offline tests: `uv run pytest -q`
 scripts/smoke.py   one live call per model, on fixtures it makes itself

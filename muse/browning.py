@@ -110,6 +110,9 @@ class Reading:
     area: int  # mask pixels
     area_ratio: float  # area / area in this object's first frame
     confidence: float | None
+    # Mask centre as a share of frame width / height (0 = left / back).
+    cx: float | None = None
+    cy: float | None = None
 
 
 def measure(frames: dict[int, np.ndarray], food: list[Segment],
@@ -154,6 +157,8 @@ def measure(frames: dict[int, np.ndarray], food: list[Segment],
             area=area,
             area_ratio=area / first_area[seg.object_id] if first_area[seg.object_id] else 1.0,
             confidence=seg.confidence,
+            cx=(seg.box[0] + seg.box[2]) / 2 / frames[f].shape[1],
+            cy=(seg.box[1] + seg.box[3]) / 2 / frames[f].shape[0],
         ))
     return out
 
@@ -163,6 +168,38 @@ def by_object(readings: list[Reading]) -> dict[str, list[Reading]]:
     for r in readings:
         out[r.object_id].append(r)
     return dict(out)
+
+
+def positions(readings: list[Reading]) -> dict[str, str]:
+    """Name each piece the way a cook would: "left", "right", "back", "front left".
+
+    From each piece's latest mask centre. Pieces are ranked along whichever axis
+    separates them more, so two thighs side by side are "left" and "right" even
+    if both sit left of centre.
+    """
+    latest = {oid: rows[-1] for oid, rows in by_object(readings).items()}
+    pts = {oid: (r.cx, r.cy) for oid, r in latest.items() if r.cx is not None}
+    if len(pts) <= 1:
+        return {oid: "the piece" for oid in latest}
+    xs = [x for x, _ in pts.values()]
+    ys = [y for _, y in pts.values()]
+    horizontal = (max(xs) - min(xs)) >= (max(ys) - min(ys))
+    order = sorted(pts, key=lambda o: pts[o][0] if horizontal else pts[o][1])
+    names = (["left", "right"], ["left", "middle", "right"]) if horizontal else \
+            (["back", "front"], ["back", "middle", "front"])
+    if len(order) <= 3:
+        return dict(zip(order, names[len(order) - 2]))
+    # Many pieces: a coarse 3x3 grid, numbered when two share a cell.
+    out: dict[str, str] = {}
+    seen: dict[str, int] = {}
+    for oid in order:
+        x, y = pts[oid]
+        col = "left" if x < 0.4 else "right" if x > 0.6 else ""
+        row = "back" if y < 0.4 else "front" if y > 0.6 else ""
+        cell = " ".join(w for w in (row, col) if w) or "middle"
+        seen[cell] = seen.get(cell, 0) + 1
+        out[oid] = cell if seen[cell] == 1 else f"{cell} {seen[cell]}"
+    return out
 
 
 def save_readings(readings: list[Reading], path: str | Path) -> None:
