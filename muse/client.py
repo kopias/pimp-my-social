@@ -158,7 +158,7 @@ async def segment(concept: str, media: str | Path, *, video: bool = False,
         stream=True,
         metadata=metadata,
     )
-    fmt = video_segmentation_format if video else image_segmentation_format
+    fmt = video_segmentation_format() if video else image_segmentation_format()
     result = await parse_responses_stream(events, fmt).final_result()
 
     def frame_of(rec: Any) -> int | None:
