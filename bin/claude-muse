@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Run Claude Code against Muse Wonder via Meta Model API's Anthropic-compatible surface.
+set -euo pipefail
+here="$(cd "$(dirname "$0")/.." && pwd)"
+set -a; source "$here/.env"; set +a
+model="${MUSE_CODE_MODEL:-muse-wonder-1.0}"
+export ANTHROPIC_BASE_URL="https://api.meta.ai"
+export ANTHROPIC_AUTH_TOKEN="$MODEL_API_KEY"
+export ANTHROPIC_MODEL="$model"
+export ANTHROPIC_DEFAULT_OPUS_MODEL="$model"
+export ANTHROPIC_DEFAULT_SONNET_MODEL="$model"
+export ANTHROPIC_DEFAULT_HAIKU_MODEL="$model"
+unset ANTHROPIC_API_KEY
+exec claude "$@"
