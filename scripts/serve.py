@@ -22,11 +22,13 @@ def main() -> None:
     p.add_argument("--port", type=int, default=8000)
     p.add_argument("--demo", action="store_true",
                    help="allow localhost URLs (the demo bakery); never use on a public server")
+    p.add_argument("--lan", action="store_true", help="listen on the local network, e.g. to try it from a phone")
     args = p.parse_args()
     if args.demo:
         os.environ["PMS_ALLOW_PRIVATE"] = "1"
-    print(f"\n  http://localhost:{args.port}\n")
-    uvicorn.run("server.app:app", host="127.0.0.1", port=args.port)
+    host = "0.0.0.0" if args.lan else "127.0.0.1"
+    print(f"\n  http://localhost:{args.port}" + ("  (and this machine's LAN address)" if args.lan else "") + "\n")
+    uvicorn.run("server.app:app", host=host, port=args.port)
 
 
 if __name__ == "__main__":
