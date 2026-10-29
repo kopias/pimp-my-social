@@ -202,9 +202,10 @@ def main() -> None:
 
 
 def cut(webm: Path, mp4: Path, fast: float) -> None:
-    """Speed up the two long waits (garage -> choose, build -> reveal); keep the rest 1x."""
+    """Speed up the three long waits (inspection, garage -> choose, build -> reveal); keep the rest 1x."""
     m = dict(marks)
-    segs = [(0, m["scorecard"] + 4, 1), (m["scorecard"] + 4, m["choose"], fast),
+    segs = [(0, m["submitted"] + 4, 1), (m["submitted"] + 4, m["scorecard"] - 1, fast),
+            (m["scorecard"] - 1, m["scorecard"] + 4, 1), (m["scorecard"] + 4, m["choose"], fast),
             (m["choose"], m["building"] + 3, 1), (m["building"] + 3, m["reveal"], fast),
             (m["reveal"], m["end"] + 1, 1)]
     parts, chain = [], []
@@ -221,4 +222,9 @@ def cut(webm: Path, mp4: Path, fast: float) -> None:
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if len(sys.argv) == 3 and sys.argv[1] == "--recut":  # re-edit a saved recording: --recut <name>
+        marks[:] = [tuple(x) for x in json.loads((OUT / f"{sys.argv[2]}.marks.json").read_text())]
+        cut(OUT / f"{sys.argv[2]}.webm", OUT / f"{sys.argv[2]}.mp4", 12)
+    else:
+        main()
