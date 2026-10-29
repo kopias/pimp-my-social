@@ -63,7 +63,7 @@ def output_text(response: Any) -> str:
 
 
 def ask(prompt: str, *, images: list[str | Path] = (), model: str = TEXT_MODEL,
-        effort: str = "low", schema: dict | None = None) -> str:
+        effort: str = "low", schema: dict | None = None, max_tokens: int = 4000) -> str:
     """One Responses call. `images` are local paths or URLs."""
     content: list[dict] = [{"type": "input_text", "text": prompt}]
     for img in images:
@@ -72,7 +72,7 @@ def ask(prompt: str, *, images: list[str | Path] = (), model: str = TEXT_MODEL,
     kwargs: dict[str, Any] = {
         "model": model,
         "reasoning": {"effort": effort},
-        "max_output_tokens": 4000,
+        "max_output_tokens": max_tokens,
         "input": [{"type": "message", "role": "user", "content": content}],
     }
     if schema:
@@ -115,6 +115,23 @@ def generate_image(prompt: str, out: str | Path, *, size: str = "auto",
     response = client().images.generate(**kwargs)
     out = Path(out)
     out.write_bytes(base64.b64decode(response.data[0].b64_json))
+    return out
+
+
+def edit_image(src: str | Path, prompt: str, out: str | Path, *, size: str = "auto") -> Path:
+    """Muse Image edit of one photo. Fast mode: one pass, no web or image search.
+    The content filter is strict about words like "burnt"; it raises on refusal."""
+    kwargs: dict[str, Any] = {"model": IMAGE_MODEL, "prompt": prompt, "n": 1,
+                              "extra_body": {"output_format": "png", "reasoning_strength": "low",
+                                             "tool_enablement": {"enable_web_search": False,
+                                                                 "enable_shell": False,
+                                                                 "enable_image_search": False}}}
+    if size != "auto":
+        kwargs["size"] = size
+    with open(src, "rb") as f:
+        r = client().images.edit(image=f, **kwargs)
+    out = Path(out)
+    out.write_bytes(base64.b64decode(r.data[0].b64_json))
     return out
 
 
