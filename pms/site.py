@@ -25,6 +25,7 @@ from PIL import Image
 
 from muse import client as m
 
+from . import inspo
 from .audit import AI_BOTS
 from .photos import Shot
 from .text import tidy_all
@@ -84,12 +85,23 @@ def write_copy(profile: dict) -> dict:
 
 BUILD_PROMPT = """You are the master builder on "Pimp My Social", a show that makes over small \
 businesses' websites. Design and code this business's new homepage as ONE complete HTML file \
-with all CSS inline in a <style> tag. Make it look like a page from a great print magazine: \
-confident type, a real layout idea, rhythm between sections. Not a generic template.
+with all CSS inline in a <style> tag. The bar is the best brand houses in the world: it should \
+feel as considered as the reference sites below, not like a template. Restraint is the point: \
+fewer, larger things, type set with care, space doing the work boxes and shadows do on cheap sites.
 
 Direction: "{dname}". {layout}.
 Palette (use as CSS variables): {palette}
 Fonts, already loaded from Google Fonts: display "{display}", body "{body}".
+
+REFERENCES. The attached screenshots are real brand sites this direction is modelled on. \
+Borrow their STRUCTURE (grid, rhythm, type scale, navigation pattern, how products and \
+prices sit). Never borrow their content: no logos, names, photos or copy from them.
+{ref_notes}
+
+TYPOGRAPHY. Follow this system exactly; it is what makes the page read as premium:
+{typography}
+
+LOGO. {logo}
 
 Use EXACTLY this copy, word for word (JSON): {copy}
 
@@ -116,18 +128,33 @@ Hard requirements:
 Reply with only the HTML document, starting with <!doctype html>."""
 
 
+def logo_brief(mark: dict | None, name: str) -> str:
+    if not mark:
+        return (f"There is no logo file. Set the name \"{name}\" as a wordmark in the display "
+                "font, in the header and footer.")
+    return (f"The business's remade logo mark is img/logo.png ({mark['w']}x{mark['h']}, ink on "
+            "transparent) with a reversed copy img/logo-light.png for dark sections. Use the mark "
+            f"in the header beside the name \"{name}\" set in the display font (the mark has no "
+            "lettering of its own), 32 to 48px tall, with clear space; repeat it larger in the "
+            "footer. Never put it in a box or pill, never add a shadow, never redraw it in CSS.")
+
+
 def build_page(profile: dict, copy: dict, direction: dict, images: list[dict],
-               font_css: str) -> str:
+               font_css: str, mark: dict | None = None) -> str:
     img_lines = "\n".join(f"- {i['path']} ({i['w']}x{i['h']}): {i['what']}. alt: \"{i['alt']}\""
                           for i in images)
+    refs = direction.get("refs", [])
     prompt = BUILD_PROMPT.format(
+        ref_notes=inspo.notes(refs) or "(no reference notes for this direction)",
+        typography=inspo.typography(), logo=logo_brief(mark, profile["name"]),
         dname=direction["name"], layout=direction["layout"], palette=json.dumps(direction["palette"]),
         display=direction["fonts"]["display"], body=direction["fonts"]["body"],
         copy=json.dumps(copy), proof=json.dumps(profile["proof"]),
         faqs=json.dumps(profile["faqs"]), contact=json.dumps(profile["contact"]),
         images=img_lines, font_css=font_css, socials=json.dumps(profile.get("socials", {})),
     )
-    raw = m.ask(prompt, model=m.AGENT_MODEL, effort="medium", max_tokens=32000)
+    raw = m.ask(prompt, images=inspo.shots(refs)[:3], model=m.AGENT_MODEL, effort="medium",
+                max_tokens=32000)
     match = re.search(r"<!doctype html.*</html>", raw, re.S | re.I)
     if not match:
         raise RuntimeError("Wonder didn't return an HTML document")
@@ -345,7 +372,7 @@ def _web_jpeg(src: Path, dst: Path, max_side: int) -> tuple[int, int]:
 
 
 def build(profile: dict, direction: dict, shots: list[Shot], base_url: str, out: Path,
-          logo: str | None = None) -> dict:
+          mark: dict | None = None) -> dict:
     """The whole site folder. Returns paths and timings for the report."""
     out.mkdir(parents=True, exist_ok=True)
     (out / "img").mkdir(exist_ok=True)
@@ -367,9 +394,15 @@ def build(profile: dict, direction: dict, shots: list[Shot], base_url: str, out:
         im.crop((left, top, left + 1200, top + 630)).save(out / "img" / "share.jpg", quality=85)
         images.append({"path": "img/share.jpg", "w": 1200, "h": 630, "role": "share",
                        "what": "share image", "alt": profile["name"]})
+    logo = None
+    if mark:  # the remade logo, never the old one
+        shutil.copy(mark["mark"], out / "img" / "logo.png")
+        shutil.copy(mark["mark_light"], out / "img" / "logo-light.png")
+        logo = _abs(base, "img/logo.png")
     page_imgs = [i for i in images if i["role"] != "share"]
-    page = build_page(profile, copy, direction, page_imgs, direction["font_css"])
-    page = enforce(page, page_imgs)
+    page = build_page(profile, copy, direction, page_imgs, direction["font_css"], mark)
+    page = enforce(page, page_imgs + [{"path": "img/logo.png", "alt": profile["name"]},
+                                      {"path": "img/logo-light.png", "alt": profile["name"]}])
     page = inject(page, head_tags(profile, copy, base, images, logo), body_end(profile, copy))
     (out / "index.html").write_text(page)
     (out / "robots.txt").write_text(robots_txt(base))

@@ -4,10 +4,11 @@
 
 A small business types in its URL. Pimp My Social inspects the site the way a
 search engine, an AI assistant and a customer would, scores what's missing, and
-rebuilds it: a new editorial website, professional photos of their own products,
-social posts and short videos for the channels they choose, a report on what
-changed and what it could be worth, and a brand skill file any AI tool can use
-to stay on-brand afterwards.
+rebuilds it: a new editorial website modelled on real premium brand sites,
+professional photos of their own products, a remade logo, social posts, short
+videos remixed from formats that are working right now, a report on what changed
+and what it could be worth, and a brand skill file any AI tool can use to stay
+on-brand afterwards.
 
 Named for the show where a crew takes a beat-up car and hands back something
 unrecognisable. Built for the Meta Global AI Developer Hackathon (Oct 26 to Nov
@@ -20,9 +21,26 @@ unrecognisable. Built for the Meta Global AI Developer Hackathon (Oct 26 to Nov
 | Inspection | **Muse Spark 1.3** (vision) | Reads the before screenshots, photos and pages into a grounded brand profile: products matched to photos, prices as stated, voice, FAQs, gaps |
 | Paint job | **Muse Spark 1.3** + **Muse Image** | Spark picks three style directions for the brand plus one random wildcard; Image reshoots their hero photo in each as a preview |
 | Photo studio | **SAM 3.1** + **Muse Image** | SAM isolates each product from the owner's photo; Image reshoots it (set, light, lens, depth of field); SAM finds it again in the result and scores fidelity, so a reshoot that changed the product is caught |
-| Website | **Muse Spark** + **Muse Wonder 1.0** | Spark writes the copy, held to the facts on the site; Wonder designs and codes a bespoke page in the chosen direction |
+| Logo | **Muse Spark** + **Muse Image** | Spark reads what the current logo is about; Image redraws it as one clean mark; Spark compares old and new and rejects a redraw that lost the idea |
+| Website | **Muse Spark** + **Muse Wonder 1.0** | Spark writes the copy, held to the facts on the site; Wonder designs and codes a bespoke page in the chosen direction, looking at screenshots of the real brand sites the direction is modelled on |
 | Findability | code | Meta/Open Graph, JSON-LD (business, products, FAQ), robots.txt that welcomes AI crawlers, sitemap.xml, llms.txt, WebMCP tools |
-| Social video | Muse Image, **Muse Voice Transcribe**, **Muse Spark** (video) | Product shots cut to a 9:16 video; Transcribe times the captions word by word; Spark watches the finished video and critiques the hook |
+| Remix a hit | **Muse Spark** (video), **Muse Voice Transcribe**, Muse Image | A popular post is reverse engineered into its essence (Spark watches it, Transcribe hears its speech), then rebuilt with only this business's products, prices and place; Image shoots any new angle the format needs; Spark reviews each cut against the format |
+
+## The inspiration library (`inspo/`)
+
+A skill folder future makeovers build from:
+
+- `inspo/SKILL.md`, `inspo/typography.md`: what makes a site read as premium, and a
+  type system every direction follows.
+- `inspo/references/*.md`: design notes on real brand sites (Toteme, Lemaire,
+  Studio Nicholson, Aimé Leon Dore, Our Legacy, Bode, Story mfg., Kotn). Directions
+  name their references; Wonder gets the notes plus a screenshot of each.
+  Screenshots stay on the machine that captured them (`uv run scripts/capture_inspo.py`),
+  not in git: they're the brands' own images.
+- `inspo/social/formats/*.json`: popular post formats reverse engineered into their
+  essence (hook pattern, beats, motion, text style, sound, keep/drop). Campaign film,
+  location lookbook, fit check, made by hand, guess the price, three details, POV.
+  Every post an owner uploads is added here.
 
 ## The demo business
 
@@ -58,7 +76,10 @@ pms/directions.py  the style library, Spark's picks + a wildcard, Muse Image pre
 pms/photos.py      SAM 3.1 isolate -> Muse Image reshoot -> SAM fidelity check
 pms/site.py        Spark copy, Muse Wonder page, and the findability layer (incl. WebMCP)
 pms/social.py      Spark's channel plan; posts composed in the direction's fonts and colours
-pms/video.py       voiceover + Transcribe check, SAM parallax, word-lit captions, Spark review + revision
+pms/logo.py        Spark reads the logo's idea -> Muse Image redraws it -> key out -> Spark checks it
+pms/remix.py       reverse engineer a post -> ground it to the business -> shoot angles -> cut -> Spark review
+pms/inspo.py       loads the inspiration library for the builder
+pms/video.py       the earlier voiced slideshow (kept for reference; the pipeline uses remix.py)
 pms/report.py      before/after report with a value calculator on cited figures
 pms/skill.py       the brand skill folder (SKILL.md + references)
 pms/text.py        house style: calms shouting, never touches facts
@@ -80,8 +101,8 @@ uv run scripts/serve.py --demo                      # http://localhost:8000
 uv run scripts/record_demo.py http://127.0.0.1:8765/   # out/demo/<name>.mp4
 ```
 
-Voiceover uses ElevenLabs when `ELEVENLABS_API_KEY` is in `.env`, else the Mac's
-`say` (local only). Cost per makeover is not measured yet; my estimate is $1-2 in Meta API calls (Wonder's page
+Remixed videos ship silent with a sound suggestion: trending sounds are licensed
+inside each platform, so the owner picks one there. Cost per makeover is not measured yet; my estimate is $1-2 in Meta API calls (Wonder's page
 is most of it).
 
 ## Rules this repo follows

@@ -1,0 +1,74 @@
+{
+ "id": "made-by-hand",
+ "name": "Made by hand",
+ "seen_on": [
+  "tiktok",
+  "reels"
+ ],
+ "source": "library: the process / craft close-up format, described generically",
+ "essence": "Slow, tactile close-ups of the material and the making, each held long enough to feel, building to the finished piece. Craft shown, not claimed.",
+ "why_it_works": [
+  "Texture close-ups are satisfying and stop the thumb",
+  "It proves quality instead of saying it",
+  "Calm pacing stands out in a fast feed"
+ ],
+ "hook": {
+  "pattern": "a quiet statement of where or how it's made, e.g. 'made by hand in {place}'",
+  "on_screen": true,
+  "first_frame": "an extreme close-up of weave, stitch or grain"
+ },
+ "beats": [
+  {
+   "role": "hook",
+   "shot": "detail",
+   "seconds": 2.0,
+   "motion": "push",
+   "text": "{hook}"
+  },
+  {
+   "role": "build",
+   "shot": "angle",
+   "seconds": 1.8,
+   "motion": "pan",
+   "text": "{a true detail about material or making}"
+  },
+  {
+   "role": "build",
+   "shot": "detail",
+   "seconds": 1.8,
+   "motion": "push",
+   "text": ""
+  },
+  {
+   "role": "payoff",
+   "shot": "hero",
+   "seconds": 2.4,
+   "motion": "push",
+   "text": "{product}"
+  },
+  {
+   "role": "cta",
+   "shot": "logo",
+   "seconds": 2.4,
+   "motion": "hold",
+   "text": "{where to buy}"
+  }
+ ],
+ "text_style": "label",
+ "sound": "soft ambient or acoustic; let the texture breathe",
+ "voiceover": false,
+ "needs": [
+  "close-up detail shots",
+  "a true fact about how or where it's made"
+ ],
+ "keep": [
+  "long holds",
+  "macro texture first",
+  "the finished piece as the payoff"
+ ],
+ "drop": [
+  "any maker's hands or face that aren't the business's own"
+ ],
+ "look": "clean",
+ "people": false
+}

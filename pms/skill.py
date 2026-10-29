@@ -10,6 +10,7 @@ chosen direction by code, so it says exactly what the makeover used.
 from __future__ import annotations
 
 import json
+import shutil
 import re
 from pathlib import Path
 
@@ -88,13 +89,17 @@ def skill_md(profile: dict, direction: dict, social: dict, base: str) -> str:
         f"- Bio: {social.get('bio', '')}" if social.get("bio") else "",
         f"- Hashtags: {tags}" if tags else "",
         "- Instagram: open the caption with a hook line; one product per post; 4:5 portrait.",
-        "- Short video: speak the hook in the first 2 seconds; captions 6 words at a time, kept "
-        "above the bottom third; 15-20 seconds; end on how to buy.",
+        "- Short video: remix formats that are working (see references/formats.md): keep the "
+        "format's essence, swap in only your own products, prices and place; text above the "
+        "bottom third and clear of the right-hand buttons; end on the logo and how to buy.",
         "- LinkedIn: the business and its people. X: short and specific.",
         "", "## Files in this skill", "",
         "- `references/brand.json`: the full brand profile",
         "- `references/palette.css`: colours and fonts as CSS variables",
         "- `references/examples.md`: the posts written in the makeover, as examples of the voice",
+        "- `references/formats.md`: the video formats remixed for you, with their beats",
+        "- `assets/logo.png` (and `logo-light.png`): the remade logo mark; set the name beside it "
+        "in the display font",
         "",
     ]
     return "\n".join(x for x in lines if x is not None)
@@ -113,19 +118,32 @@ def examples_md(social: dict) -> str:
         out += [f"## {ch['channel'].title() if ch['channel'] != 'x' else 'X'}", ""]
         for p in ch["posts"]:
             out += [p["caption"], "", "---", ""]
-    vid = social.get("video")
-    if vid:
-        out += ["## Short video script", "", f"Hook: {vid['hook']}", ""]
-        out += [f"- {ln['say']}" for ln in vid["lines"]]
-        out += ["", f"End card: {vid['end_card']}", ""]
     return "\n".join(out)
 
 
-def write(profile: dict, direction: dict, social: dict, base: str, out: Path) -> Path:
+def formats_md(remixes: list | None) -> str:
+    out = ["# Video formats remixed for this brand", ""]
+    for r in remixes or []:
+        f, g = r["format"], r["best"]["grounded"]
+        out += [f"## {g['title']} ({f['name']})", "", f"Essence: {f['essence']}", "",
+                "Why it works: " + "; ".join(f["why_it_works"]), "", "Beats:", ""]
+        out += [f"- {b['seconds']}s {b['shot']} ({b['motion']}): {b['text'] or '(no text)'}"
+                for b in g["beats"]]
+        out += ["", f"Caption: {g['caption']}", "", f"Sound: {g['sound']}", ""]
+    return "\n".join(out)
+
+
+def write(profile: dict, direction: dict, social: dict, base: str, out: Path,
+          remixes: list | None = None, mark: dict | None = None) -> Path:
     folder = out / (_slug(profile["name"]) + "-brand")
     (folder / "references").mkdir(parents=True, exist_ok=True)
     (folder / "SKILL.md").write_text(skill_md(profile, direction, social, base))
     (folder / "references" / "brand.json").write_text(json.dumps(profile, indent=1))
     (folder / "references" / "palette.css").write_text(palette_css(direction))
     (folder / "references" / "examples.md").write_text(examples_md(social))
+    (folder / "references" / "formats.md").write_text(formats_md(remixes))
+    if mark:
+        (folder / "assets").mkdir(exist_ok=True)
+        shutil.copy(mark["mark"], folder / "assets" / "logo.png")
+        shutil.copy(mark["mark_light"], folder / "assets" / "logo-light.png")
     return folder

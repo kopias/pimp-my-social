@@ -1,0 +1,77 @@
+{
+ "id": "campaign-film",
+ "name": "Campaign film",
+ "seen_on": [
+  "reels",
+  "tiktok",
+  "youtube shorts",
+  "tv"
+ ],
+ "source": "library: the luxury fragrance / fashion commercial register (think a sun-and-sea fragrance campaign), described generically",
+ "essence": "A mood, not a pitch: slow, sensual, light-filled images that dissolve into one another, almost no words, ending on a still, perfect pack shot and the name.",
+ "why_it_works": [
+  "It sells a feeling the viewer wants to step into",
+  "Restraint reads as confidence and price",
+  "The pack shot burns the product and name into memory"
+ ],
+ "hook": {
+  "pattern": "no words at first; an arresting, atmospheric image of light, material or place",
+  "on_screen": false,
+  "first_frame": "the most beautiful frame in the film"
+ },
+ "beats": [
+  {
+   "role": "hook",
+   "shot": "angle",
+   "seconds": 2.6,
+   "motion": "drift",
+   "text": ""
+  },
+  {
+   "role": "build",
+   "shot": "detail",
+   "seconds": 2.2,
+   "motion": "dissolve",
+   "text": "{one evocative line: place or feeling}"
+  },
+  {
+   "role": "build",
+   "shot": "angle",
+   "seconds": 2.2,
+   "motion": "dissolve",
+   "text": ""
+  },
+  {
+   "role": "payoff",
+   "shot": "hero",
+   "seconds": 2.6,
+   "motion": "dissolve",
+   "text": "{product}"
+  },
+  {
+   "role": "cta",
+   "shot": "logo",
+   "seconds": 2.6,
+   "motion": "dissolve",
+   "text": "{where to buy}"
+  }
+ ],
+ "text_style": "campaign",
+ "look": "film",
+ "sound": "cinematic: a slow piano or strings swell, or the sea; no voice",
+ "voiceover": false,
+ "needs": [
+  "a brand that sells desire or mood (fashion, fragrance, design, hospitality)",
+  "beautiful product photography"
+ ],
+ "keep": [
+  "slow dissolves",
+  "letterboxed cinematic grade",
+  "two or three words in the whole film",
+  "the pack shot at the end"
+ ],
+ "drop": [
+  "any campaign's actors, locations, music or taglines"
+ ],
+ "people": false
+}

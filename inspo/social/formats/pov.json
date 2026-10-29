@@ -1,0 +1,72 @@
+{
+ "id": "pov",
+ "name": "POV",
+ "seen_on": [
+  "tiktok",
+  "reels"
+ ],
+ "source": "library: the point-of-view caption format, described generically",
+ "essence": "A one-line caption puts the viewer inside a small, specific moment their customer knows, and the product quietly answers it.",
+ "why_it_works": [
+  "Viewers project themselves into the moment",
+  "Relatability gets shares and saves",
+  "The product is the resolution, not an ad"
+ ],
+ "hook": {
+  "pattern": "'POV: {a specific moment the customer recognises}'",
+  "on_screen": true,
+  "first_frame": "a calm, atmospheric shot"
+ },
+ "beats": [
+  {
+   "role": "hook",
+   "shot": "angle",
+   "seconds": 2.6,
+   "motion": "push",
+   "text": "{hook}"
+  },
+  {
+   "role": "build",
+   "shot": "detail",
+   "seconds": 1.4,
+   "motion": "cut",
+   "text": ""
+  },
+  {
+   "role": "build",
+   "shot": "hero",
+   "seconds": 1.4,
+   "motion": "cut",
+   "text": ""
+  },
+  {
+   "role": "payoff",
+   "shot": "hero",
+   "seconds": 2.0,
+   "motion": "push",
+   "text": "{product}"
+  },
+  {
+   "role": "cta",
+   "shot": "logo",
+   "seconds": 2.0,
+   "motion": "hold",
+   "text": "{where to buy}"
+  }
+ ],
+ "text_style": "native",
+ "sound": "a mellow, nostalgic trending sound",
+ "voiceover": false,
+ "needs": [
+  "a clear customer and a real use moment"
+ ],
+ "keep": [
+  "one caption carries the story",
+  "atmosphere first, product second"
+ ],
+ "drop": [
+  "moments that imply facts the business never stated"
+ ],
+ "look": "clean",
+ "people": false
+}

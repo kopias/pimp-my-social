@@ -1,0 +1,82 @@
+{
+ "id": "location-lookbook",
+ "name": "Location lookbook",
+ "seen_on": [
+  "reels",
+  "tiktok",
+  "instagram carousel"
+ ],
+ "source": "library: the elegant fashion-influencer lookbook (one person, several premium settings, outfit and ambiance), described generically",
+ "essence": "One elegant person moves through a few beautiful places, each outfit framed with the setting, so the clothes are sold as part of a life worth wanting.",
+ "why_it_works": [
+  "Aspiration: the viewer wants the setting and the clothes together",
+  "Each location change re-hooks attention",
+  "Saves and shares as outfit inspiration"
+ ],
+ "hook": {
+  "pattern": "a short place-and-mood line, e.g. 'linen season in {place}' or 'what I wore this week'",
+  "on_screen": true,
+  "first_frame": "the person mid-stride in the most striking location"
+ },
+ "beats": [
+  {
+   "role": "hook",
+   "shot": "angle",
+   "seconds": 1.8,
+   "motion": "drift",
+   "text": "{hook}"
+  },
+  {
+   "role": "build",
+   "shot": "angle",
+   "seconds": 1.6,
+   "motion": "dissolve",
+   "text": "{product}"
+  },
+  {
+   "role": "build",
+   "shot": "detail",
+   "seconds": 1.2,
+   "motion": "cut",
+   "text": ""
+  },
+  {
+   "role": "build",
+   "shot": "angle",
+   "seconds": 1.6,
+   "motion": "dissolve",
+   "text": "{product}"
+  },
+  {
+   "role": "payoff",
+   "shot": "hero",
+   "seconds": 1.6,
+   "motion": "push",
+   "text": "{product}, {price}"
+  },
+  {
+   "role": "cta",
+   "shot": "logo",
+   "seconds": 2.2,
+   "motion": "dissolve",
+   "text": "{where to buy}"
+  }
+ ],
+ "text_style": "label",
+ "look": "clean",
+ "people": true,
+ "sound": "a breezy, elegant trending track; soft transitions on the downbeat",
+ "voiceover": false,
+ "needs": [
+  "clothing, accessories or anything worn or carried"
+ ],
+ "keep": [
+  "one person, several premium settings",
+  "the outfit and the place framed together",
+  "soft transitions",
+  "a clean product frame before the end"
+ ],
+ "drop": [
+  "the original influencer's face, name, voice and real locations"
+ ]
+}

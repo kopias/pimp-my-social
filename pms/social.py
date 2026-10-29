@@ -44,7 +44,7 @@ POST = {
 
 PLAN_SCHEMA = {
     "type": "object", "additionalProperties": False,
-    "required": ["handle", "bio", "hashtags", "channels", "video"],
+    "required": ["handle", "bio", "hashtags", "channels"],
     "properties": {
         "handle": {"type": "string", "description": "suggested @handle without @"},
         "bio": {"type": "string", "description": "profile bio, under 150 characters"},
@@ -56,20 +56,6 @@ PLAN_SCHEMA = {
                       "properties": {"channel": {"type": "string", "enum": list(CHANNELS)},
                                      "posts": {"type": "array", "items": POST}}},
         },
-        "video": {
-            "type": "object", "additionalProperties": False,
-            "required": ["hook", "lines", "caption", "end_card"],
-            "properties": {
-                "hook": {"type": "string", "description": "on-screen text for the first 2 seconds, under 7 words"},
-                "lines": {"type": "array", "items": {
-                    "type": "object", "additionalProperties": False, "required": ["photo", "say"],
-                    "properties": {"photo": {"type": "integer"},
-                                   "say": {"type": "string", "description": "one spoken sentence, under 12 words"}}},
-                    "description": "4-5 voiceover lines, one shot each, 15-20 seconds in all"},
-                "caption": {"type": "string"},
-                "end_card": {"type": "string", "description": "closing line, under 8 words"},
-            },
-        },
     },
 }
 
@@ -79,8 +65,6 @@ filler, no emoji spam (at most two per caption), no ALL CAPS.
 
 Channels: {channels}. Posts per channel: {counts}. Instagram captions open with a hook \
 line; LinkedIn is about the business and its people; X is short.
-Also write a 15-20 second vertical video (TikTok/Reels): a hook, then 4-5 spoken lines, \
-one photo each, and an end card.
 
 Facts only from the profile: the same products, prices exactly as written, hours, \
 place. Never invent reviews, numbers, awards, discounts or events.
@@ -103,8 +87,6 @@ def plan(profile: dict, shots: list[Shot], channels: list[str]) -> dict:
     for ch in out["channels"]:
         for p in ch["posts"]:
             p["photo"] = p["photo"] % n if n else -1
-    for line in out["video"]["lines"]:
-        line["photo"] = line["photo"] % n if n else -1
     out["channels"] = [c for c in out["channels"] if c["channel"] in channels]
     return tidy_all(out)
 
@@ -165,7 +147,7 @@ def card(photo: Path, text: str, direction: dict, size: tuple[int, int], name: s
     draw = ImageDraw.Draw(im, "RGBA")
     bg = _hex(pal["bg"])
     draw.rectangle((0, h - band_h, w, h), fill=(*bg, 240))
-    display = load_font(direction["fonts"]["display"], int(w * 0.075))
+    display = load_font(direction["fonts"]["display"], int(w * 0.075), 400)
     small = load_font(direction["fonts"]["body"], int(w * 0.026), 500)
     lines = textwrap.wrap(text, width=max(12, int(22 * 1080 / w * w / 1080)))[:3]
     y = h - band_h + int(band_h * 0.16)

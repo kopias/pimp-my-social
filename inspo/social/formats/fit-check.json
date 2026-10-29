@@ -1,0 +1,103 @@
+{
+ "id": "fit-check",
+ "name": "Fit check",
+ "seen_on": [
+  "tiktok",
+  "reels"
+ ],
+ "source": "library: a recurring fashion format, described generically",
+ "essence": "The whole range revealed in a fast run of cuts timed to a beat, each piece filling the frame for half a second, then one confident landing on where to get it.",
+ "why_it_works": [
+  "Speed rewards rewatching: people loop it to see each piece",
+  "No reading needed in the first second",
+  "The landing frame turns attention into a visit"
+ ],
+ "hook": {
+  "pattern": "a two-word lowercase label, e.g. 'fit check' or '{place} edition'",
+  "on_screen": true,
+  "first_frame": "the boldest piece, full frame, already moving"
+ },
+ "beats": [
+  {
+   "role": "hook",
+   "shot": "hero",
+   "seconds": 0.9,
+   "motion": "punch",
+   "text": "{hook}"
+  },
+  {
+   "role": "build",
+   "shot": "hero",
+   "seconds": 0.5,
+   "motion": "punch",
+   "text": ""
+  },
+  {
+   "role": "build",
+   "shot": "detail",
+   "seconds": 0.5,
+   "motion": "punch",
+   "text": ""
+  },
+  {
+   "role": "build",
+   "shot": "hero",
+   "seconds": 0.5,
+   "motion": "whip",
+   "text": ""
+  },
+  {
+   "role": "build",
+   "shot": "angle",
+   "seconds": 0.5,
+   "motion": "punch",
+   "text": ""
+  },
+  {
+   "role": "build",
+   "shot": "hero",
+   "seconds": 0.5,
+   "motion": "whip",
+   "text": ""
+  },
+  {
+   "role": "build",
+   "shot": "detail",
+   "seconds": 0.5,
+   "motion": "punch",
+   "text": ""
+  },
+  {
+   "role": "payoff",
+   "shot": "hero",
+   "seconds": 1.6,
+   "motion": "push",
+   "text": "{product}, {price}"
+  },
+  {
+   "role": "cta",
+   "shot": "logo",
+   "seconds": 2.2,
+   "motion": "hold",
+   "text": "{where to buy}"
+  }
+ ],
+ "text_style": "native",
+ "sound": "an upbeat trending track around 120 BPM; cuts land on the beat",
+ "voiceover": false,
+ "needs": [
+  "several products or angles"
+ ],
+ "keep": [
+  "cut rhythm locked to a beat",
+  "one piece per cut, full frame",
+  "minimal text",
+  "a still landing frame"
+ ],
+ "drop": [
+  "any creator's face, outfit or audio",
+  "trend-specific captions"
+ ],
+ "look": "clean",
+ "people": false
+}

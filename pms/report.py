@@ -39,7 +39,8 @@ def typical_price(profile: dict) -> float:
 
 
 def build(site_before, checks_before, checks_after, profile: dict, direction: dict,
-          shots: list[dict], social: dict, video: dict | None, files: dict) -> dict:
+          shots: list[dict], social: dict, remixes: list | None, files: dict,
+          logo: dict | None = None) -> dict:
     sb, sa = audit.score(checks_before), audit.score(checks_after)
     after = {c.id: c for c in checks_after}
     fixed = [{"label": c.label, "category": audit.CATEGORIES[c.category], "found": c.found,
@@ -57,7 +58,6 @@ def build(site_before, checks_before, checks_after, profile: dict, direction: di
         "and find how to order without scraping the page",
         f"{len(profile['faqs'])} questions customers ask, answered in your words and marked up as FAQPage",
     ]
-    review = (video or {}).get("best", {}).get("review")
     return {
         "business": profile["name"], "date": date.today().isoformat(),
         "url": site_before.final_url, "direction": direction["name"],
@@ -67,9 +67,12 @@ def build(site_before, checks_before, checks_after, profile: dict, direction: di
             "photos": [{"product": s["product"], "fidelity": s["fidelity"], "note": s["note"]}
                        for s in shots],
             "posts": posts,
-            "video": {"duration_s": video["best"]["render"]["duration_s"],
-                      "transcript_match": video["best"]["render"]["transcript_match"],
-                      "review": review, "cuts": len(video["cuts"])} if video else None,
+            "remixes": [{"title": r["best"]["grounded"]["title"], "format": r["format"]["name"],
+                         "essence": r["format"]["essence"],
+                         "duration_s": r["best"]["render"]["duration_s"],
+                         "review": r["best"]["review"], "cuts": len(r["cuts"])}
+                        for r in remixes or []],
+            "logo": logo,
             "files": files,
         },
         "agent_ready": agent,
@@ -133,17 +136,18 @@ def page(r: dict) -> str:
     photos = "".join(f"<li>{e(p['product'])}: fidelity {p['fidelity'] if p['fidelity'] is not None else 'n/a'}"
                      f"{' (' + e(p['note']) + ')' if p['note'] else ''}</li>" for p in m["photos"])
     posts = ", ".join(f"{n} for {e(ch.title() if ch != 'x' else 'X')}" for ch, n in m["posts"].items())
-    vid = m["video"]
-    vid_line = ""
-    if vid:
-        rv = vid["review"]
-        vid_line = (f"<li>A {vid['duration_s']}s vertical video with voiceover and captions "
-                    f"(voice checked by Muse Voice Transcribe: {round(vid['transcript_match'] * 100)}% of words heard as written). "
-                    f"Muse Spark's editor review: hook {rv['hook']}/10, overall {rv['overall']}/10. "
-                    f"“{e(rv['verdict'])}”</li>")
+    vid_line = "".join(
+        f"<li>“{e(x['title'])}”: a {x['duration_s']}s vertical video remixing the {e(x['format'])} format "
+        f"({e(x['essence'])}) with your own products. Muse Spark's editor review: essence "
+        f"{x['review']['essence']}/10, grounded {x['review']['grounded']}/10, overall {x['review']['overall']}/10. "
+        f"“{e(x['review']['verdict'])}”</li>" for x in m.get("remixes", []))
+    lg = m.get("logo") or {}
+    if lg.get("mark"):
+        vid_line += (f"<li>Your logo, remade from the original ({e(lg.get('motif') or '')}): "
+                     f"{e(lg['note'])}</li>")
     agent = "".join(f"<li>{e(a)}</li>" for a in r["agent_ready"])
     gaps = "".join(f"<li>{e(g)}</li>" for g in r["gaps"])
-    fixes = "".join(f"<li>{e(f)}</li>" for f in (vid or {}).get("review", {}).get("fixes", [])) if vid else ""
+    fixes = "".join(f"<li>{e(f)}</li>" for x in m.get("remixes", [])[:1] for f in x["review"]["fixes"])
     v = r["value"]
     sp_b, sp_a = r["speed"]["before"], r["speed"]["after"]
 

@@ -21,6 +21,68 @@ STYLE_TAGS = ["minimal", "bold", "warm", "luxury", "playful", "retro", "dark", "
               "techy", "editorial", "bright", "calm"]
 
 DIRECTIONS: dict[str, dict] = {
+    "atelier": {
+        "name": "Atelier", "tags": ["minimal", "luxury", "calm", "editorial"],
+        "refs": ["toteme", "lemaire", "studio_nicholson"],
+        "pitch": "Quiet luxury. One beautiful thing at a time, in a lot of white.",
+        "palette": {"bg": "#F8F6F1", "surface": "#EFECE5", "ink": "#141414", "muted": "#77736B",
+                    "accent": "#141414", "accent2": "#B9AE9C"},
+        "fonts": {"display": "Cormorant Garamond", "body": "Hanken Grotesk",
+                  "axes": {"Cormorant Garamond": "ital,wght@0,300;0,400;0,500;1,300;1,400"}},
+        "layout": "centred small wordmark; navigation as tiny tracked uppercase columns; "
+                  "products shown small and centred in vast warm-white space with whisper-size "
+                  "two-line captions; image scale and position change as you scroll; hairline "
+                  "rules only, no boxes",
+        "photo": "soft diffused north light, pale warm stone and plaster backdrop, tonal "
+                 "palette, generous negative space, the product small in frame, shallow depth "
+                 "of field, quiet luxury catalogue",
+    },
+    "dateline": {
+        "name": "Dateline", "tags": ["editorial", "warm", "luxury", "retro"],
+        "refs": ["aime_leon_dore", "kotn"],
+        "pitch": "Heritage. Your work photographed like it belongs in a museum.",
+        "palette": {"bg": "#F4F0E8", "surface": "#E6DFD3", "ink": "#1C1A17", "muted": "#7A7266",
+                    "accent": "#7A2E1F", "accent2": "#2E3B2F"},
+        "fonts": {"display": "Bodoni Moda", "body": "Work Sans",
+                  "axes": {"Bodoni Moda": "ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400"}},
+        "layout": "masthead with a small centred logo and a newspaper-style dateline under it "
+                  "giving the business's real town; full-bleed still-life product hero on a putty "
+                  "ground; split sections pairing a portrait photo with a quiet text panel; "
+                  "products in a row with name and price on one line",
+        "photo": "museum still life on a warm putty and stone seamless backdrop, soft "
+                 "directional studio light, the product large and centred, rich texture, "
+                 "shallow depth of field, heritage catalogue",
+    },
+    "runway": {
+        "name": "Runway", "tags": ["bold", "dark", "techy", "editorial"],
+        "refs": ["our_legacy"],
+        "pitch": "Confident and modern. Poster type, full-height pictures.",
+        "palette": {"bg": "#F2F1EE", "surface": "#0B0B0B", "ink": "#0B0B0B", "muted": "#6E6E6A",
+                    "accent": "#0B0B0B", "accent2": "#D9D6CF"},
+        "fonts": {"display": "Archivo", "body": "Inter Tight",
+                  "axes": {"Archivo": "wght@400;500;800;900"}},
+        "layout": "full-height 50/50 split screens: one half off-white with huge heavy grotesk "
+                  "caps and a lighter indented subline, the other a full-height photo on black; "
+                  "alternate the sides down the page; minimal icon navigation",
+        "photo": "editorial runway lighting, single hard key light, deep black background, "
+                 "crisp fabric detail, high contrast, shallow depth of field, fashion week",
+    },
+    "archive": {
+        "name": "Archive", "tags": ["warm", "natural", "playful", "retro"],
+        "refs": ["bode", "story_mfg"],
+        "pitch": "Handmade and storied. Colour, texture and the hands behind it.",
+        "palette": {"bg": "#FAF7F0", "surface": "#E9E2D2", "ink": "#1E1B16", "muted": "#7B7364",
+                    "accent": "#D9622B", "accent2": "#4F5B2E"},
+        "fonts": {"display": "Newsreader", "body": "IBM Plex Sans",
+                  "axes": {"Newsreader": "ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400"}},
+        "layout": "a saturated colour-field hero in the brand's own colour with one small black "
+                  "rectangular button; product rows with name left and price right on one line; "
+                  "texture close-ups as section breaks with stamped tag labels; a craft story "
+                  "section with a black-and-white photo grid",
+        "photo": "natural daylight on raw linen and unfinished wood, extreme texture "
+                 "close-up of weave and stitching, earthy tones, shallow depth of field, "
+                 "handmade craft",
+    },
     "gallery": {
         "name": "Gallery", "tags": ["minimal", "calm", "editorial", "natural"],
         "pitch": "Quiet confidence. Lots of air, one beautiful photo at a time.",
@@ -132,7 +194,9 @@ Directions: {directions}"""
 
 def font_css(d: dict) -> str:
     fams = [d["fonts"]["display"], d["fonts"]["body"]]
-    q = "&".join("family=" + f.replace(" ", "+") + ":wght@400;500;600;700" for f in dict.fromkeys(fams))
+    axes = d["fonts"].get("axes", {})
+    q = "&".join("family=" + f.replace(" ", "+") + ":" + axes.get(f, "wght@400;500;600;700")
+                 for f in dict.fromkeys(fams))
     return f"https://fonts.googleapis.com/css2?{q}&display=swap"
 
 
@@ -141,7 +205,8 @@ def pick(profile: dict, tags: list[str], rng: random.Random | None = None) -> li
     rng = rng or random.Random()
     summary = {k: profile[k] for k in ("name", "one_liner", "category", "audience", "voice",
                                        "value_props")}
-    menu = {k: {"name": v["name"], "tags": v["tags"], "pitch": v["pitch"]} for k, v in DIRECTIONS.items()}
+    menu = {k: {"name": v["name"], "tags": v["tags"], "pitch": v["pitch"], "layout": v["layout"]}
+            for k, v in DIRECTIONS.items()}
     tag_line = (f"The owner chose these style tags; lean toward them: {', '.join(tags)}."
                 if tags else "The owner chose no style tags.")
     raw = m.ask(PICK_PROMPT.format(tags=tag_line, profile=json.dumps(summary),

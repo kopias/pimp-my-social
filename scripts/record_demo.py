@@ -52,7 +52,12 @@ def glide(page: Page, selector: str, click: bool = True) -> None:
     loc.wait_for(state="visible", timeout=30_000)
     loc.evaluate("e => e.scrollIntoView({block: 'center', behavior: 'smooth'})")
     page.wait_for_timeout(450)
-    box = loc.bounding_box()
+    box, last = loc.bounding_box(), None
+    for _ in range(20):  # a long smooth scroll can still be moving: wait until it settles
+        if box == last:
+            break
+        page.wait_for_timeout(150)
+        last, box = box, loc.bounding_box()
     if not box:
         return
     page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2, steps=18)
@@ -68,7 +73,8 @@ def main() -> None:
     p.add_argument("url", help="the site to make over")
     p.add_argument("--app", default="http://127.0.0.1:8000")
     p.add_argument("--channels", default="facebook,linkedin,x", help="extra channels to click on")
-    p.add_argument("--vibe", default="warm")
+    p.add_argument("--vibe", default="warm", help="style tags to click, comma-separated")
+    p.add_argument("--formats", default="", help="Remix-a-hit formats to click, comma-separated names")
     p.add_argument("--pick", type=int, default=0, help="which paint job card to choose")
     p.add_argument("--name", default="pimp-my-social-demo")
     p.add_argument("--fast", type=float, default=12, help="speed-up for the waiting stretches")
@@ -95,8 +101,12 @@ def main() -> None:
                      "tiktok": "TikTok"}[ch]
             glide(page, f"#channels .chip:text-is('{label}')")
             page.wait_for_timeout(200)
-        if args.vibe:
-            glide(page, f"#tags .chip:text-is('{args.vibe}')")
+        for v in [v for v in args.vibe.split(",") if v]:
+            glide(page, f"#tags .chip:text-is('{v}')")
+            page.wait_for_timeout(200)
+        for f in [f for f in args.formats.split(",") if f]:
+            glide(page, f"#formats .chip:text-is('{f}')")
+            page.wait_for_timeout(250)
         glide(page, "#consent")
         page.wait_for_timeout(500)
         glide(page, "#goBtn")
@@ -152,16 +162,23 @@ def main() -> None:
             page.mouse.wheel(0, 650)
             page.wait_for_timeout(900)
         show_tab("Photos", 5000, 600)
+        show_tab("Logo", 4500)
         show_tab("What changed", 5000)
+        if page.locator(".tab:text-is('Remixes')").count():
+            show_tab("Remixes", 800)
+            vids = page.locator("#p-remixes video")
+            for i in range(vids.count()):
+                vids.nth(i).scroll_into_view_if_needed()
+                page.evaluate("(i) => { const v = document.querySelectorAll('#p-remixes video')[i];"
+                              " v.muted = true; v.currentTime = 0; v.play(); }", i)
+                page.wait_for_timeout(1500)
+                page.mouse.wheel(0, 260)
+                page.wait_for_timeout(11000)
         show_tab("Instagram", 2500)
         posts = page.locator("#p-instagram .grid3 img")
         for i in range(min(3, posts.count())):
             glide(page, f"#p-instagram .grid3 img >> nth={i}")
             page.wait_for_timeout(1300)
-        if page.locator(".tab:text-is('Short video')").count():
-            show_tab("Short video", 1000)
-            page.evaluate("document.querySelector('#p-video video').play()")
-            page.wait_for_timeout(16000)
         for name in ("Facebook", "LinkedIn", "X"):
             show_tab(name, 2500)
         show_tab("Report", 3000)

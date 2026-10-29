@@ -19,7 +19,7 @@ import uuid
 from dataclasses import asdict
 from pathlib import Path
 
-from . import audit, brand, directions, photos, report, site, skill, social, video
+from . import audit, brand, directions, logo, photos, remix, report, site, skill, social
 from .crawl import Site, inspect
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -31,20 +31,23 @@ STAGES = [
     ("brand", "Brand read", "Muse Spark reads the screenshots, photos and pages"),
     ("paint", "Paint job", "Spark picks your directions; Muse Image previews each"),
     ("studio", "Photo studio", "SAM 3.1 isolates each product; Muse Image reshoots it; SAM checks it"),
+    ("logo", "Logo", "Spark reads your logo's idea; Muse Image redraws it; Spark checks it still reads as you"),
     ("site", "The build", "Spark writes the copy; Muse Wonder designs and codes the site"),
     ("social", "Social kit", "Posts and captions for every channel you picked"),
-    ("video", "Short video", "Voiceover checked by Muse Voice Transcribe; Spark reviews the cut"),
+    ("remix", "Remix a hit", "Popular formats, reverse engineered and rebuilt with your products; Spark reviews each cut"),
     ("after", "Re-inspection", "The same 17 checks on the new site"),
     ("package", "The reveal", "Report, brand skill and the download"),
 ]
 
 
 class Job:
-    def __init__(self, url: str, channels: list[str], tags: list[str], jid: str | None = None):
+    def __init__(self, url: str, channels: list[str], tags: list[str], jid: str | None = None,
+                 formats: list[str] | None = None):
         self.id = jid or uuid.uuid4().hex[:10]
         self.dir = JOBS / self.id
         self.dir.mkdir(parents=True, exist_ok=True)
         self.state = {"id": self.id, "url": url, "channels": channels, "tags": tags,
+                      "formats": formats or [],
                       "status": "running", "error": None, "created": time.time(),
                       "stages": {k: {"label": label, "detail": detail, "state": "waiting",
                                      "seconds": None} for k, label, detail in STAGES},
@@ -147,8 +150,15 @@ class Job:
                            "detail_url": self.url_of(x.detail) if x.detail else None}
                           for x in shots]
 
+            mark = await self.stage("logo", logo.remake, site_before.logo, prof, direction,
+                                    self.dir / "logo")
+            d["logo"] = {"original": self.url_of(mark["original"]) if mark["original"] else None,
+                         "mark": self.url_of(mark["mark"]) if mark["mark"] else None,
+                         "motif": mark.get("motif"), "note": mark["note"]}
+            mark = mark if mark["mark"] else None
+
             built = await self.stage("site", site.build, prof, direction, shots,
-                                     site_before.final_url, self.dir / "site", site_before.logo)
+                                     site_before.final_url, self.dir / "site", mark)
             d["site"] = {"url": f"/jobs/{self.id}/site/index.html", "copy": built["copy"]}
 
             channels = self.state["channels"]
@@ -164,16 +174,21 @@ class Job:
                         p["image_url"] = self.url_of(p["image"])
             d["social"] = plan
 
-            vid = None
+            remixes = None
             if {"tiktok", "instagram"} & set(channels):
-                vid = await self.stage("video", video.make, plan, shots, direction, prof, self.dir / "video")
-                best = vid["best"]["render"]
-                d["video"] = {"mp4": self.url_of(best["mp4"]), "poster": self.url_of(best["poster"]),
-                              "review": vid["best"]["review"], "lines": best["lines"],
-                              "cuts": [{"mp4": self.url_of(c["render"]["mp4"]), "review": c["review"]}
-                                       for c in vid["cuts"]]}
+                remixes = await self.stage("remix", remix.make, prof, shots, direction, mark,
+                                           self.dir / "remix", self.state.get("formats"))
+                d["remixes"] = [{
+                    "title": r["best"]["grounded"]["title"], "format": r["format"],
+                    "mp4": self.url_of(r["best"]["render"]["mp4"]),
+                    "poster": self.url_of(r["best"]["render"]["poster"]),
+                    "review": r["best"]["review"], "grounded": r["best"]["grounded"],
+                    "timeline": r["best"]["render"]["timeline"],
+                    "cuts": [c["review"]["overall"] for c in r["cuts"]],
+                    "angles": [{**a, "image": self.url_of(a["image"])} for a in r["angles"]],
+                } for r in remixes]
             else:
-                self.state["stages"]["video"]["state"] = "skipped"
+                self.state["stages"]["remix"]["state"] = "skipped"
 
             async def after():
                 s2 = await inspect(f"{self_base}/jobs/{self.id}/site/index.html", self.dir / "after",
@@ -190,10 +205,10 @@ class Job:
 
             def package() -> dict:
                 checks_before = audit.run(site_before)
-                folder = skill.write(prof, direction, plan, built["base"], self.dir)
+                folder = skill.write(prof, direction, plan, built["base"], self.dir, remixes, mark)
                 files = {"site": "site/", "skill": folder.name + "/", "perf_after": s2.perf}
                 r = report.build(site_before, checks_before, checks_after, prof, direction,
-                                 [asdict(x) for x in shots], plan, vid, files)
+                                 [asdict(x) for x in shots], plan, remixes, files, d.get("logo"))
                 report.write(r, self.dir)
                 zip_path = self.make_zip(folder)
                 return {"report": self.url_of(self.dir / "report.html"),
@@ -223,16 +238,25 @@ class Job:
             for k, p in enumerate(ch["posts"]):
                 captions += [f"## {ch['channel']} {k + 1}", "", p["caption"], "", f"Alt text: {p['alt']}", ""]
         (stage / "social" / "captions.md").write_text("\n".join(captions))
-        vid_dir = self.dir / "video"
-        if vid_dir.exists():
-            best = self.state["data"].get("video", {}).get("mp4", "")
-            src = self.dir / best.split(f"/jobs/{self.id}/", 1)[-1] if best else None
-            if src and src.exists():
-                (stage / "video").mkdir()
-                shutil.copy(src, stage / "video" / "short.mp4")
-                srt = src.parent / "captions.srt"
-                if srt.exists():
-                    shutil.copy(srt, stage / "video" / "captions.srt")
+        rem = self.state["data"].get("remixes") or []
+        if rem:
+            (stage / "video").mkdir()
+            notes = []
+            for k, r in enumerate(rem):
+                src = self.dir / r["mp4"].split(f"/jobs/{self.id}/", 1)[-1]
+                if src.exists():
+                    shutil.copy(src, stage / "video" / f"{k + 1}-{r['format']['id']}.mp4")
+                g = r["grounded"]
+                notes += [f"## {k + 1}. {g['title']} ({r['format']['name']})", "",
+                          f"Format: {r['format']['essence']}", "", g["caption"], "",
+                          " ".join(g["hashtags"]), "", f"Sound: pick {g['sound']} in the app.", ""]
+            (stage / "video" / "captions.md").write_text("\n".join(notes))
+        logo_dir = self.dir / "logo"
+        if (logo_dir / "mark.png").exists():
+            (stage / "logo").mkdir()
+            for f in ("mark.png", "mark_light.png", "original.png"):
+                if (logo_dir / f).exists():
+                    shutil.copy(logo_dir / f, stage / "logo" / f)
         (stage / "photos").mkdir()
         for f in (self.dir / "studio").glob("*_landscape.png"):
             shutil.copy(f, stage / "photos" / f.name)

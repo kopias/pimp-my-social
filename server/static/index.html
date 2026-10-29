@@ -4,201 +4,253 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pimp My Social</title>
-<meta name="description" content="Give us your website. We hand back a makeover: a new editorial site, studio photos of your products, posts and a video for your channels, and a report on what changed.">
+<meta name="description" content="Give us your website. We hand back a makeover: a new editorial site, studio photos of your products, a remade logo, posts and videos remixed from formats that are working, and a report on what changed.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap">
 <style>
   :root {
-    --paper: #f4f0e8; --paper2: #ebe5d9; --ink: #121110; --muted: #6f685e; --line: #d9d1c3;
-    --hot: #ff4b1f; --good: #1f7a4d; --card: #fbf8f2;
-    --serif: "Instrument Serif", Georgia, serif; --sans: "Inter Tight", system-ui, sans-serif;
+    --paper: #f7f5f0; --paper2: #eeebe4; --ink: #121212; --muted: #7a766e; --line: rgba(18,18,18,.12);
+    --hot: #c8361b; --good: #2f5d43; --card: #fbfaf7;
+    --serif: "Cormorant Garamond", "Times New Roman", serif; --sans: "Hanken Grotesk", system-ui, sans-serif;
     --mono: "JetBrains Mono", ui-monospace, monospace;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 var(--sans); }
-  a { color: inherit; }
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.6 var(--sans);
+    -webkit-font-smoothing: antialiased; font-feature-settings: "kern", "liga"; }
+  a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 32px; }
+  .label, .mono { font: 500 11px/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase; }
+  .num { font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; }
   .muted { color: var(--muted); }
-  header.top { display: flex; justify-content: space-between; align-items: center; padding: 22px 0;
-    border-bottom: 1px solid var(--line); }
-  header.top b { font-family: var(--serif); font-size: 22px; font-weight: 400; }
-  header.top b i { color: var(--hot); }
-  button { font: inherit; cursor: pointer; }
+  h1, h2, h3 { text-wrap: balance; } p { text-wrap: pretty; }
+  button { font: inherit; cursor: pointer; color: inherit; }
   .view { display: none; } .view.on { display: block; }
 
-  /* --- splash --- */
-  .hero { padding: 9vh 0 40px; }
-  .hero .mono { color: var(--hot); }
-  h1.title { font-family: var(--serif); font-weight: 400; font-size: clamp(64px, 12vw, 176px);
-    line-height: .86; letter-spacing: -.02em; margin: 18px 0 26px; }
-  h1.title i { color: var(--hot); }
-  .lede { font-size: clamp(18px, 2vw, 22px); max-width: 640px; color: #2c2925; }
-  form.go { margin-top: 38px; max-width: 760px; }
-  .urlrow { display: flex; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--card);
-    padding: 6px; }
-  .urlrow input { flex: 1; border: 0; background: transparent; font: 500 20px var(--sans); padding: 12px 18px;
-    outline: none; color: var(--ink); min-width: 0; }
-  .urlrow button { border: 0; background: var(--ink); color: var(--paper); border-radius: 999px;
-    padding: 14px 26px; font-weight: 600; font-size: 17px; white-space: nowrap; }
-  .urlrow button:hover { background: var(--hot); }
-  .urlrow button:disabled { opacity: .5; }
-  fieldset { border: 0; padding: 0; margin: 24px 0 0; }
-  legend { margin-bottom: 10px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 7px 14px;
-    color: #3a3632; font-size: 14px; }
+  header.top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 22px 0;
+    border-bottom: 1px solid var(--line); }
+  header.top .brand { font: 500 13px var(--sans); letter-spacing: .34em; text-transform: uppercase; text-decoration: none; }
+  header.top .brand i { font-style: normal; color: var(--hot); }
+  header.top .r { justify-self: end; }
+
+  /* --- splash: a 50/50 split, type left, the work right --- */
+  .split { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 68px); border-bottom: 1px solid var(--line); }
+  .split .copy { padding: clamp(40px, 7vh, 96px) clamp(0px, 4vw, 64px) 56px 0; display: flex; flex-direction: column; }
+  h1.title { font: 300 clamp(64px, 9vw, 148px)/.88 var(--serif); letter-spacing: -.035em; margin: 22px 0 28px; }
+  h1.title i { font-weight: 300; }
+  .lede { font-size: 17px; max-width: 34em; color: #3a3833; margin: 0; }
+  .art { position: relative; background: var(--paper2); overflow: hidden; }
+  .art img.after { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .art figure { position: absolute; left: 28px; bottom: 28px; margin: 0; width: min(38%, 240px); background: var(--paper);
+    padding: 8px 8px 10px; }
+  .art figure img { width: 100%; display: block; aspect-ratio: 3 / 2; object-fit: cover; }
+  .art figcaption, .art .tag { margin-top: 8px; }
+  .art .tag { position: absolute; right: 28px; bottom: 28px; color: white; text-shadow: 0 1px 8px rgba(0,0,0,.35); text-align: right; }
+
+  form.go { margin-top: 44px; max-width: 620px; }
+  .field { display: flex; align-items: flex-end; gap: 16px; border-bottom: 1px solid var(--ink); }
+  .field input { flex: 1; border: 0; background: transparent; font: 300 clamp(24px, 2.4vw, 32px) var(--serif); padding: 10px 0 12px;
+    outline: none; color: var(--ink); min-width: 0; letter-spacing: -.01em; }
+  .field input::placeholder { color: #aaa69d; }
+  .btn { border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 15px 28px; border-radius: 0;
+    font: 500 11px var(--sans); letter-spacing: .18em; text-transform: uppercase; white-space: nowrap; margin-bottom: 10px; }
+  .btn:hover { background: var(--hot); border-color: var(--hot); }
+  .btn:disabled { opacity: .5; }
+  fieldset { border: 0; padding: 0; margin: 28px 0 0; }
+  legend { margin-bottom: 10px; padding: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--line); background: transparent; border-radius: 0; padding: 8px 13px;
+    font: 500 12px var(--sans); letter-spacing: .04em; color: #3a3833; }
+  .chip:hover { border-color: var(--ink); }
   .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .chip.locked { opacity: .65; cursor: default; }
-  .consent { display: flex; gap: 10px; align-items: flex-start; margin-top: 22px; font-size: 14px; color: var(--muted); }
-  .consent input { margin-top: 3px; accent-color: var(--hot); }
-  .err { color: var(--hot); min-height: 1.5em; margin-top: 12px; font-weight: 500; }
-  .models { margin: 70px 0 50px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    border-top: 1px solid var(--line); }
-  .models div { padding: 18px 16px 18px 0; border-bottom: 1px solid var(--line); }
-  .models b { font-family: var(--serif); font-weight: 400; font-size: 24px; display: block; }
-  .models span { font-size: 14px; color: var(--muted); }
+  .chip.locked { opacity: .6; cursor: default; }
+  .chip small { display: block; font-weight: 400; letter-spacing: 0; color: inherit; opacity: .7; }
+  .upload { display: flex; gap: 12px; align-items: center; margin-top: 10px; font-size: 13px; color: var(--muted); }
+  .upload label { border-bottom: 1px solid var(--ink); color: var(--ink); cursor: pointer; }
+  .upload input { display: none; }
+  .consent { display: flex; gap: 10px; align-items: flex-start; margin-top: 26px; font-size: 13px; color: var(--muted); }
+  .consent input { margin-top: 3px; accent-color: var(--ink); }
+  .err { color: var(--hot); min-height: 1.5em; margin-top: 12px; font-size: 14px; }
+  .index { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: 1px solid var(--line); }
+  .index div { padding: 26px 22px 30px 0; border-right: 1px solid var(--line); margin-right: 22px; }
+  .index div:last-child { border-right: 0; }
+  .index b { font: 400 26px/1.1 var(--serif); display: block; margin: 10px 0 6px; letter-spacing: -.01em; }
+  .index span { font-size: 13px; color: var(--muted); }
 
   /* --- garage --- */
-  .garage { display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; padding: 40px 0 60px; }
-  .shot { position: relative; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--paper2);
-    aspect-ratio: 16 / 10; }
+  .garage { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; padding: 48px 0 64px; }
+  .shot { position: relative; border: 1px solid var(--line); overflow: hidden; background: var(--paper2); aspect-ratio: 16 / 10; }
   .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-  .stamp { position: absolute; top: 16px; left: 16px; background: var(--ink); color: var(--paper); padding: 6px 12px;
-    border-radius: 6px; }
-  .stamp.after { background: var(--hot); }
-  h2.big { font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 5vw, 64px); line-height: 1; margin: 6px 0 18px; }
-  ol.stages { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
-  ol.stages li { display: grid; grid-template-columns: 26px 1fr auto; gap: 12px; padding: 12px 0;
+  .stamp { position: absolute; top: 14px; left: 14px; background: var(--paper); color: var(--ink); padding: 6px 10px; }
+  .stamp.after { background: var(--ink); color: var(--paper); }
+  h2.big { font: 300 clamp(40px, 5vw, 72px)/.95 var(--serif); letter-spacing: -.025em; margin: 10px 0 22px; }
+  ol.stages { list-style: none; padding: 0; margin: 14px 0 0; border-top: 1px solid var(--line); }
+  ol.stages li { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; padding: 13px 0;
     border-bottom: 1px solid var(--line); align-items: start; }
-  ol.stages .dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--line); margin-top: 4px; }
+  ol.stages .dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--muted); margin-top: 7px; }
   ol.stages li[data-state="running"] .dot { border-color: var(--hot); background: var(--hot); animation: pulse 1s infinite; }
   ol.stages li[data-state="done"] .dot { background: var(--ink); border-color: var(--ink); }
   ol.stages li[data-state="skipped"] { opacity: .4; }
-  ol.stages li[data-state="failed"] .dot { background: var(--hot); border-radius: 2px; }
-  ol.stages li b { font-weight: 600; } ol.stages li small { display: block; color: var(--muted); font-size: 13px; }
-  @keyframes pulse { 50% { opacity: .35; } }
-  .scorebox { margin-top: 26px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
-  .score-n { font-family: var(--serif); font-size: 84px; line-height: .9; }
+  ol.stages li[data-state="failed"] .dot { background: var(--hot); border-radius: 0; }
+  ol.stages li b { font-weight: 500; } ol.stages li small { display: block; color: var(--muted); font-size: 13px; }
+  @keyframes pulse { 50% { opacity: .3; } }
+  .scorebox { margin-top: 28px; border-top: 1px solid var(--ink); padding-top: 18px; }
+  .score-n { font: 300 96px/.9 var(--serif); letter-spacing: -.03em; }
   .score-n small { font-size: 28px; color: var(--muted); }
-  .bars { display: grid; gap: 8px; margin-top: 16px; }
-  .barrow { display: grid; grid-template-columns: 170px 1fr 34px; gap: 10px; align-items: center; font-size: 14px; }
-  .track { height: 8px; background: var(--paper2); border-radius: 4px; overflow: hidden; }
-  .fill { height: 100%; background: var(--ink); border-radius: 4px; transition: width .8s; }
-  .fails { margin-top: 16px; font-size: 14px; }
-  .fails li { margin: 4px 0; } .fails li::marker { color: var(--hot); }
+  .bars { display: grid; gap: 9px; margin-top: 18px; }
+  .barrow { display: grid; grid-template-columns: 190px 1fr 34px; gap: 12px; align-items: center; font-size: 13px; }
+  .track { height: 2px; background: var(--line); }
+  .fill { height: 100%; background: var(--ink); transition: width .8s; }
+  .fails { margin: 18px 0 0; padding-left: 16px; font-size: 13px; }
+  .fails li { margin: 5px 0; } .fails li::marker { color: var(--hot); }
 
   /* --- choose --- */
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; margin: 26px 0 70px; }
-  .dcard { text-align: left; border: 1px solid var(--line); background: var(--card); border-radius: 16px; padding: 0;
-    overflow: hidden; display: flex; flex-direction: column; transition: transform .15s, box-shadow .15s; }
-  .dcard:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(0,0,0,.08); }
-  .dcard img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; background: var(--paper2); }
-  .dcard .body { padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-  .dcard .name { font-size: 30px; line-height: 1; }
-  .sw { display: flex; gap: 0; border-radius: 6px; overflow: hidden; height: 16px; }
-  .sw span { flex: 1; }
-  .badge { align-self: flex-start; background: var(--hot); color: white; border-radius: 999px; padding: 3px 10px; }
-  .dcard .why { font-size: 14px; color: var(--muted); }
-  .dcard .pick { margin-top: auto; padding-top: 8px; font-weight: 600; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin: 32px 0 80px; }
+  .dcard { text-align: left; border: 0; background: transparent; padding: 0; display: flex; flex-direction: column; }
+  .dcard img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; background: var(--paper2); transition: opacity .2s; }
+  .dcard:hover img { opacity: .88; }
+  .dcard .body { padding: 16px 0 0; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+  .dcard .name { font-size: 34px; line-height: 1; }
+  .sw { display: flex; height: 6px; } .sw span { flex: 1; }
+  .badge { align-self: flex-start; color: var(--hot); }
+  .dcard .why { font-size: 13px; color: var(--muted); }
+  .dcard .refs { color: var(--muted); }
+  .dcard .pick { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); }
 
   /* --- reveal --- */
-  .revealhead { padding: 40px 0 10px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: end; }
-  .delta { font-family: var(--serif); font-size: clamp(56px, 8vw, 110px); line-height: .9; }
-  .delta .from { color: var(--muted); } .delta .to { color: var(--hot); }
-  .compare { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line);
-    aspect-ratio: 16 / 10; background: var(--paper2); user-select: none; }
+  .revealhead { padding: 48px 0 18px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
+  .delta { font: 300 clamp(56px, 8vw, 120px)/.9 var(--serif); letter-spacing: -.03em; }
+  .delta .from { color: var(--muted); } .delta .to { color: var(--ink); font-style: italic; }
+  .compare { position: relative; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 10; background: var(--paper2); user-select: none; }
   .compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
   .compare .top { clip-path: inset(0 50% 0 0); }
   .compare input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; }
-  .compare .handle { position: absolute; top: 0; bottom: 0; width: 3px; background: var(--hot); left: 50%; pointer-events: none; }
-  .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 34px 0 18px; border-bottom: 1px solid var(--line); }
-  .tab { border: 0; background: transparent; padding: 10px 12px; border-bottom: 2px solid transparent; color: var(--muted);
-    font-weight: 600; }
-  .tab[aria-selected="true"] { color: var(--ink); border-color: var(--hot); }
-  .panel { display: none; padding-bottom: 80px; } .panel.on { display: block; }
-  .frame { width: 100%; height: 78vh; border: 1px solid var(--line); border-radius: 14px; background: white; }
-  .pairs { display: grid; gap: 22px; }
-  .pair { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 12px; align-items: start; }
-  .pair img { width: 100%; border-radius: 10px; display: block; }
-  .pair figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; }
-  .phone { width: 360px; max-width: 100%; border: 10px solid #111; border-radius: 42px; background: white; overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,.18); }
-  .phone .bar { padding: 12px 16px; font-weight: 700; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
+  .compare .handle { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--paper); left: 50%; pointer-events: none;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.15); }
+  .tabs { display: flex; flex-wrap: wrap; gap: 4px 22px; margin: 40px 0 26px; border-bottom: 1px solid var(--line); }
+  .tab { border: 0; background: transparent; padding: 12px 0; border-bottom: 1px solid transparent; margin-bottom: -1px; color: var(--muted);
+    font: 500 11px var(--sans); letter-spacing: .16em; text-transform: uppercase; }
+  .tab[aria-selected="true"] { color: var(--ink); border-color: var(--ink); }
+  .panel { display: none; padding-bottom: 96px; } .panel.on { display: block; }
+  .frame { width: 100%; height: 78vh; border: 1px solid var(--line); background: white; }
+  .pairs { display: grid; gap: 30px; }
+  .pair { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 14px; align-items: start; }
+  .pair img { width: 100%; display: block; }
+  .pair figcaption { font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .phone { width: 360px; max-width: 100%; border: 9px solid #111; border-radius: 44px; background: white; overflow: hidden; }
+  .phone .bar { padding: 12px 16px; font-weight: 600; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; font-size: 14px; }
   .ig-head { display: flex; gap: 14px; padding: 14px 16px; align-items: center; }
   .avatar { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; color: white;
-    font: 400 30px var(--serif); flex: none; }
+    font: 400 30px var(--serif); flex: none; overflow: hidden; }
+  .avatar img { width: 70%; height: 70%; object-fit: contain; }
   .ig-bio { padding: 0 16px 12px; font-size: 13px; }
   .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
   .grid3 img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; cursor: pointer; }
-  .side { display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: start; }
-  .caption { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; white-space: pre-wrap; font-size: 15px; }
+  .side { display: grid; grid-template-columns: auto 1fr; gap: 44px; align-items: start; }
+  .caption { border-left: 1px solid var(--ink); padding: 4px 0 4px 18px; white-space: pre-wrap; font-size: 15px; margin: 12px 0; }
   .tt { position: relative; aspect-ratio: 9 / 16; background: black; }
   .tt video { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .scores { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 14px 0; }
-  .scores div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px; text-align: center; }
-  .scores b { font: 400 34px var(--serif); display: block; }
-  .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
-  .post { background: white; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
-  .post .who { display: flex; gap: 10px; align-items: center; padding: 12px 14px; font-weight: 600; }
+  .scores { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .scores div { padding: 12px 6px; text-align: center; border-right: 1px solid var(--line); }
+  .scores div:last-child { border-right: 0; }
+  .scores b { font: 300 36px/1 var(--serif); display: block; }
+  .remix { display: grid; grid-template-columns: auto 1fr; gap: 44px; align-items: start; padding: 0 0 56px; margin-bottom: 56px; border-bottom: 1px solid var(--line); }
+  .remix h3 { font: 300 40px/1 var(--serif); letter-spacing: -.02em; margin: 8px 0 12px; }
+  .beats { list-style: none; padding: 0; margin: 12px 0; font-size: 13px; border-top: 1px solid var(--line); }
+  .beats li { display: grid; grid-template-columns: 60px 110px 1fr; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+  .angles { display: flex; gap: 8px; margin-top: 10px; } .angles img { width: 96px; aspect-ratio: 2 / 3; object-fit: cover; }
+  .logos { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); }
+  .logos figure { margin: 0; padding: 48px; display: grid; place-items: center; gap: 18px; min-height: 360px; }
+  .logos figure + figure { border-left: 1px solid var(--line); background: white; }
+  .logos img { max-width: 70%; max-height: 220px; }
+  .logos .lockup { display: flex; align-items: center; gap: 18px; }
+  .logos .lockup img { height: 72px; }
+  .logos .lockup span { font: 400 40px var(--serif); }
+  .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+  .post { background: white; border: 1px solid var(--line); overflow: hidden; }
+  .post .who { display: flex; gap: 10px; align-items: center; padding: 12px 14px; font-weight: 600; font-size: 14px; }
   .post .who .avatar { width: 36px; height: 36px; font-size: 18px; }
   .post p { padding: 0 14px; margin: 0 0 12px; font-size: 14px; white-space: pre-wrap; }
   .post img { width: 100%; display: block; }
-  pre.skill { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; white-space: pre-wrap;
-    font: 13px/1.6 var(--mono); max-height: 70vh; overflow: auto; }
-  .dl { display: inline-block; background: var(--ink); color: var(--paper); text-decoration: none; border-radius: 999px;
-    padding: 14px 24px; font-weight: 600; }
+  pre.skill { background: var(--card); border: 1px solid var(--line); padding: 24px; white-space: pre-wrap;
+    font: 12.5px/1.65 var(--mono); max-height: 70vh; overflow: auto; }
+  .dl { display: inline-block; background: var(--ink); color: var(--paper); text-decoration: none;
+    padding: 16px 28px; font: 500 11px var(--sans); letter-spacing: .18em; text-transform: uppercase; }
   .dl:hover { background: var(--hot); }
-  .fixedlist { columns: 2; column-gap: 32px; margin: 0; padding-left: 18px; }
-  .fixedlist li { break-inside: avoid; margin-bottom: 10px; font-size: 15px; }
+  .fixedlist { columns: 2; column-gap: 40px; margin: 0; padding-left: 18px; }
+  .fixedlist li { break-inside: avoid; margin-bottom: 12px; font-size: 14px; }
   .fixedlist small { color: var(--muted); display: block; }
-  footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 13px; }
-  @media (max-width: 860px) {
-    .garage, .side, .revealhead { grid-template-columns: 1fr; }
+  footer { border-top: 1px solid var(--line); padding: 26px 0 44px; color: var(--muted); font-size: 12px; }
+  @media (max-width: 900px) {
+    .wrap { padding: 0 16px; }
+    header.top { grid-template-columns: 1fr auto; } header.top .l { display: none; }
+    .split { grid-template-columns: 1fr; min-height: 0; }
+    .split .copy { padding: 36px 0 40px; }
+    .art { margin: 0 -16px; aspect-ratio: 4 / 5; }
+    header.top .brand { letter-spacing: .22em; white-space: nowrap; font-size: 12px; }
+    header.top .r { display: none; } header.top { grid-template-columns: 1fr; justify-items: center; }
+    .art .tag { top: 20px; bottom: auto; right: 20px; }
+    .art figure { left: 16px; bottom: 16px; }
+    .index { grid-template-columns: 1fr 1fr; } .index div { border-right: 0; border-bottom: 1px solid var(--line); margin-right: 0; padding-right: 0; }
+    .garage, .side, .revealhead, .remix { grid-template-columns: 1fr; }
     .pair { grid-template-columns: 1fr 1fr; } .pair figure:nth-child(2) { grid-column: 1 / -1; order: 3; }
     .fixedlist { columns: 1; } .scores { grid-template-columns: repeat(3, 1fr); }
     .barrow { grid-template-columns: 120px 1fr 30px; }
+    .logos { grid-template-columns: 1fr; } .logos figure + figure { border-left: 0; border-top: 1px solid var(--line); }
+    .beats li { grid-template-columns: 48px 90px 1fr; }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <b>Pimp My <i>Social</i></b>
-    <span class="mono muted">Makeovers for small businesses</span>
+    <span class="label muted l">Episode 01</span>
+    <a class="brand" href="/">Pimp My <i>Social</i></a>
+    <span class="label muted r">Makeovers for small businesses</span>
   </header>
 
   <!-- 1. splash -->
   <section class="view on" id="v-splash">
-    <div class="hero">
-      <div class="mono">Episode 01 · your business</div>
-      <h1 class="title">Pimp My<br><i>Social.</i></h1>
-      <p class="lede">Give us your website. We hand back a makeover: a new editorial site built to be found
-        by search engines and AI agents, studio photos of your own products, posts and a short video for
-        every channel you pick, and a report on what changed.</p>
-      <form class="go" id="form">
-        <div class="urlrow">
-          <input id="url" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" aria-label="Your website address" required>
-          <button id="goBtn" type="submit">Pimp it</button>
-        </div>
-        <fieldset>
-          <legend class="mono muted">Channels to pimp</legend>
-          <div class="chips" id="channels"><button type="button" class="chip locked" aria-pressed="true" disabled>Website</button></div>
-        </fieldset>
-        <fieldset>
-          <legend class="mono muted">Your vibe <span style="text-transform:none;letter-spacing:0">(optional, up to 3)</span></legend>
-          <div class="chips" id="tags"></div>
-        </fieldset>
-        <label class="consent"><input type="checkbox" id="consent"> I own this business, or have its permission to remake its website and photos.</label>
-        <p class="err" id="err" role="alert"></p>
-      </form>
+    <div class="split">
+      <div class="copy">
+        <div class="label muted">Your website in · a whole brand out</div>
+        <h1 class="title">Pimp my<br><i>social.</i></h1>
+        <p class="lede">Give us your website. We hand back a makeover: a new site built to be found by search
+          engines and AI agents, studio photos of your own products, a remade logo, videos remixed from
+          formats that are working right now, and a report on what changed.</p>
+        <form class="go" id="form">
+          <div class="field">
+            <input id="url" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" aria-label="Your website address" required>
+            <button id="goBtn" class="btn" type="submit">Pimp it</button>
+          </div>
+          <fieldset>
+            <legend class="label muted">Channels</legend>
+            <div class="chips" id="channels"><button type="button" class="chip locked" aria-pressed="true" disabled>Website</button></div>
+          </fieldset>
+          <fieldset>
+            <legend class="label muted">Vibe · optional, up to 3</legend>
+            <div class="chips" id="tags"></div>
+          </fieldset>
+          <fieldset>
+            <legend class="label muted">Remix a hit · optional, up to 2</legend>
+            <div class="chips" id="formats"></div>
+            <div class="upload"><label for="post">Upload a post that's working</label><input id="post" type="file" accept="video/mp4,video/quicktime,video/webm,image/jpeg,image/png,image/webp"><span id="postNote">Spark takes it apart; we rebuild its essence with your products.</span></div>
+          </fieldset>
+          <label class="consent"><input type="checkbox" id="consent"> I own this business, or have its permission to remake its website, logo and photos.</label>
+          <p class="err" id="err" role="alert"></p>
+        </form>
+      </div>
+      <div class="art">
+        <img class="after" src="/static/hero-after.jpg" alt="A croissant reshot as a professional studio photograph">
+        <figure><img src="/static/hero-before.jpg" alt="The owner's original phone photo of the croissants"><figcaption class="label muted">Before · the owner's photo</figcaption></figure>
+        <div class="tag label">After · Muse Image,<br>checked by SAM 3.1</div>
+      </div>
     </div>
-    <div class="models">
-      <div><b>Muse Spark</b><span>reads your brand, writes the copy, reviews the video</span></div>
-      <div><b>Muse Wonder</b><span>designs and codes your new site</span></div>
-      <div><b>Muse Image</b><span>reshoots your products in the studio</span></div>
-      <div><b>SAM 3.1</b><span>isolates each product and checks the reshoot</span></div>
-      <div><b>Voice Transcribe</b><span>checks every word of the voiceover</span></div>
+    <div class="index">
+      <div><span class="num muted">01</span><b>Muse Spark</b><span>reads your brand, writes the copy, takes hit posts apart, reviews every cut</span></div>
+      <div><span class="num muted">02</span><b>Muse Wonder</b><span>designs and codes your new site from real brand references</span></div>
+      <div><span class="num muted">03</span><b>Muse Image</b><span>reshoots your products and redraws your logo</span></div>
+      <div><span class="num muted">04</span><b>SAM 3.1</b><span>isolates each product and checks the reshoot is still yours</span></div>
+      <div><span class="num muted">05</span><b>Voice Transcribe</b><span>hears the hit posts you remix, so their shape carries over</span></div>
     </div>
   </section>
 
@@ -206,26 +258,26 @@
   <section class="view" id="v-garage">
     <div class="garage">
       <div>
-        <div class="mono muted" id="g-url"></div>
+        <div class="label muted" id="g-url"></div>
         <h2 class="big" id="g-title">In the garage</h2>
-        <div class="shot"><img id="g-before" alt="The current website" hidden onload="this.hidden=false"><span class="stamp mono">Before</span></div>
+        <div class="shot"><img id="g-before" alt="The current website" hidden onload="this.hidden=false"><span class="stamp label">Before</span></div>
         <div class="scorebox" id="scorebox" hidden>
-          <div class="mono muted">Scorecard</div>
+          <div class="label muted">Scorecard</div>
           <div class="score-n" id="score-n"></div>
           <div class="bars" id="bars"></div>
           <ul class="fails" id="fails"></ul>
         </div>
       </div>
       <div>
-        <div class="mono muted">The crew is working</div>
+        <div class="label muted">The crew is working</div>
         <ol class="stages" id="stages"></ol>
         <p class="err" id="g-err"></p>
       </div>
     </div>
     <div id="choose" hidden>
-      <div class="mono" style="color:var(--hot)">Pick your paint job</div>
+      <div class="label" style="color:var(--hot)">Pick your paint job</div>
       <h2 class="big">Which one feels like you?</h2>
-      <p class="muted" style="max-width:640px">Spark picked three that suit your brand, plus one wildcard. Each preview is your own photo, reshot in that style.</p>
+      <p class="muted" style="max-width:40em">Spark picked three that suit your brand, plus one wildcard. Each preview is your own photo, reshot in that style; each direction is modelled on real brand sites.</p>
       <div class="cards" id="cards"></div>
     </div>
   </section>
@@ -234,15 +286,15 @@
   <section class="view" id="v-reveal">
     <div class="revealhead">
       <div>
-        <div class="mono" style="color:var(--hot)">The reveal</div>
+        <div class="label" style="color:var(--hot)">The reveal</div>
         <h2 class="big" id="r-title"></h2>
       </div>
       <div class="delta"><span class="from" id="r-from"></span> → <span class="to" id="r-to"></span></div>
     </div>
     <div class="compare" id="compare">
       <img id="r-after" alt="The new website"><img class="top" id="r-before" alt="The old website">
-      <span class="stamp mono" style="z-index:2">Before</span>
-      <span class="stamp mono after" style="z-index:2;left:auto;right:16px">After</span>
+      <span class="stamp label" style="z-index:2">Before</span>
+      <span class="stamp label after" style="z-index:2;left:auto;right:14px">After</span>
       <div class="handle" id="handle"></div>
       <input type="range" min="0" max="100" value="50" id="slider" aria-label="Compare before and after">
     </div>
@@ -266,7 +318,8 @@ const el = (tag, attrs = {}, ...kids) => {
   return n;
 };
 const CAT = { overall: 'Overall', seo: 'Search engines', aeo: 'Answer engines (AI search)', agents: 'AI agents', social: 'Social sharing', speed: 'Speed' };
-let job = null, jobId = null, poll = null, picked = new Set(['instagram', 'tiktok']), tags = new Set();
+let job = null, jobId = null, poll = null, picked = new Set(['instagram', 'tiktok']), tags = new Set(), fmts = new Set();
+const REF_NAMES = { toteme: 'Toteme', lemaire: 'Lemaire', studio_nicholson: 'Studio Nicholson', aime_leon_dore: 'Aimé Leon Dore', our_legacy: 'Our Legacy', bode: 'Bode', story_mfg: 'Story mfg.', kotn: 'Kotn' };
 
 function show(view) {
   for (const v of document.querySelectorAll('.view')) v.classList.toggle('on', v.id === 'v-' + view);
@@ -283,6 +336,25 @@ fetch('/api/options').then((r) => r.json()).then((o) => {
     $('tags').append(el('button', { type: 'button', class: 'chip', 'aria-pressed': 'false', text: t,
       onclick: (e) => toggle(e.currentTarget, tags, t, 3) }));
   }
+  for (const f of o.formats) addFormat(f, false);
+});
+function addFormat(f, on) {
+  const b = el('button', { type: 'button', class: 'chip', 'aria-pressed': String(on), title: f.essence || '', text: f.name,
+    onclick: (e) => toggle(e.currentTarget, fmts, f.id, 2) });
+  if (on) { fmts.add(f.id); if (fmts.size > 2) fmts.delete([...fmts][0]); }
+  $('formats').append(b);
+}
+$('post').addEventListener('change', async (e) => {
+  const file = e.target.files[0]; if (!file) return;
+  $('postNote').textContent = 'Spark is watching it and Transcribe is listening…';
+  const fd = new FormData(); fd.append('post', file);
+  try {
+    const r = await fetch('/api/formats', { method: 'POST', body: fd });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.detail || 'Could not read that post.');
+    addFormat(d, true);
+    $('postNote').textContent = `Got it: “${d.name}”. ${d.essence}`;
+  } catch (err) { $('postNote').textContent = err.message; }
 });
 function toggle(btn, set, id, max) {
   if (set.has(id)) set.delete(id); else if (set.size < max) set.add(id); else return;
@@ -296,7 +368,7 @@ $('form').addEventListener('submit', async (e) => {
   $('goBtn').disabled = true; $('goBtn').textContent = 'Opening the garage…';
   try {
     const r = await fetch('/api/jobs', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: $('url').value, channels: [...picked], tags: [...tags], consent: true }) });
+      body: JSON.stringify({ url: $('url').value, channels: [...picked], tags: [...tags], formats: [...fmts], consent: true }) });
     const d = await r.json();
     if (!r.ok) throw new Error(d.detail || 'Something went wrong.');
     open(d.id);
@@ -361,10 +433,11 @@ function drawCards() {
       c.preview ? el('img', { src: c.preview, alt: c.name + ' preview' }) : el('img', { alt: '' }),
       el('div', { class: 'body' },
         c.wildcard ? el('span', { class: 'badge mono', text: 'Wildcard' }) : null,
-        el('div', { class: 'name', style: `font-family:'${c.fonts.display}', serif`, text: c.name }),
+        el('div', { class: 'name', style: `font-family:'${c.fonts.display}', serif;font-weight:400`, text: c.name }),
         sw, el('div', { style: `font-family:'${c.fonts.body}'`, text: c.pitch }),
         c.why ? el('div', { class: 'why', text: c.why }) : null,
-        el('span', { class: 'pick', text: 'Paint it this way →' }))));
+        (c.refs || []).length ? el('div', { class: 'refs label', text: 'Modelled on ' + c.refs.map((r) => REF_NAMES[r] || r).join(' · ') }) : null,
+        el('span', { class: 'pick label', text: 'Paint it this way →' }))));
   }
   setTimeout(() => $('choose').scrollIntoView({ behavior: 'smooth' }), 300);
 }
@@ -387,10 +460,12 @@ function drawReveal() {
     $('handle').style.left = e.target.value + '%'; };
   const cardsById = Object.fromEntries(d.cards.map((c) => [c.id, c]));
   const dir = cardsById[d.direction];
-  const tabs = [['site', 'Website'], ['photos', 'Photos'], ['changes', 'What changed']];
+  const tabs = [['site', 'Website'], ['photos', 'Photos']];
+  if (d.logo && d.logo.mark) tabs.push(['logo', 'Logo']);
+  tabs.push(['changes', 'What changed']);
   const chans = (d.social.channels || []).map((c) => c.channel);
+  if ((d.remixes || []).length) tabs.push(['remixes', 'Remixes']);
   if (chans.includes('instagram')) tabs.push(['instagram', 'Instagram']);
-  if (d.video) tabs.push(['video', 'Short video']);
   for (const c of ['facebook', 'linkedin', 'x']) if (chans.includes(c)) tabs.push([c, { facebook: 'Facebook', linkedin: 'LinkedIn', x: 'X' }[c]]);
   tabs.push(['report', 'Report'], ['skill', 'Brand skill'], ['download', 'Download']);
   $('tabs').innerHTML = ''; $('panels').innerHTML = '';
@@ -407,7 +482,9 @@ function tab(key) {
   // Pause the video when leaving its tab.
   document.querySelectorAll('.panel:not(.on) video').forEach((v) => v.pause());
 }
-const avatar = (name, dir, small) => el('div', { class: 'avatar', style: `background:${dir.palette.accent}` }, name.trim()[0]);
+const avatar = (name, dir) => job.data.logo && job.data.logo.mark
+  ? el('div', { class: 'avatar', style: `background:${dir.palette.bg};border:1px solid rgba(0,0,0,.08)` }, el('img', { src: job.data.logo.mark, alt: '' }))
+  : el('div', { class: 'avatar', style: `background:${dir.palette.accent}` }, name.trim()[0]);
 const render = {
   site: (d) => el('div', {}, el('p', {}, el('a', { href: d.site.url, target: '_blank', rel: 'noopener', text: 'Open the new site in a new tab ↗' })),
     el('iframe', { class: 'frame', src: d.site.url, title: 'The new website' })),
@@ -440,18 +517,41 @@ const render = {
       el('div', {}, el('div', { class: 'mono muted', text: 'Caption · tap a post' }), cap,
         el('p', { class: 'muted', text: (d.social.hashtags || []).join(' ') })));
   },
-  video: (d) => {
-    const v = d.video, rv = v.review;
-    const sc = el('div', { class: 'scores' });
-    for (const k of ['hook', 'pacing', 'legibility', 'on_brand', 'overall'])
-      sc.append(el('div', {}, el('b', { text: rv[k] }), el('span', { class: 'mono muted', text: k.replace('_', ' ') })));
-    const fixes = el('ul', {}); for (const f of rv.fixes) fixes.append(el('li', { text: f }));
-    const cuts = v.cuts.length > 1 ? el('p', { class: 'muted', text: `Spark reviewed ${v.cuts.length} cuts (scores ${v.cuts.map((c) => c.review.overall).join(' → ')}); this is the best.` }) : null;
-    return el('div', { class: 'side' },
-      el('div', { class: 'phone' }, el('div', { class: 'tt' }, el('video', { src: v.mp4, poster: v.poster, controls: '', playsinline: '', loop: '' }))),
-      el('div', {}, el('div', { class: 'mono muted', text: 'Muse Spark watched it like an editor' }), sc,
-        el('div', { class: 'caption', text: rv.verdict }), el('h4', { text: 'For the next cut' }), fixes, cuts,
-        el('p', { class: 'muted', text: 'Every voiceover line was checked by Muse Voice Transcribe before the cut.' })));
+  logo: (d, dir) => el('div', {},
+    el('div', { class: 'logos' },
+      el('figure', {}, d.logo.original ? el('img', { src: d.logo.original, alt: 'The original logo' }) : null,
+        el('figcaption', { class: 'label muted', text: 'Before · the reference' })),
+      el('figure', {}, el('div', { class: 'lockup' }, el('img', { src: d.logo.mark, alt: 'The remade logo mark' }),
+        el('span', { style: `font-family:'${dir.fonts.display}',serif`, text: d.brand.name })),
+        el('figcaption', { class: 'label muted', text: 'After · redrawn by Muse Image' }))),
+    el('p', { class: 'caption', text: (d.logo.motif ? `Kept: ${d.logo.motif}. ` : '') + d.logo.note }),
+    el('p', { class: 'muted', text: 'Muse Spark read what the original is about, Muse Image redrew it as one clean mark, and Spark compared the two to check it still reads as you. The name is set in your new display face beside it.' })),
+  remixes: (d) => {
+    const box = el('div', {});
+    for (const r of d.remixes) {
+      const rv = r.review, g = r.grounded;
+      const sc = el('div', { class: 'scores' });
+      for (const k of ['essence', 'hook', 'pacing', 'legibility', 'grounded', 'overall'])
+        sc.append(el('div', {}, el('b', { text: rv[k] }), el('span', { class: 'label muted', text: k })));
+      const beats = el('ul', { class: 'beats' });
+      for (const b of r.timeline) beats.append(el('li', {}, el('span', { class: 'num muted', text: b.start_s.toFixed(1) + 's' }),
+        el('span', { class: 'label muted', text: b.shot.replace('_', ' ') + ' · ' + b.motion }), el('span', { text: b.text || '—' })));
+      const angles = el('div', { class: 'angles' });
+      for (const a of r.angles) angles.append(el('img', { src: a.image, alt: a.angle, title: a.angle }));
+      box.append(el('div', { class: 'remix' },
+        el('div', { class: 'phone' }, el('div', { class: 'tt' }, el('video', { src: r.mp4, poster: r.poster, controls: '', playsinline: '', loop: '', muted: '' }))),
+        el('div', {},
+          el('div', { class: 'label', style: 'color:var(--hot)', text: 'Remix of “' + r.format.name + '”' }),
+          el('h3', { text: g.title }),
+          el('p', { class: 'muted', text: r.format.essence }),
+          el('div', { class: 'label muted', text: 'Muse Spark watched it against the format' }), sc,
+          el('div', { class: 'caption', text: rv.verdict }),
+          el('div', { class: 'label muted', text: 'The cut, beat by beat' }), beats,
+          r.angles.length ? el('div', { class: 'label muted', text: 'New angles shot by Muse Image for this format' }) : null, angles,
+          el('div', { class: 'caption', text: g.caption + '\n\n' + g.hashtags.join(' ') }),
+          el('p', { class: 'muted', text: `Sound: pick ${g.sound} in the app; platform sounds are licensed there.` + (r.cuts.length > 1 ? ` Spark reviewed ${r.cuts.length} cuts (${r.cuts.join(' → ')}); this is the best.` : '') }))));
+    }
+    return box;
   },
   facebook: (d, dir, key) => postList(d, dir, key), linkedin: (d, dir, key) => postList(d, dir, key), x: (d, dir, key) => postList(d, dir, key),
   report: (d) => el('div', {}, el('p', {}, el('a', { href: d.package.report, target: '_blank', rel: 'noopener', text: 'Open the report in a new tab ↗' })),

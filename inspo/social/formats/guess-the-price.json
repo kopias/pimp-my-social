@@ -1,0 +1,73 @@
+{
+ "id": "guess-the-price",
+ "name": "Guess the price",
+ "seen_on": [
+  "tiktok",
+  "reels"
+ ],
+ "source": "library: the price-reveal participation format, described generically",
+ "essence": "Ask the viewer to guess, show the piece from its best angles while they do, then reveal the real price as the payoff.",
+ "why_it_works": [
+  "A question makes viewers commit and stay for the answer",
+  "Comments fill with guesses, which feeds reach",
+  "The reveal frames the price as good value"
+ ],
+ "hook": {
+  "pattern": "'guess the price' or 'how much do you think this {product} is?'",
+  "on_screen": true,
+  "first_frame": "the product, centred and still"
+ },
+ "beats": [
+  {
+   "role": "hook",
+   "shot": "hero",
+   "seconds": 1.8,
+   "motion": "push",
+   "text": "{hook}"
+  },
+  {
+   "role": "build",
+   "shot": "detail",
+   "seconds": 1.2,
+   "motion": "punch",
+   "text": "{a true detail}"
+  },
+  {
+   "role": "build",
+   "shot": "angle",
+   "seconds": 1.2,
+   "motion": "punch",
+   "text": "{a second true detail}"
+  },
+  {
+   "role": "payoff",
+   "shot": "price_card",
+   "seconds": 1.8,
+   "motion": "punch",
+   "text": "{price}"
+  },
+  {
+   "role": "cta",
+   "shot": "logo",
+   "seconds": 2.2,
+   "motion": "hold",
+   "text": "{where to buy}"
+  }
+ ],
+ "text_style": "native",
+ "sound": "a ticking or suspense-build trending sound that drops at the reveal",
+ "voiceover": false,
+ "needs": [
+  "a real listed price"
+ ],
+ "keep": [
+  "question first",
+  "a pause before the reveal",
+  "the price as its own frame"
+ ],
+ "drop": [
+  "fake 'was' prices or invented discounts"
+ ],
+ "look": "clean",
+ "people": false
+}

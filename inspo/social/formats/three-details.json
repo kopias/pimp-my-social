@@ -1,0 +1,81 @@
+{
+ "id": "three-details",
+ "name": "Three details",
+ "seen_on": [
+  "tiktok",
+  "reels",
+  "instagram carousel"
+ ],
+ "source": "library: the numbered-details listicle format, described generically",
+ "essence": "A numbered countdown of small, true details that make one piece special, each with its own close-up, ending on the whole piece.",
+ "why_it_works": [
+  "Numbers promise a short, finite watch",
+  "Each detail is a reason to buy, shown not told",
+  "Works as a video and as a swipeable carousel"
+ ],
+ "hook": {
+  "pattern": "'3 details on the {product} you'd miss'",
+  "on_screen": true,
+  "first_frame": "the whole piece"
+ },
+ "beats": [
+  {
+   "role": "hook",
+   "shot": "hero",
+   "seconds": 1.6,
+   "motion": "push",
+   "text": "{hook}"
+  },
+  {
+   "role": "build",
+   "shot": "detail",
+   "seconds": 1.6,
+   "motion": "punch",
+   "text": "1. {true detail}"
+  },
+  {
+   "role": "build",
+   "shot": "angle",
+   "seconds": 1.6,
+   "motion": "punch",
+   "text": "2. {true detail}"
+  },
+  {
+   "role": "build",
+   "shot": "detail",
+   "seconds": 1.6,
+   "motion": "punch",
+   "text": "3. {true detail}"
+  },
+  {
+   "role": "payoff",
+   "shot": "hero",
+   "seconds": 1.8,
+   "motion": "push",
+   "text": "{product}, {price}"
+  },
+  {
+   "role": "cta",
+   "shot": "logo",
+   "seconds": 2.0,
+   "motion": "hold",
+   "text": "{where to buy}"
+  }
+ ],
+ "text_style": "headline",
+ "sound": "a mellow trending track; numbers land on the beat",
+ "voiceover": false,
+ "needs": [
+  "three true details from the product description"
+ ],
+ "keep": [
+  "numbered beats",
+  "one close-up per detail",
+  "the whole piece last"
+ ],
+ "drop": [
+  "details that aren't in the product's own description"
+ ],
+ "look": "clean",
+ "people": false
+}
