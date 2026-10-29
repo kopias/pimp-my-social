@@ -79,7 +79,23 @@
   /* --- garage --- */
   .garage { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; padding: 48px 0 64px; }
   .shot { position: relative; border: 1px solid var(--line); overflow: hidden; background: var(--paper2); aspect-ratio: 16 / 10; }
-  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;
+    opacity: 0; transition: opacity .6s ease; }
+  .shot img.ready { opacity: 1; }
+  /* Until the screenshot lands: a skeleton browser window, so nothing looks broken. */
+  .skel { position: absolute; inset: 0; display: flex; flex-direction: column; transition: opacity .4s ease; }
+  .shot.loaded .skel { opacity: 0; }
+  .shot:not(.loaded) .stamp { display: none; }
+  .skel .bar { height: 34px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 7px; padding: 0 14px; background: var(--paper); }
+  .skel .bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+  .skel .bar span { margin-left: 14px; flex: 1; max-width: 46%; height: 16px; background: var(--paper2); font: 500 10px/16px var(--mono, monospace); letter-spacing: .08em; color: var(--muted); padding: 0 8px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .skel .page { flex: 1; padding: 7% 8%; display: grid; grid-template-rows: auto auto 1fr; gap: 18px; }
+  .skel .ln, .skel .blk { background: linear-gradient(90deg, rgba(0,0,0,.045) 0%, rgba(0,0,0,.085) 50%, rgba(0,0,0,.045) 100%); background-size: 200% 100%; animation: shimmer 1.6s ease-in-out infinite; }
+  .skel .ln { height: 14px; width: 38%; } .skel .ln.w { height: 30px; width: 62%; }
+  .skel .blk { min-height: 0; }
+  .skel .note { position: absolute; left: 0; right: 0; bottom: 18px; text-align: center; color: var(--muted); }
+  @keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+  @media (prefers-reduced-motion: reduce) { .skel .ln, .skel .blk { animation: none; } }
   .stamp { position: absolute; top: 14px; left: 14px; background: var(--paper); color: var(--ink); padding: 6px 10px; }
   .stamp.after { background: var(--ink); color: var(--paper); }
   h2.big { font: 300 clamp(40px, 5vw, 72px)/.95 var(--serif); letter-spacing: -.025em; margin: 10px 0 22px; }
@@ -269,7 +285,15 @@
       <div>
         <div class="label muted" id="g-url"></div>
         <h2 class="big" id="g-title">In the garage</h2>
-        <div class="shot"><img id="g-before" alt="The current website" hidden onload="this.hidden=false"><span class="stamp label">Before</span></div>
+        <div class="shot" id="g-shot">
+          <div class="skel" aria-hidden="true">
+            <div class="bar"><i></i><i></i><i></i><span id="g-skelurl"></span></div>
+            <div class="page"><div class="ln"></div><div class="ln w"></div><div class="blk"></div></div>
+            <div class="note label" id="g-skelnote">Opening the site like a visitor would…</div>
+          </div>
+          <img id="g-before" alt="" onload="this.alt='The current website';this.classList.add('ready');this.parentNode.classList.add('loaded')" onerror="this.removeAttribute('src')">
+          <span class="stamp label">Before</span>
+        </div>
         <div class="scorebox" id="scorebox" hidden>
           <div class="label muted">Scorecard</div>
           <div class="score-n" id="score-n"></div>
@@ -386,6 +410,11 @@ $('form').addEventListener('submit', async (e) => {
 });
 
 function open(id) {
+  if (id !== jobId) {  // a new makeover starts on the placeholder, not the last site's screenshot
+    const img = $('g-before');
+    img.removeAttribute('src'); img.classList.remove('ready'); img.alt = '';
+    $('g-shot').classList.remove('loaded');
+  }
   jobId = id; history.replaceState(null, '', '#' + id);
   show('garage'); clearInterval(poll); tick(); poll = setInterval(tick, 2000);
 }
@@ -404,7 +433,8 @@ function drawGarage() {
   const d = job.data;
   $('g-url').textContent = job.url;
   $('g-title').textContent = d.brand ? d.brand.name : (d.before ? d.before.name : 'In the garage');
-  if (d.before && !$('g-before').src) $('g-before').src = d.before.desktop;
+  $('g-skelurl').textContent = job.url.replace(/^https?:\/\//, '');
+  if (d.before && !$('g-before').getAttribute('src')) $('g-before').src = d.before.desktop;
   const ol = $('stages'); ol.innerHTML = '';
   for (const [key, st] of Object.entries(job.stages)) {
     ol.append(el('li', { 'data-state': st.state }, el('span', { class: 'dot' }),
