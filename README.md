@@ -24,7 +24,8 @@ unrecognisable. Built for the Meta Global AI Developer Hackathon (Oct 26 to Nov
 | Logo | **Muse Spark** + **Muse Image** | Spark reads what the current logo is about; Image redraws it as one clean mark; Spark compares old and new and rejects a redraw that lost the idea |
 | Website | **Muse Spark** + **Muse Wonder 1.0** | Spark writes the copy, held to the facts on the site; Wonder designs and codes a bespoke page in the chosen direction, looking at screenshots of the real brand sites the direction is modelled on |
 | Findability | code | Meta/Open Graph, JSON-LD (business, products, FAQ), robots.txt that welcomes AI crawlers, sitemap.xml, llms.txt, WebMCP tools |
-| Remix a hit | **Muse Spark** (video), **Muse Voice Transcribe**, Muse Image | A popular post is reverse engineered into its essence (Spark watches it, Transcribe hears its speech), then rebuilt with only this business's products, prices and place; Image shoots any new angle the format needs; Spark reviews each cut against the format |
+| The campaign | **Muse Spark**, **Muse Image**, **SAM 3.1** | A "got ___?" campaign in the Got Milk register, ported from the Loreto "got skills?" work: Spark writes one thesis ("You are not X. You are Y.") and a brief (a poster roster, a deprivation still, a four-beat metaphor film), code gates the copy; Image casts it, wearing the real products, with one cast reference passed into every film shot so the person stays the same; SAM finds every hand so Spark can count fingers; the browser sets all type; Spark watches the film and one revision follows its notes |
+| Remix a hit (optional) | **Muse Spark** (video), **Muse Voice Transcribe**, Muse Image | A popular post is reverse engineered into its essence (Spark watches it, Transcribe hears its speech), then rebuilt with only this business's products, prices and place; Image shoots any new angle the format needs; Spark reviews each cut against the format |
 
 ## The inspiration library (`inspo/`)
 
@@ -37,6 +38,9 @@ A skill folder future makeovers build from:
   name their references; Wonder gets the notes plus a screenshot of each.
   Screenshots stay on the machine that captured them (`uv run scripts/capture_inspo.py`),
   not in git: they're the brands' own images.
+- `inspo/social/campaign/SKILL.md`: the campaign framework (the thesis rule, the
+  lockup, the three registers, the traps that each happened once). Spark reads it
+  at runtime and it ships in every brand skill, so owners can write more.
 - `inspo/social/formats/*.json`: popular post formats reverse engineered into their
   essence (hook pattern, beats, motion, text style, sound, keep/drop). Campaign film,
   location lookbook, fit check, made by hand, guess the price, three details, POV.
@@ -77,6 +81,8 @@ pms/photos.py      SAM 3.1 isolate -> Muse Image reshoot -> SAM fidelity check
 pms/site.py        Spark copy, Muse Wonder page, and the findability layer (incl. WebMCP)
 pms/social.py      Spark's channel plan; posts composed in the direction's fonts and colours
 pms/logo.py        Spark reads the logo's idea -> Muse Image redraws it -> key out -> Spark checks it
+pms/campaign.py    the got ___? campaign: brief + gate -> cast and shoot -> hand/lettering checks -> type -> film -> review
+pms/typeset.py     every word on a poster, caption or end card, set in HTML by a real browser
 pms/remix.py       reverse engineer a post -> ground it to the business -> shoot angles -> cut -> Spark review
 pms/inspo.py       loads the inspiration library for the builder
 pms/video.py       the earlier voiced slideshow (kept for reference; the pipeline uses remix.py)

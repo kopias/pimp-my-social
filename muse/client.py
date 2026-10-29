@@ -140,6 +140,28 @@ def edit_image(src: str | Path, prompt: str, out: str | Path, *, size: str = "au
     return out
 
 
+def edit_images(srcs: list[str | Path], prompt: str, out: str | Path, *,
+                size: str = "1024x1536") -> Path:
+    """Muse Image edit from several photos at once ("the person in image 1 wearing the
+    dress in image 2"). The API wants the files as image[0], image[1], ..., which the
+    OpenAI SDK doesn't send, so this is a plain multipart POST."""
+    files = {f"image[{i}]": (Path(s).name, open(s, "rb"), mimetypes.guess_type(str(s))[0] or "image/png")
+             for i, s in enumerate(srcs)}
+    try:
+        r = requests.post(f"{BASE_URL}/images/edits", headers={"Authorization": f"Bearer {api_key()}"},
+                          files=files, timeout=300,
+                          data={"model": IMAGE_MODEL, "prompt": prompt, "n": "1", "size": size,
+                                "output_format": "png", "reasoning_strength": "low"})
+    finally:
+        for _, f, _ in files.values():
+            f.close()
+    if not r.ok:
+        raise RuntimeError(f"Muse Image edit {r.status_code}: {r.text[:300]}")
+    out = Path(out)
+    out.write_bytes(base64.b64decode(r.json()["data"][0]["b64_json"]))
+    return out
+
+
 # --- SAM 3.1 -----------------------------------------------------------------
 
 

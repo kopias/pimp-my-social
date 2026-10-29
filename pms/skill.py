@@ -89,6 +89,8 @@ def skill_md(profile: dict, direction: dict, social: dict, base: str) -> str:
         f"- Bio: {social.get('bio', '')}" if social.get("bio") else "",
         f"- Hashtags: {tags}" if tags else "",
         "- Instagram: open the caption with a hook line; one product per post; 4:5 portrait.",
+        "- Campaign: everything says one sentence underneath (see references/campaign.md). "
+        "Never argue the product is good; show the person, end on the lockup.",
         "- Short video: remix formats that are working (see references/formats.md): keep the "
         "format's essence, swap in only your own products, prices and place; text above the "
         "bottom third and clear of the right-hand buttons; end on the logo and how to buy.",
@@ -98,6 +100,8 @@ def skill_md(profile: dict, direction: dict, social: dict, base: str) -> str:
         "- `references/palette.css`: colours and fonts as CSS variables",
         "- `references/examples.md`: the posts written in the makeover, as examples of the voice",
         "- `references/formats.md`: the video formats remixed for you, with their beats",
+        "- `references/campaign.md`: your campaign idea, lockup and every piece's copy; "
+        "`references/campaign-framework.md`: the rules to write more",
         "- `assets/logo.png` (and `logo-light.png`): the remade logo mark; set the name beside it "
         "in the display font",
         "",
@@ -133,8 +137,24 @@ def formats_md(remixes: list | None) -> str:
     return "\n".join(out)
 
 
+def campaign_md(camp: dict, direction: dict) -> str:
+    pal = direction["palette"]
+    accent = pal["accent"] if pal["accent"].lower() != pal["ink"].lower() else pal["accent2"]
+    out = ["# Your campaign", "", f"The idea: {camp['thesis']['not_x']} {camp['thesis']['is_y']}", "",
+           f"The lockup: `{camp['question']}` in {direction['fonts']['display']}, over a 200px rule in "
+           f"{accent}, over your address in a monospace. Three elements, nothing else.", "", "## The pieces", ""]
+    for p in camp["pieces"]:
+        out += [f"### {p['persona']} ({p['kind']})", "", f"Headline: {p['headline']}", ""]
+        out += [f"Body: {p['body']}", ""] if p["body"] else []
+        out += [f"Caption: {p['caption']}", ""]
+    f = camp["film"]
+    out += [f"### Film: {f['title']}", ""] + [f"- {b['role']}: {b['action']} / “{b['caption']}”" for b in f["beats"]]
+    out += ["", f"Caption: {f['caption']}", "", f"Sound: {f['sound']}", ""]
+    return "\n".join(out)
+
+
 def write(profile: dict, direction: dict, social: dict, base: str, out: Path,
-          remixes: list | None = None, mark: dict | None = None) -> Path:
+          remixes: list | None = None, mark: dict | None = None, camp: dict | None = None) -> Path:
     folder = out / (_slug(profile["name"]) + "-brand")
     (folder / "references").mkdir(parents=True, exist_ok=True)
     (folder / "SKILL.md").write_text(skill_md(profile, direction, social, base))
@@ -142,6 +162,10 @@ def write(profile: dict, direction: dict, social: dict, base: str, out: Path,
     (folder / "references" / "palette.css").write_text(palette_css(direction))
     (folder / "references" / "examples.md").write_text(examples_md(social))
     (folder / "references" / "formats.md").write_text(formats_md(remixes))
+    if camp:
+        (folder / "references" / "campaign.md").write_text(campaign_md(camp, direction))
+        fw = Path(__file__).resolve().parent.parent / "inspo" / "social" / "campaign" / "SKILL.md"
+        (folder / "references" / "campaign-framework.md").write_text(fw.read_text().split("---", 2)[-1].strip())
     if mark:
         (folder / "assets").mkdir(exist_ok=True)
         shutil.copy(mark["mark"], folder / "assets" / "logo.png")

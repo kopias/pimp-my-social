@@ -40,7 +40,7 @@ def typical_price(profile: dict) -> float:
 
 def build(site_before, checks_before, checks_after, profile: dict, direction: dict,
           shots: list[dict], social: dict, remixes: list | None, files: dict,
-          logo: dict | None = None) -> dict:
+          logo: dict | None = None, camp: dict | None = None) -> dict:
     sb, sa = audit.score(checks_before), audit.score(checks_after)
     after = {c.id: c for c in checks_after}
     fixed = [{"label": c.label, "category": audit.CATEGORIES[c.category], "found": c.found,
@@ -73,6 +73,12 @@ def build(site_before, checks_before, checks_after, profile: dict, direction: di
                          "review": r["best"]["review"], "cuts": len(r["cuts"])}
                         for r in remixes or []],
             "logo": logo,
+            "campaign": ({"question": camp["question"], "thesis": camp["thesis"],
+                          "pieces": [{"kind": p["kind"], "persona": p["persona"], "headline": p["headline"],
+                                      "takes": p["takes"], "hands_checked": p["check"]["hands_checked"]}
+                                     for p in camp["pieces"]],
+                          "film": {"title": camp["film"]["title"], "duration_s": camp["film"]["duration_s"],
+                                   "review": camp["film"]["review"]}} if camp else None),
             "files": files,
         },
         "agent_ready": agent,
@@ -141,13 +147,23 @@ def page(r: dict) -> str:
         f"({e(x['essence'])}) with your own products. Muse Spark's editor review: essence "
         f"{x['review']['essence']}/10, grounded {x['review']['grounded']}/10, overall {x['review']['overall']}/10. "
         f"“{e(x['review']['verdict'])}”</li>" for x in m.get("remixes", []))
+    cp = m.get("campaign")
+    if cp:
+        fr = cp["film"]["review"]
+        vid_line = (f"<li>A campaign, “{e(cp['question'])}”, built on one idea: “{e(cp['thesis']['not_x'])} "
+                    f"{e(cp['thesis']['is_y'])}” Three posters ("
+                    + ", ".join(e(p["persona"]) for p in cp["pieces"] if p["kind"] == "poster")
+                    + f"), a still, and “{e(cp['film']['title'])}”, a {cp['film']['duration_s']}s film. Every hand "
+                    f"was found by SAM 3.1 and checked by Muse Spark. Spark's review of the film: thesis "
+                    f"{fr['thesis']}/10, hook {fr['hook']}/10, overall {fr['overall']}/10. “{e(fr['verdict'])}”</li>") + vid_line
     lg = m.get("logo") or {}
     if lg.get("mark"):
         vid_line += (f"<li>Your logo, remade from the original ({e(lg.get('motif') or '')}): "
                      f"{e(lg['note'])}</li>")
     agent = "".join(f"<li>{e(a)}</li>" for a in r["agent_ready"])
     gaps = "".join(f"<li>{e(g)}</li>" for g in r["gaps"])
-    fixes = "".join(f"<li>{e(f)}</li>" for x in m.get("remixes", [])[:1] for f in x["review"]["fixes"])
+    fixes = "".join(f"<li>{e(f)}</li>" for f in (cp["film"]["review"]["fixes"] if cp else
+                    [f for x in m.get("remixes", [])[:1] for f in x["review"]["fixes"]]))
     v = r["value"]
     sp_b, sp_a = r["speed"]["before"], r["speed"]["after"]
 

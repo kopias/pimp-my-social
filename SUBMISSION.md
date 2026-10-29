@@ -29,7 +29,17 @@ website and hands back everything they'd need an agency for, in about ten minute
    so browser agents can query products, prices, hours and answers directly.
 7. **Social kit.** Posts for each chosen channel (Instagram, TikTok, Facebook,
    LinkedIn, X) in the brand's voice, type-set in the direction's fonts.
-8. **Remix a hit.** Popular post formats, reverse engineered into their essence
+8. **The campaign.** One idea, every post, in the Got Milk register. Spark finds
+   the brand's flip ("You are not the wrong size. You are in clothes cut for
+   someone else.") and a lockup (8 AM Fashion's came back "got fit?"), then writes
+   three posters (glamorous people in their element, fist under the chin, wearing
+   the real pieces), a deprivation still and a four-beat observational film. Code
+   gates the copy (no claims, no prices, no banned words). **Muse Image** shoots it
+   from the studio photos, passing one cast reference into every film shot so it's
+   the same person from cut to cut. **SAM 3.1 finds every hand** and Spark counts
+   the fingers; stray lettering is softened in place, never reshot. The browser
+   sets every word. **Spark watches the film** and one revision follows its notes.
+9. **Remix a hit** (optional). Popular post formats, reverse engineered into their essence
    (hook, beats, motion, text, sound, why it works), then rebuilt with only this
    business's products, prices and place. Owners can upload a post that's working:
    **Spark watches it** and **Muse Voice Transcribe hears its speech**, and the
@@ -38,7 +48,7 @@ website and hands back everything they'd need an agency for, in about ten minute
    **Spark watches each cut** against the format and the facts; a weak one is
    re-grounded from its notes. The library ranges from a fast fit check to a
    letterboxed, graded campaign film.
-9. **The reveal.** The same 17 checks on the new site, a before/after report with
+10. **The reveal.** The same 17 checks on the new site, a before/after report with
    what was missing, what was added, and a value calculator built on published
    figures, a brand **skill file** any AI tool can load, and one zip.
 
@@ -46,10 +56,10 @@ website and hands back everything they'd need an agency for, in about ten minute
 
 | Model | Job |
 |---|---|
-| Muse Spark 1.3 | vision brand read, art direction picks, logo read + check, copy, social plan, **reverse engineering popular posts** (it watches them), grounding, **video review** |
+| Muse Spark 1.3 | vision brand read, art direction picks, logo read + check, copy, social plan, **campaign brief + every image check (hands, product match, lettering) + film review**, **reverse engineering popular posts** (it watches them), grounding, **video review** |
 | Muse Wonder 1.0 | designs and codes the website from real brand references (it sees their screenshots) |
-| Muse Image 1.0 | direction previews, product reshoots, logo redraw, new angles for video formats |
-| SAM 3.1 | product isolation, reshoot fidelity check |
+| Muse Image 1.0 | direction previews, product reshoots, logo redraw, campaign casting (multi-image edits: cast reference + product photo), new angles for video formats |
+| SAM 3.1 | product isolation, reshoot fidelity check, finding every hand for the campaign check, lifting the person off the set for film parallax |
 | Muse Voice Transcribe | hears the speech in an uploaded post so its script's shape carries into the remix |
 
 ## Not an anti-project

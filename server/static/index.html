@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pimp My Social</title>
-<meta name="description" content="Give us your website. We hand back a makeover: a new editorial site, studio photos of your products, a remade logo, posts and videos remixed from formats that are working, and a report on what changed.">
+<meta name="description" content="Give us your website. We hand back a makeover: a new editorial site, studio photos of your products, a remade logo, a got-milk style campaign with posters and a film, and a report on what changed.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap">
 <style>
@@ -158,6 +158,15 @@
   .beats { list-style: none; padding: 0; margin: 12px 0; font-size: 13px; border-top: 1px solid var(--line); }
   .beats li { display: grid; grid-template-columns: 60px 110px 1fr; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); }
   .angles { display: flex; gap: 8px; margin-top: 10px; } .angles img { width: 96px; aspect-ratio: 2 / 3; object-fit: cover; }
+  .camp-head { padding: 8px 0 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .camp-head .q { font: 300 clamp(56px, 8vw, 112px)/.95 var(--serif); letter-spacing: -.03em; margin: 10px 0 18px; }
+  .camp-head .thesis { font: 300 italic 26px/1.3 var(--serif); max-width: 34ch; text-wrap: balance; }
+  .posters { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 28px; margin-bottom: 56px; }
+  .posters figure { margin: 0; } .posters img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; }
+  .posters figcaption { font-size: 13px; padding-top: 10px; white-space: pre-line; }
+  .filmbeats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 16px; }
+  .filmbeats figure { margin: 0; } .filmbeats img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; display: block; }
+  .filmbeats figcaption { font-size: 12px; padding-top: 6px; }
   .logos { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); }
   .logos figure { margin: 0; padding: 48px; display: grid; place-items: center; gap: 18px; min-height: 360px; }
   .logos figure + figure { border-left: 1px solid var(--line); background: white; }
@@ -462,6 +471,7 @@ function drawReveal() {
   const dir = cardsById[d.direction];
   const tabs = [['site', 'Website'], ['photos', 'Photos']];
   if (d.logo && d.logo.mark) tabs.push(['logo', 'Logo']);
+  if (d.campaign) tabs.push(['campaign', 'Campaign']);
   tabs.push(['changes', 'What changed']);
   const chans = (d.social.channels || []).map((c) => c.channel);
   if ((d.remixes || []).length) tabs.push(['remixes', 'Remixes']);
@@ -526,6 +536,38 @@ const render = {
         el('figcaption', { class: 'label muted', text: 'After · redrawn by Muse Image' }))),
     el('p', { class: 'caption', text: (d.logo.motif ? `Kept: ${d.logo.motif}. ` : '') + d.logo.note }),
     el('p', { class: 'muted', text: 'Muse Spark read what the original is about, Muse Image redrew it as one clean mark, and Spark compared the two to check it still reads as you. The name is set in your new display face beside it.' })),
+  campaign: (d) => {
+    const c = d.campaign, f = c.film, rv = f.review, tags = c.hashtags.join(' ');
+    const posters = el('div', { class: 'posters' });
+    for (const p of c.pieces) posters.append(el('figure', {},
+      el('a', { href: p.image, target: '_blank', rel: 'noopener' }, el('img', { src: p.image, alt: p.headline })),
+      el('figcaption', {}, el('div', { class: 'label muted', text: p.persona + (p.product ? ' · wears ' + p.product : '') + ` · ${p.check.hands_checked} hand${p.check.hands_checked === 1 ? '' : 's'} checked` + (p.takes > 1 ? ' · reshot once' : '') }),
+        el('div', { text: p.caption + '\n\n' + tags }))));
+    const sc = el('div', { class: 'scores' });
+    for (const k of ['thesis', 'hook', 'continuity', 'legibility', 'grounded', 'overall'])
+      sc.append(el('div', {}, el('b', { text: rv[k] }), el('span', { class: 'label muted', text: k })));
+    const beats = el('div', { class: 'filmbeats' });
+    for (const b of f.beats) beats.append(el('figure', {}, el('img', { src: b.image, alt: b.action }),
+      el('figcaption', {}, el('div', { class: 'label muted', text: b.role }), el('div', { text: '“' + b.caption + '”' }))));
+    return el('div', {},
+      el('div', { class: 'camp-head' },
+        el('div', { class: 'label', style: 'color:var(--hot)', text: 'One idea, every post' }),
+        el('div', { class: 'q', text: c.question }),
+        el('div', { class: 'thesis', text: c.thesis.not_x + ' ' + c.thesis.is_y }),
+        el('p', { class: 'muted', text: 'The got milk? method: never argue the product is good. Show someone brilliant, wearing the real thing, and let the line do the work. Muse Spark wrote the brief, Muse Image cast it with your own pieces, SAM 3.1 found every hand so Spark could check it up close, and the browser set every word.' })),
+      el('div', { class: 'label muted', text: 'Posters · 4:5 for Instagram, Facebook, LinkedIn and X' }), posters,
+      el('div', { class: 'remix' },
+        el('div', { class: 'phone' }, el('div', { class: 'tt' }, el('video', { src: f.mp4, poster: f.poster, controls: '', playsinline: '', loop: '', muted: '' }))),
+        el('div', {},
+          el('div', { class: 'label', style: 'color:var(--hot)', text: 'The film · Reels and TikTok' }),
+          el('h3', { text: f.title }),
+          el('p', { class: 'muted', text: 'One cast reference goes into every shot with your product photo, so it is the same person and the same piece from cut to cut.' }),
+          beats,
+          el('div', { class: 'label muted', text: 'Muse Spark watched the film' }), sc,
+          el('div', { class: 'caption', text: rv.verdict }),
+          el('div', { class: 'caption', text: f.caption + '\n\n' + tags }),
+          el('p', { class: 'muted', text: `Sound: pick ${f.sound} in the app; platform sounds are licensed there.` }))));
+  },
   remixes: (d) => {
     const box = el('div', {});
     for (const r of d.remixes) {

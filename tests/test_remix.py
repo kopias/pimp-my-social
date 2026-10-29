@@ -37,3 +37,40 @@ def test_logo_background_keyed_out(tmp_path):
     assert mark[0, 0, 3] == 0  # the corner is transparent
     assert mark[..., 3].max() == 255  # the ring is solid
     assert w < 220 and h < 280  # trimmed to the mark
+
+
+def _brief():
+    poster = {"persona": "the boxer", "headline": "I blamed my shoulders|for three summers",
+              "body": " ".join(["word"] * 40)}
+    beats = [{"role": r, "caption": "Short and plain."} for r in ("failure", "face", "fix", "payoff")]
+    return {"question": "got fit?", "posters": [dict(poster) for _ in range(3)],
+            "deprivation": {"line": "Everyone dressed for someone else."}, "film": {"beats": beats}}
+
+
+def test_campaign_gate_passes_a_clean_brief():
+    from pms import campaign
+    assert campaign.gate(_brief(), {}) == []
+
+
+def test_campaign_gate_catches_claims_prices_and_shape():
+    from pms import campaign
+    b = _brief()
+    b["question"] = "Got Fit"
+    b["posters"][0]["headline"] = "Our AI-cut shirts|are now just $49"
+    b["film"]["beats"] = b["film"]["beats"][:3]
+    bad = " ".join(campaign.gate(b, {}))
+    for expect in ("question", "banned", "prices", "four"):
+        assert expect in bad, expect
+
+
+def test_patch_only_softens_the_marked_region(tmp_path):
+    from pms import campaign
+    im = Image.new("RGB", (200, 200), "white")
+    ImageDraw.Draw(im).rectangle((0, 0, 40, 200), fill="black")
+    ImageDraw.Draw(im).rectangle((150, 150, 160, 160), fill="black")
+    src = tmp_path / "a.png"
+    im.save(src)
+    out = campaign.patch(src, [{"x": 70, "y": 70, "w": 20, "h": 20, "kind": "garbled"}], tmp_path / "b.png")
+    a = np.asarray(Image.open(out).convert("L")).astype(int)
+    assert a[100, 10] == 0 and a[100, 60] == 255  # far from the patch: untouched
+    assert 0 < a[155, 155] < 255  # inside it: softened

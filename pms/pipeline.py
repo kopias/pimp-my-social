@@ -19,7 +19,7 @@ import uuid
 from dataclasses import asdict
 from pathlib import Path
 
-from . import audit, brand, directions, logo, photos, remix, report, site, skill, social
+from . import audit, brand, campaign, directions, logo, photos, remix, report, site, skill, social
 from .crawl import Site, inspect
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,8 +33,9 @@ STAGES = [
     ("studio", "Photo studio", "SAM 3.1 isolates each product; Muse Image reshoots it; SAM checks it"),
     ("logo", "Logo", "Spark reads your logo's idea; Muse Image redraws it; Spark checks it still reads as you"),
     ("site", "The build", "Spark writes the copy; Muse Wonder designs and codes the site"),
-    ("social", "Social kit", "Posts and captions for every channel you picked"),
-    ("remix", "Remix a hit", "Popular formats, reverse engineered and rebuilt with your products; Spark reviews each cut"),
+    ("social", "Social kit", "Handle, bio and feed posts for every channel you picked"),
+    ("campaign", "The campaign", "Spark writes your got ___? brief; Muse Image casts it, one reference locking every film shot; SAM finds every hand for Spark to check; Spark reviews the film"),
+    ("remix", "Remix a hit", "Popular formats you picked, reverse engineered and rebuilt with your products"),
     ("after", "Re-inspection", "The same 17 checks on the new site"),
     ("package", "The reveal", "Report, brand skill and the download"),
 ]
@@ -174,8 +175,20 @@ class Job:
                         p["image_url"] = self.url_of(p["image"])
             d["social"] = plan
 
+            camp = await self.stage("campaign", campaign.make, prof, shots, direction, self.dir / "campaign",
+                                    prof["contact"].get("order_url") or site_before.final_url)
+            d["campaign"] = {
+                **{k: camp[k] for k in ("question", "thesis", "gate", "hashtags")},
+                "pieces": [{**{k: v for k, v in p.items() if k not in ("image", "raw")},
+                            "image": self.url_of(p["image"]), "raw": self.url_of(p["raw"])} for p in camp["pieces"]],
+                "film": {**{k: v for k, v in camp["film"].items() if k not in ("mp4", "poster", "cast", "beats")},
+                         "mp4": self.url_of(camp["film"]["mp4"]), "poster": self.url_of(camp["film"]["poster"]),
+                         "cast": self.url_of(camp["film"]["cast"]),
+                         "beats": [{**b, "image": self.url_of(b["image"])} for b in camp["film"]["beats"]]},
+            }
+
             remixes = None
-            if {"tiktok", "instagram"} & set(channels):
+            if self.state.get("formats"):  # only when the owner picked or uploaded a format
                 remixes = await self.stage("remix", remix.make, prof, shots, direction, mark,
                                            self.dir / "remix", self.state.get("formats"))
                 d["remixes"] = [{
@@ -205,10 +218,10 @@ class Job:
 
             def package() -> dict:
                 checks_before = audit.run(site_before)
-                folder = skill.write(prof, direction, plan, built["base"], self.dir, remixes, mark)
+                folder = skill.write(prof, direction, plan, built["base"], self.dir, remixes, mark, camp)
                 files = {"site": "site/", "skill": folder.name + "/", "perf_after": s2.perf}
                 r = report.build(site_before, checks_before, checks_after, prof, direction,
-                                 [asdict(x) for x in shots], plan, remixes, files, d.get("logo"))
+                                 [asdict(x) for x in shots], plan, remixes, files, d.get("logo"), camp)
                 report.write(r, self.dir)
                 zip_path = self.make_zip(folder)
                 return {"report": self.url_of(self.dir / "report.html"),
@@ -238,6 +251,20 @@ class Job:
             for k, p in enumerate(ch["posts"]):
                 captions += [f"## {ch['channel']} {k + 1}", "", p["caption"], "", f"Alt text: {p['alt']}", ""]
         (stage / "social" / "captions.md").write_text("\n".join(captions))
+        camp_dir = self.dir / "campaign"
+        if (camp_dir / "campaign.json").exists():
+            camp = json.loads((camp_dir / "campaign.json").read_text())
+            (stage / "campaign").mkdir()
+            notes = [f"# {camp['question']}", "", f"{camp['thesis']['not_x']} {camp['thesis']['is_y']}", ""]
+            for k, p in enumerate(camp["pieces"]):
+                name = f"{k + 1}-{p['kind']}.jpg"
+                shutil.copy(p["image"], stage / "campaign" / name)
+                notes += [f"## {name}", "", p["caption"], "", " ".join(camp["hashtags"]), ""]
+            f = camp["film"]
+            shutil.copy(f["mp4"], stage / "campaign" / "film.mp4")
+            notes += ["## film.mp4", "", f["caption"], "", " ".join(camp["hashtags"]), "",
+                      f"Sound: pick {f['sound']} in the app.", ""]
+            (stage / "campaign" / "captions.md").write_text("\n".join(notes))
         rem = self.state["data"].get("remixes") or []
         if rem:
             (stage / "video").mkdir()
