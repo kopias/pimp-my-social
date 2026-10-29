@@ -1,0 +1,347 @@
+{
+ "id": "rino_pelle",
+ "url": "https://rino-pelle.com/",
+ "desktop": {
+  "title": "Rino & Pelle",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Inter",
+   "stack": "Inter, sans-serif",
+   "size": "14px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "18.6662px",
+   "style": "normal",
+   "color": "rgba(0, 0, 0, 0.85)",
+   "text": "Sign in to see your rewards"
+  },
+  "nav": {
+   "family": "Akzidenz-Grotesk Pro",
+   "stack": "\"Akzidenz-Grotesk Pro\"",
+   "size": "14px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "21px",
+   "style": "normal",
+   "color": "rgb(1, 1, 1)",
+   "text": "New Arrivals"
+  },
+  "nav_count": 9,
+  "nav_labels": [
+   "New Arrivals",
+   "Shop",
+   "Drops",
+   "Loyalty rewards",
+   "About us",
+   "Search",
+   "EN",
+   "Sign in",
+   "Cart"
+  ],
+  "largest": [
+   {
+    "family": "Saol Display",
+    "stack": "\"Saol Display\"",
+    "size": "90px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "82.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Sculpted silhouettes"
+   },
+   {
+    "family": "Saol Display",
+    "stack": "\"Saol Display\"",
+    "size": "32px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "38.4px",
+    "style": "normal",
+    "color": "rgb(5, 5, 5)",
+    "text": "Mix & Match"
+   },
+   {
+    "family": "Akzidenz-Grotesk Pro",
+    "stack": "\"Akzidenz-Grotesk Pro\"",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "21px",
+    "style": "normal",
+    "color": "rgb(5, 5, 5)",
+    "text": "Skip to content"
+   },
+   {
+    "family": "Akzidenz-Grotesk Pro",
+    "stack": "\"Akzidenz-Grotesk Pro\"",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "21px",
+    "style": "normal",
+    "color": "rgb(1, 1, 1)",
+    "text": "New Arrivals"
+   }
+  ],
+  "families": [
+   [
+    "Akzidenz-Grotesk Pro",
+    28
+   ],
+   [
+    "Inter",
+    2
+   ],
+   [
+    "Saol Display",
+    2
+   ]
+  ],
+  "header": {
+   "h": 50,
+   "y": 42,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "static"
+  },
+  "logo": {
+   "x": 9,
+   "w": 234,
+   "h": 47,
+   "centred": false
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 135,
+    "w": 1440,
+    "h": 822
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Akzidenz-Grotesk Pro",
+    "stack": "\"Akzidenz-Grotesk Pro\"",
+    "size": "13px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "22px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Discover the New Collection",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Akzidenz-Grotesk Pro",
+    "stack": "\"Akzidenz-Grotesk Pro\"",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "21px",
+    "style": "normal",
+    "color": "rgb(1, 1, 1)",
+    "text": "New Arrivals",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(1, 1, 1)",
+    "radius": "0px",
+    "padding": "0px 10px"
+   },
+   {
+    "family": "Akzidenz-Grotesk Pro",
+    "stack": "\"Akzidenz-Grotesk Pro\"",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "21px",
+    "style": "normal",
+    "color": "rgb(1, 1, 1)",
+    "text": "Shop",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(1, 1, 1)",
+    "radius": "0px",
+    "padding": "0px 10px"
+   }
+  ],
+  "page_h": 5500
+ },
+ "mobile": {
+  "title": "Rino & Pelle",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Inter",
+   "stack": "Inter, sans-serif",
+   "size": "14px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "18.6662px",
+   "style": "normal",
+   "color": "rgba(0, 0, 0, 0.85)",
+   "text": "Sign in to see your rewards"
+  },
+  "nav": null,
+  "nav_count": 0,
+  "nav_labels": [],
+  "largest": [
+   {
+    "family": "Saol Display",
+    "stack": "\"Saol Display\"",
+    "size": "50px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "46px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Sculpted silhouettes"
+   },
+   {
+    "family": "Saol Display",
+    "stack": "\"Saol Display\"",
+    "size": "32px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "38.4px",
+    "style": "normal",
+    "color": "rgb(5, 5, 5)",
+    "text": "Mix & Match"
+   },
+   {
+    "family": "Akzidenz-Grotesk Pro",
+    "stack": "\"Akzidenz-Grotesk Pro\"",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "21px",
+    "style": "normal",
+    "color": "rgb(5, 5, 5)",
+    "text": "Skip to content"
+   },
+   {
+    "family": "Inter",
+    "stack": "Inter, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "18.6662px",
+    "style": "normal",
+    "color": "rgba(0, 0, 0, 0.85)",
+    "text": "Sign in to see your rewards"
+   }
+  ],
+  "families": [
+   [
+    "Akzidenz-Grotesk Pro",
+    19
+   ],
+   [
+    "Saol Display",
+    2
+   ],
+   [
+    "Inter",
+    1
+   ]
+  ],
+  "header": {
+   "h": 54,
+   "y": 42,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "static"
+  },
+  "logo": {
+   "x": 4,
+   "w": 169,
+   "h": 53,
+   "centred": false
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 131,
+    "w": 390,
+    "h": 488
+   },
+   {
+    "x": 0,
+    "y": 829,
+    "w": 195,
+    "h": 292
+   },
+   {
+    "x": 196,
+    "y": 829,
+    "w": 195,
+    "h": 292
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Akzidenz-Grotesk Pro",
+    "stack": "\"Akzidenz-Grotesk Pro\"",
+    "size": "13px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "22px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Discover the New Collection",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Akzidenz-Grotesk Pro",
+    "stack": "\"Akzidenz-Grotesk Pro\"",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "18px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop now",
+    "bg": "rgb(0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "10px 30px"
+   },
+   {
+    "family": "Akzidenz-Grotesk Pro",
+    "stack": "\"Akzidenz-Grotesk Pro\"",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "21px",
+    "style": "normal",
+    "color": "rgb(5, 5, 5)",
+    "text": "Discover now",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(5, 5, 5)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 6034
+ }
+}

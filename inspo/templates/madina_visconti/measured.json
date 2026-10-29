@@ -1,0 +1,384 @@
+{
+ "id": "madina_visconti",
+ "url": "https://madinavisconti.com/",
+ "desktop": {
+  "title": "High Jewelry Atelier - Madina Visconti",
+  "bg": "rgb(106, 138, 131)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Aktiv Grotesk",
+   "stack": "\"Aktiv Grotesk\", helvetica, arial",
+   "size": "12.6px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "15.12px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "Shipping to Italy included for all online orders over \u20ac 250. International shipp"
+  },
+  "nav": {
+   "family": "Aktiv Grotesk",
+   "stack": "\"Aktiv Grotesk\", helvetica, arial",
+   "size": "14px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "16.8px",
+   "style": "normal",
+   "color": "rgb(255, 141, 143)",
+   "text": "Home"
+  },
+  "nav_count": 49,
+  "nav_labels": [
+   "Home",
+   "Shop",
+   "Our Story",
+   "Our Story",
+   "Craftsmanship and Tradit",
+   "Services",
+   "How to clean your jewell",
+   "Made to Order",
+   "Weddings",
+   "Contact us",
+   "Search",
+   "Eng",
+   "Ita",
+   "Shop by categories"
+  ],
+  "largest": [
+   {
+    "family": "ActaDisplay",
+    "stack": "ActaDisplay",
+    "size": "39px",
+    "weight": "600",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "58px",
+    "style": "normal",
+    "color": "rgb(85, 105, 102)",
+    "text": "Shop Now"
+   },
+   {
+    "family": "Adobe Garamond Pro",
+    "stack": "\"Adobe Garamond Pro\", helvetica, arial",
+    "size": "33.6px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "30.24px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Jewelry that chooses you"
+   },
+   {
+    "family": "Adobe Garamond Pro",
+    "stack": "\"Adobe Garamond Pro\", helvetica, arial",
+    "size": "33.6px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "30.24px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Discover the collections"
+   },
+   {
+    "family": "Adobe Garamond Pro",
+    "stack": "\"Adobe Garamond Pro\", helvetica, arial",
+    "size": "33.6px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "30.24px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Discover the Name Collection"
+   }
+  ],
+  "families": [
+   [
+    "Aktiv Grotesk",
+    109
+   ],
+   [
+    "Adobe Garamond Pro",
+    3
+   ],
+   [
+    "ActaDisplay",
+    1
+   ]
+  ],
+  "header": {
+   "h": 90,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "fixed"
+  },
+  "logo": {
+   "x": 45,
+   "w": 98,
+   "h": 35,
+   "centred": false
+  },
+  "images": [
+   {
+    "x": 45,
+    "y": 40,
+    "w": 98,
+    "h": 35
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Aktiv Grotesk",
+    "stack": "\"Aktiv Grotesk\", helvetica, arial",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px 10px"
+   },
+   {
+    "family": "Aktiv Grotesk",
+    "stack": "\"Aktiv Grotesk\", helvetica, arial",
+    "size": "14px",
+    "weight": "700",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop by categories",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px 20px 0px 0px"
+   },
+   {
+    "family": "Aktiv Grotesk",
+    "stack": "\"Aktiv Grotesk\", helvetica, arial",
+    "size": "14px",
+    "weight": "700",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop by collections",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px 20px 0px 0px"
+   }
+  ],
+  "page_h": 4889
+ },
+ "mobile": {
+  "title": "High Jewelry Atelier - Madina Visconti",
+  "bg": "rgb(106, 138, 131)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Aktiv Grotesk",
+   "stack": "\"Aktiv Grotesk\", helvetica, arial",
+   "size": "12.6px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "15.12px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "Shipping to Italy included for all online orders over \u20ac 250. International shipp"
+  },
+  "nav": {
+   "family": "Aktiv Grotesk",
+   "stack": "\"Aktiv Grotesk\", helvetica, arial",
+   "size": "14px",
+   "weight": "700",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "14px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "Eng"
+  },
+  "nav_count": 2,
+  "nav_labels": [
+   "Eng",
+   "Ita"
+  ],
+  "largest": [
+   {
+    "family": "Adobe Garamond Pro",
+    "stack": "\"Adobe Garamond Pro\", helvetica, arial",
+    "size": "25.2px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "22.68px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Jewelry that chooses you"
+   },
+   {
+    "family": "Adobe Garamond Pro",
+    "stack": "\"Adobe Garamond Pro\", helvetica, arial",
+    "size": "25.2px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "22.68px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Discover the collections"
+   },
+   {
+    "family": "Aktiv Grotesk",
+    "stack": "\"Aktiv Grotesk\", helvetica, arial",
+    "size": "14px",
+    "weight": "700",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Eng"
+   },
+   {
+    "family": "Aktiv Grotesk",
+    "stack": "\"Aktiv Grotesk\", helvetica, arial",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Ita"
+   }
+  ],
+  "families": [
+   [
+    "Aktiv Grotesk",
+    59
+   ],
+   [
+    "Adobe Garamond Pro",
+    2
+   ],
+   [
+    "ActaDisplay",
+    1
+   ]
+  ],
+  "header": {
+   "h": 90,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "fixed"
+  },
+  "logo": {
+   "x": 20,
+   "w": 98,
+   "h": 35,
+   "centred": false
+  },
+  "images": [
+   {
+    "x": 30,
+    "y": 595,
+    "w": 250,
+    "h": 333
+   },
+   {
+    "x": 295,
+    "y": 595,
+    "w": 250,
+    "h": 333
+   },
+   {
+    "x": 560,
+    "y": 595,
+    "w": 250,
+    "h": 333
+   },
+   {
+    "x": 825,
+    "y": 595,
+    "w": 250,
+    "h": 333
+   },
+   {
+    "x": 1090,
+    "y": 595,
+    "w": 250,
+    "h": 333
+   },
+   {
+    "x": 1355,
+    "y": 595,
+    "w": 250,
+    "h": 333
+   }
+  ],
+  "buttons": [
+   {
+    "family": "ActaDisplay",
+    "stack": "ActaDisplay",
+    "size": "13px",
+    "weight": "600",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "19px",
+    "style": "normal",
+    "color": "rgb(85, 105, 102)",
+    "text": "Shop Now",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(85, 105, 102)",
+    "radius": "0px",
+    "padding": "5px 0px 0px"
+   },
+   {
+    "family": "Aktiv Grotesk",
+    "stack": "\"Aktiv Grotesk\", helvetica, arial",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Bracelets\nView more",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Aktiv Grotesk",
+    "stack": "\"Aktiv Grotesk\", helvetica, arial",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Brooches\nView more",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 7234
+ }
+}

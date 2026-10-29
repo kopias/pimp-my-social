@@ -310,7 +310,7 @@
     <div id="choose" hidden>
       <div class="label" style="color:var(--hot)">Pick your paint job</div>
       <h2 class="big">Which one feels like you?</h2>
-      <p class="muted" style="max-width:40em">Spark picked three that suit your brand, plus one wildcard. Each preview is your own photo, reshot in that style; each direction is modelled on real brand sites.</p>
+      <p class="muted" style="max-width:40em">Spark picked three that suit your brand, plus one wildcard. Each preview is your own photo, reshot in that style; each direction is a template modelled on one of 25 leading fashion sites.</p>
       <div class="cards" id="cards"></div>
     </div>
   </section>
@@ -472,10 +472,11 @@ function drawCards() {
       c.preview ? el('img', { src: c.preview, alt: c.name + ' preview' }) : el('img', { alt: '' }),
       el('div', { class: 'body' },
         c.wildcard ? el('span', { class: 'badge mono', text: 'Wildcard' }) : null,
-        el('div', { class: 'name', style: `font-family:'${c.fonts.display}', serif;font-weight:400`, text: c.name }),
+        el('div', { class: 'name', style: `font-family:'${c.fonts.display}', serif;font-weight:400`, text: c.style || c.name }),
         sw, el('div', { style: `font-family:'${c.fonts.body}'`, text: c.pitch }),
         c.why ? el('div', { class: 'why', text: c.why }) : null,
-        (c.refs || []).length ? el('div', { class: 'refs label', text: 'Modelled on ' + c.refs.map((r) => REF_NAMES[r] || r).join(' · ') }) : null,
+        c.style ? el('div', { class: 'refs label', text: 'Template: ' + c.name })
+          : (c.refs || []).length ? el('div', { class: 'refs label', text: 'Modelled on ' + c.refs.map((r) => REF_NAMES[r] || r).join(' · ') }) : null,
         el('span', { class: 'pick label', text: 'Paint it this way →' }))));
   }
   setTimeout(() => $('choose').scrollIntoView({ behavior: 'smooth' }), 300);
@@ -527,6 +528,10 @@ const avatar = (name, dir) => job.data.logo && job.data.logo.mark
   : el('div', { class: 'avatar', style: `background:${dir.palette.accent}` }, name.trim()[0]);
 const render = {
   site: (d) => el('div', {}, el('p', {}, el('a', { href: d.site.url, target: '_blank', rel: 'noopener', text: 'Open the new site in a new tab ↗' })),
+    d.site.fidelity && d.site.fidelity.overall != null ? el('p', { class: 'muted' },
+      `Built on the ${d.site.fidelity.style} template (modelled on ${d.site.fidelity.template}). Spark compared it with the original, side by side: `
+      + `${d.site.fidelity.overall}/10 match` + (d.site.fidelity.rounds > 1 ? ` after ${d.site.fidelity.rounds - 1} revision${d.site.fidelity.rounds > 2 ? 's' : ''} (${d.site.fidelity.history.join(' → ')})` : '')
+      + '. ' + (d.site.fidelity.verdict || '')) : null,
     el('iframe', { class: 'frame', src: d.site.url, title: 'The new website' })),
   photos: (d) => {
     const box = el('div', { class: 'pairs' });

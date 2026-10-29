@@ -160,7 +160,8 @@ class Job:
 
             built = await self.stage("site", site.build, prof, direction, shots,
                                      site_before.final_url, self.dir / "site", mark)
-            d["site"] = {"url": f"/jobs/{self.id}/site/index.html", "copy": built["copy"]}
+            d["site"] = {"url": f"/jobs/{self.id}/site/index.html", "copy": built["copy"],
+                         "fidelity": built.get("fidelity")}
 
             channels = self.state["channels"]
 

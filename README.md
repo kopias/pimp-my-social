@@ -19,10 +19,10 @@ unrecognisable. Built for the Meta Global AI Developer Hackathon (Oct 26 to Nov
 | Stage | Model | What it does |
 |---|---|---|
 | Inspection | **Muse Spark 1.3** (vision) | Reads the before screenshots, photos and pages into a grounded brand profile: products matched to photos, prices as stated, voice, FAQs, gaps |
-| Paint job | **Muse Spark 1.3** + **Muse Image** | Spark picks three style directions for the brand plus one random wildcard; Image reshoots their hero photo in each as a preview |
+| Paint job | **Muse Spark 1.3** + **Muse Image** | the owner's style tags shortlist 25 fashion-site templates; Spark picks three plus one random wildcard; Image reshoots their hero photo in each as a preview |
 | Photo studio | **SAM 3.1** + **Muse Image** | SAM isolates each product from the owner's photo; Image reshoots it (set, light, lens, depth of field); SAM finds it again in the result and scores fidelity, so a reshoot that changed the product is caught |
 | Logo | **Muse Spark** + **Muse Image** | Spark reads what the current logo is about; Image redraws it as one clean mark; Spark compares old and new and rejects a redraw that lost the idea |
-| Website | **Muse Spark** + **Muse Wonder 1.0** | Spark writes the copy, held to the facts on the site; Wonder designs and codes a bespoke page in the chosen direction, looking at screenshots of the real brand sites the direction is modelled on |
+| Website | **Muse Spark** + **Muse Wonder 1.0** | Spark writes the copy, held to the facts on the site; Wonder builds the page on the chosen template from its skill and screenshots; Spark screenshots the result and scores it against the template side by side, and Wonder revises below 8/10 |
 | Findability | code | Meta/Open Graph, JSON-LD (business, products, FAQ), robots.txt that welcomes AI crawlers, sitemap.xml, llms.txt, WebMCP tools |
 | The campaign | **Muse Spark**, **Muse Image**, **SAM 3.1** | A "got ___?" campaign in the Got Milk register, ported from the Loreto "got skills?" work: Spark writes one thesis ("You are not X. You are Y.") and a brief (a poster roster, a deprivation still, a four-beat metaphor film), code gates the copy; Image casts it, wearing the real products, with one cast reference passed into every film shot so the person stays the same; SAM finds every hand so Spark can count fingers; the browser sets all type; Spark watches the film and one revision follows its notes |
 | Remix a hit (optional) | **Muse Spark** (video), **Muse Voice Transcribe**, Muse Image | A popular post is reverse engineered into its essence (Spark watches it, Transcribe hears its speech), then rebuilt with only this business's products, prices and place; Image shoots any new angle the format needs; Spark reviews each cut against the format |
@@ -31,11 +31,19 @@ unrecognisable. Built for the Meta Global AI Developer Hackathon (Oct 26 to Nov
 
 A skill folder future makeovers build from:
 
-- `inspo/SKILL.md`, `inspo/typography.md`: what makes a site read as premium, and a
-  type system every direction follows.
+- `inspo/templates/`: **the directions.** 25 template skills, one per site in Linguise's
+  "Top 25 fashion website design for inspiration", each captured and measured in a real
+  browser: palette, Google Fonts stand-ins for the site's own type, measured sizes and
+  tracking, the anatomy section by section, a photo brief, and the signature moves the
+  fidelity check holds the build to. Style tags map to them (`pms/templates.py`).
+  `uv run scripts/capture_templates.py` refreshes the captures;
+  `uv run scripts/template_qa.py <job> <ids|--all>` rebuilds a finished job's site on
+  any template and writes a side-by-side comparison sheet.
+- `inspo/SKILL.md`, `inspo/typography.md`: what makes a site read as premium, and the
+  type detail a template doesn't specify.
 - `inspo/references/*.md`: design notes on real brand sites (Toteme, Lemaire,
-  Studio Nicholson, Aimé Leon Dore, Our Legacy, Bode, Story mfg., Kotn). Directions
-  name their references; Wonder gets the notes plus a screenshot of each.
+  Studio Nicholson, Aimé Leon Dore, Our Legacy, Bode, Story mfg., Kotn), the earlier
+  studies the templates grew from.
   Screenshots stay on the machine that captured them (`uv run scripts/capture_inspo.py`),
   not in git: they're the brands' own images.
 - `inspo/social/campaign/SKILL.md`: the campaign framework (the thesis rule, the
@@ -76,9 +84,10 @@ download is needed.
 pms/crawl.py       render the site in Chrome: text, photos, colours, fonts, schema, speed, before screenshots
 pms/audit.py       17 measured checks across search, AI answers, agents, social and speed; scores 0-100
 pms/brand.py       Muse Spark: the grounded brand profile
-pms/directions.py  the style library, Spark's picks + a wildcard, Muse Image previews
+pms/templates.py   the 25 template skills: loader, tag ranking, screenshots
+pms/directions.py  style tags -> template shortlist, Spark's picks + a wildcard, Muse Image previews
 pms/photos.py      SAM 3.1 isolate -> Muse Image reshoot -> SAM fidelity check
-pms/site.py        Spark copy, Muse Wonder page, and the findability layer (incl. WebMCP)
+pms/site.py        Spark copy, Muse Wonder page on the template, Spark's fidelity check + revisions, findability layer (incl. WebMCP)
 pms/social.py      Spark's channel plan; posts composed in the direction's fonts and colours
 pms/logo.py        Spark reads the logo's idea -> Muse Image redraws it -> key out -> Spark checks it
 pms/campaign.py    the got ___? campaign: brief + gate -> cast and shoot -> hand/lettering checks -> type -> film -> review

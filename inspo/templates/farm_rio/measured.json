@@ -1,0 +1,397 @@
+{
+ "id": "farm_rio",
+ "url": "https://farmrio.com/",
+ "desktop": {
+  "title": "FARM Rio | Dress in Happiness | Women's Clothing Store Online",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Montserrat",
+   "stack": "Montserrat, sans-serif",
+   "size": "14px",
+   "weight": "300",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "20px",
+   "style": "normal",
+   "color": "rgb(253, 248, 241)",
+   "text": "Download the APP and get 15% off your first order with code APP15 Enjoy your wel"
+  },
+  "nav": {
+   "family": "Montserrat",
+   "stack": "Montserrat, sans-serif",
+   "size": "14px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "16px",
+   "style": "normal",
+   "color": "rgb(51, 51, 51)",
+   "text": "New In"
+  },
+  "nav_count": 11,
+  "nav_labels": [
+   "New In",
+   "Shop",
+   "Dresses",
+   "Collabs",
+   "Shop by Occasion",
+   "Sale",
+   "About",
+   "Wishlist",
+   "cart",
+   "Help",
+   "Log in"
+  ],
+  "largest": [
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "24px",
+    "weight": "500",
+    "tracking": "0.96px",
+    "transform": "none",
+    "line": "31.2px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "New In"
+   },
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "24px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "43.2px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "View More"
+   },
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "28px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "meet the collection"
+   },
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "28.8px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "Accessibility Screen-Reader Guide, Feedback, and Issue Reporting | New window"
+   }
+  ],
+  "families": [
+   [
+    "Montserrat",
+    33
+   ]
+  ],
+  "header": {
+   "h": 49,
+   "y": 37,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "static"
+  },
+  "logo": {
+   "x": 20,
+   "w": 136,
+   "h": 40,
+   "centred": false
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 86,
+    "w": 1440,
+    "h": 607
+   },
+   {
+    "x": 16,
+    "y": 709,
+    "w": 342,
+    "h": 513
+   },
+   {
+    "x": 374,
+    "y": 709,
+    "w": 342,
+    "h": 513
+   },
+   {
+    "x": 732,
+    "y": 709,
+    "w": 342,
+    "h": 513
+   },
+   {
+    "x": 1090,
+    "y": 709,
+    "w": 342,
+    "h": 513
+   },
+   {
+    "x": 1448,
+    "y": 709,
+    "w": 342,
+    "h": 513
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "28.8px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "Accessibility Screen-Reader Guide, Feedback, and Issue Reporting | New window",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "14px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "20px",
+    "style": "normal",
+    "color": "rgb(253, 248, 241)",
+    "text": "Discover new benefits and rewards",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(245, 245, 245)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "New In",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "padding": "8px"
+   }
+  ],
+  "page_h": 4809
+ },
+ "mobile": {
+  "title": "FARM Rio | Dress in Happiness | Women's Clothing Store Online",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Montserrat",
+   "stack": "Montserrat, sans-serif",
+   "size": "14px",
+   "weight": "300",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "20px",
+   "style": "normal",
+   "color": "rgb(253, 248, 241)",
+   "text": "Download the APP and get 15% off your first order with code APP15 Enjoy your wel"
+  },
+  "nav": {
+   "family": "Montserrat",
+   "stack": "Montserrat, sans-serif",
+   "size": "16px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "28.8px",
+   "style": "normal",
+   "color": "rgb(51, 51, 51)",
+   "text": "What are you looking for?"
+  },
+  "nav_count": 4,
+  "nav_labels": [
+   "What are you looking for",
+   "Wishlist",
+   "cart",
+   "Log in"
+  ],
+  "largest": [
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "28.8px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "Accessibility Screen-Reader Guide, Feedback, and Issue Reporting | New window"
+   },
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "28.8px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "Log in"
+   },
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "meet the collection"
+   },
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "16px",
+    "weight": "500",
+    "tracking": "0.96px",
+    "transform": "none",
+    "line": "20.8px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "New In"
+   }
+  ],
+  "families": [
+   [
+    "Montserrat",
+    29
+   ]
+  ],
+  "header": {
+   "h": 97,
+   "y": 73,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "static"
+  },
+  "logo": {
+   "x": 127,
+   "w": 136,
+   "h": 40,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 170,
+    "w": 390,
+    "h": 585
+   },
+   {
+    "x": 16,
+    "y": 771,
+    "w": 175,
+    "h": 263
+   },
+   {
+    "x": 207,
+    "y": 771,
+    "w": 175,
+    "h": 263
+   },
+   {
+    "x": 398,
+    "y": 771,
+    "w": 175,
+    "h": 263
+   },
+   {
+    "x": 589,
+    "y": 771,
+    "w": 175,
+    "h": 263
+   },
+   {
+    "x": 780,
+    "y": 771,
+    "w": 175,
+    "h": 263
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "28.8px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "Accessibility Screen-Reader Guide, Feedback, and Issue Reporting | New window",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "14px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "20px",
+    "style": "normal",
+    "color": "rgb(253, 248, 241)",
+    "text": "Discover new benefits and rewards",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(245, 245, 245)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Montserrat",
+    "stack": "Montserrat, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "28.8px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "View More",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(245, 245, 245)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 5780
+ }
+}

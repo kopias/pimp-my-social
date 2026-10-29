@@ -13,9 +13,12 @@ from memory.
 
 ## How to use it
 
-1. Read `typography.md` first. It applies to every direction.
-2. Open the references for the direction you're building (each direction in
-   `pms/directions.py` lists its `refs`). Borrow the **structure**: grid, rhythm,
+1. **The directions are the 25 templates in `templates/`** (see `templates/SKILL.md`):
+   each a measured build spec of a leading fashion site, mapped from the owner's style
+   tags. Build to the chosen template's `SKILL.md`; it overrides anything below.
+2. Read `typography.md` for the detail a template doesn't specify.
+3. The `references/` notes below are the earlier, shorter studies; use them as extra
+   evidence of the same principles. Borrow the **structure**: grid, rhythm,
    type scale, navigation pattern, how products and prices sit.
 3. Never borrow the **content**: their logos, wordmarks, photography, copy or product
    names. The business's own brand goes into the borrowed structure.

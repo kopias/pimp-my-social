@@ -1,0 +1,157 @@
+{
+ "id": "cos",
+ "url": "https://www.cos.com/en-us",
+ "blocked": "access denied access denied\nyou don't have permission to access \"http://www.cos.com/en-us\" on this server.\n\nreference #18.911c1602.1793292471.4a09175e\n\nhttps://errors.edgesuite.net/18.911c1602.1793292",
+ "mobile": {
+  "title": "COS \u2013 Modern Style, Designed To Last \u2013 Shop Online | COS US",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "SuisseIntl",
+   "stack": "SuisseIntl, sans-serif",
+   "size": "13px",
+   "weight": "400",
+   "tracking": "0.13px",
+   "transform": "none",
+   "line": "18.2px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "Sign up to receive 10% off your first order and stay up to date on new collectio"
+  },
+  "nav": {
+   "family": "SuisseIntl",
+   "stack": "SuisseIntl, sans-serif",
+   "size": "16px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "24px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "MEN >\nSHOP WOMEN"
+  },
+  "nav_count": 8,
+  "nav_labels": [
+   "MEN >\nSHOP WOMEN",
+   "MEN >",
+   "< WOMEN\nSHOP MEN",
+   "< WOMEN",
+   "SIGN UP",
+   "THE COMPANY",
+   "ASSISTANCE",
+   "LEGAL"
+  ],
+  "largest": [
+   {
+    "family": "SuisseIntl",
+    "stack": "SuisseIntl, sans-serif",
+    "size": "35.008px",
+    "weight": "700",
+    "tracking": "0.35008px",
+    "transform": "uppercase",
+    "line": "35.008px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "SHOP WOMEN"
+   },
+   {
+    "family": "SuisseIntl",
+    "stack": "SuisseIntl, sans-serif",
+    "size": "35.008px",
+    "weight": "700",
+    "tracking": "0.35008px",
+    "transform": "uppercase",
+    "line": "35.008px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "SHOP MEN"
+   },
+   {
+    "family": "SuisseIntl",
+    "stack": "SuisseIntl, sans-serif",
+    "size": "13.008px",
+    "weight": "600",
+    "tracking": "0.39024px",
+    "transform": "uppercase",
+    "line": "18.8616px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "MEN >"
+   },
+   {
+    "family": "SuisseIntl",
+    "stack": "SuisseIntl, sans-serif",
+    "size": "13.008px",
+    "weight": "600",
+    "tracking": "0.39024px",
+    "transform": "uppercase",
+    "line": "18.8616px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "< WOMEN"
+   }
+  ],
+  "families": [
+   [
+    "SuisseIntl",
+    6
+   ]
+  ],
+  "header": {
+   "h": 1353,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "static"
+  },
+  "logo": null,
+  "images": [
+   {
+    "x": 0,
+    "y": 48,
+    "w": 390,
+    "h": 796
+   },
+   {
+    "x": 390,
+    "y": 48,
+    "w": 390,
+    "h": 796
+   }
+  ],
+  "buttons": [
+   {
+    "family": "SuisseIntl",
+    "stack": "SuisseIntl, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "MEN >\nSHOP WOMEN",
+    "bg": "rgb(8, 8, 8)",
+    "border": "0px solid rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "40px"
+   },
+   {
+    "family": "SuisseIntl",
+    "stack": "SuisseIntl, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "< WOMEN\nSHOP MEN",
+    "bg": "rgb(8, 8, 8)",
+    "border": "0px solid rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "40px"
+   }
+  ],
+  "page_h": 1353
+ }
+}

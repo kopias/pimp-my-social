@@ -1,0 +1,146 @@
+{
+ "id": "dior",
+ "url": "https://www.dior.com/en_us",
+ "mobile": {
+  "title": "DIOR - US Official Online Boutique | Fashion and beauty | DIOR US",
+  "bg": "rgb(248, 248, 248)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Hellix",
+   "stack": "Hellix, ABCDiorIcons, arial, sans-serif",
+   "size": "14px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "23.8px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "Shop now"
+  },
+  "nav": null,
+  "nav_count": 0,
+  "nav_labels": [],
+  "largest": [
+   {
+    "family": "Atacama VAR",
+    "stack": "\"Atacama VAR\", ABCDiorIcons, arial, sans-serif",
+    "size": "24px",
+    "weight": "400",
+    "tracking": "-0.48px",
+    "transform": "none",
+    "line": "34px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Fashion & Accessories"
+   },
+   {
+    "family": "Atacama VAR",
+    "stack": "\"Atacama VAR\", ABCDiorIcons, arial, sans-serif",
+    "size": "24px",
+    "weight": "400",
+    "tracking": "-0.48px",
+    "transform": "none",
+    "line": "34px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Fragrance & Beauty"
+   },
+   {
+    "family": "Atacama VAR",
+    "stack": "\"Atacama VAR\", ABCDiorIcons, arial, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "22px",
+    "style": "normal",
+    "color": "rgb(51, 56, 60)",
+    "text": "Inspire me with all the latest Dior news"
+   },
+   {
+    "family": "Atacama VAR",
+    "stack": "\"Atacama VAR\", ABCDiorIcons, arial, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "capitalize",
+    "line": "22px",
+    "style": "normal",
+    "color": "rgb(51, 56, 60)",
+    "text": "Dior Boutiques"
+   }
+  ],
+  "families": [
+   [
+    "Hellix",
+    18
+   ],
+   [
+    "Atacama VAR",
+    7
+   ]
+  ],
+  "header": {
+   "h": 64,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "absolute"
+  },
+  "logo": {
+   "x": 162,
+   "w": 66,
+   "h": 19,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 390,
+    "h": 422
+   },
+   {
+    "x": 0,
+    "y": 422,
+    "w": 390,
+    "h": 422
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Hellix",
+    "stack": "Hellix, ABCDiorIcons, arial, sans-serif",
+    "size": "14px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "normal",
+    "style": "normal",
+    "color": "rgb(51, 56, 60)",
+    "text": "Fashion & Accessories\n\nShop now",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 56, 60)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Hellix",
+    "stack": "Hellix, ABCDiorIcons, arial, sans-serif",
+    "size": "14px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "17px",
+    "style": "normal",
+    "color": "rgb(51, 56, 60)",
+    "text": "Fragrance & Beauty\n\nShop now",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 56, 60)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 2319
+ },
+ "blocked": "bot check (desktop)"
+}

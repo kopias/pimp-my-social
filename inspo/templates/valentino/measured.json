@@ -1,0 +1,410 @@
+{
+ "id": "valentino",
+ "url": "https://www.valentino.com/en-us/",
+ "desktop": {
+  "title": "Valentino US Online Boutique: the Maison Valentino official site",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "DINPro",
+   "stack": "DINPro",
+   "size": "12px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "16px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "Interferenze Woman's Collection"
+  },
+  "nav": {
+   "family": "DINPro",
+   "stack": "DINPro",
+   "size": "12px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "capitalize",
+   "line": "15.46px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "NEW ARRIVALS"
+  },
+  "nav_count": 8,
+  "nav_labels": [
+   "NEW ARRIVALS",
+   "ROCKSTUD",
+   "WOMEN",
+   "MEN",
+   "BAGS",
+   "GIFTS",
+   "FRAGRANCES",
+   "V-UNIVERSE"
+  ],
+  "largest": [
+   {
+    "family": "Times New Roman",
+    "stack": "\"Times New Roman\"",
+    "size": "24px",
+    "weight": "400",
+    "tracking": "-0.96px",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "HIGHLIGHTS"
+   },
+   {
+    "family": "Times New Roman",
+    "stack": "\"Times New Roman\"",
+    "size": "24px",
+    "weight": "400",
+    "tracking": "-0.96px",
+    "transform": "none",
+    "line": "28px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Women\u2019s Collection"
+   },
+   {
+    "family": "Times New Roman",
+    "stack": "\"Times New Roman\"",
+    "size": "20px",
+    "weight": "400",
+    "tracking": "-0.6px",
+    "transform": "none",
+    "line": "28px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Valentino Garavani Panthea Bag"
+   },
+   {
+    "family": "Times New Roman",
+    "stack": "\"Times New Roman\"",
+    "size": "20px",
+    "weight": "400",
+    "tracking": "-0.6px",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shoes"
+   }
+  ],
+  "families": [
+   [
+    "DINPro",
+    26
+   ],
+   [
+    "Times New Roman",
+    13
+   ]
+  ],
+  "header": {
+   "h": 56,
+   "y": 45,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "relative"
+  },
+  "logo": {
+   "x": 38,
+   "w": 121,
+   "h": 32,
+   "centred": false
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 45,
+    "w": 1440,
+    "h": 855
+   },
+   {
+    "x": 38,
+    "y": 57,
+    "w": 121,
+    "h": 32
+   },
+   {
+    "x": 38,
+    "y": 57,
+    "w": 121,
+    "h": 32
+   },
+   {
+    "x": 1292,
+    "y": 64,
+    "w": 20,
+    "h": 20
+   },
+   {
+    "x": 1322,
+    "y": 64,
+    "w": 20,
+    "h": 20
+   },
+   {
+    "x": 1382,
+    "y": 64,
+    "w": 20,
+    "h": 20
+   }
+  ],
+  "buttons": [
+   {
+    "family": "DINPro",
+    "stack": "DINPro",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "capitalize",
+    "line": "15.46px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "NEW ARRIVALS",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Arial",
+    "stack": "Arial, Helvetica, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "Shop Now",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Arial",
+    "stack": "Arial, Helvetica, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "Shop Now",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 5232
+ },
+ "mobile": {
+  "title": "Valentino US Online Boutique: the Maison Valentino official site",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "DINPro",
+   "stack": "DINPro",
+   "size": "10px",
+   "weight": "400",
+   "tracking": "1.47px",
+   "transform": "none",
+   "line": "18px",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "United States / English"
+  },
+  "nav": {
+   "family": "DINPro",
+   "stack": "DINPro",
+   "size": "16px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "capitalize",
+   "line": "20.61px",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "NEW ARRIVALS"
+  },
+  "nav_count": 12,
+  "nav_labels": [
+   "NEW ARRIVALS",
+   "ROCKSTUD",
+   "WOMEN",
+   "MEN",
+   "BAGS",
+   "GIFTS",
+   "FRAGRANCES",
+   "V-UNIVERSE",
+   "My Account",
+   "Store Locator",
+   "Country Selector\n\nUnited",
+   "1 855 967 1970"
+  ],
+  "largest": [
+   {
+    "family": "Times New Roman",
+    "stack": "\"Times New Roman\"",
+    "size": "24px",
+    "weight": "400",
+    "tracking": "-0.96px",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "HIGHLIGHTS"
+   },
+   {
+    "family": "Times New Roman",
+    "stack": "\"Times New Roman\"",
+    "size": "24px",
+    "weight": "400",
+    "tracking": "-0.72px",
+    "transform": "none",
+    "line": "28px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Women\u2019s Collection"
+   },
+   {
+    "family": "Times New Roman",
+    "stack": "\"Times New Roman\"",
+    "size": "20px",
+    "weight": "400",
+    "tracking": "-0.6px",
+    "transform": "none",
+    "line": "28px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Valentino Garavani Panthea Bag"
+   },
+   {
+    "family": "Times New Roman",
+    "stack": "\"Times New Roman\"",
+    "size": "20px",
+    "weight": "400",
+    "tracking": "-0.6px",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shoes"
+   }
+  ],
+  "families": [
+   [
+    "DINPro",
+    30
+   ],
+   [
+    "Times New Roman",
+    13
+   ]
+  ],
+  "header": {
+   "h": 66,
+   "y": 45,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "relative"
+  },
+  "logo": {
+   "x": 135,
+   "w": 121,
+   "h": 32,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 45,
+    "w": 390,
+    "h": 799
+   },
+   {
+    "x": 135,
+    "y": 62,
+    "w": 121,
+    "h": 32
+   },
+   {
+    "x": 135,
+    "y": 62,
+    "w": 121,
+    "h": 32
+   },
+   {
+    "x": 58,
+    "y": 63,
+    "w": 30,
+    "h": 30
+   },
+   {
+    "x": 302,
+    "y": 63,
+    "w": 30,
+    "h": 30
+   },
+   {
+    "x": 58,
+    "y": 66,
+    "w": 30,
+    "h": 18
+   }
+  ],
+  "buttons": [
+   {
+    "family": "DINPro",
+    "stack": "DINPro",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "capitalize",
+    "line": "20.61px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "NEW ARRIVALS",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "4.5px 0px"
+   },
+   {
+    "family": "Arial",
+    "stack": "Arial, Helvetica, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "Shop Now",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Arial",
+    "stack": "Arial, Helvetica, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(51, 51, 51)",
+    "text": "Shop Now",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 5404
+ }
+}

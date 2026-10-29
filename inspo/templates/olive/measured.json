@@ -1,0 +1,236 @@
+{
+ "id": "olive",
+ "url": "https://www.oliveclothing.com/",
+ "desktop": {
+  "title": "Olive | Contemporary Lifestyle",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "futura-pt",
+   "stack": "futura-pt, Arial, Helvetica, sans-serif",
+   "size": "13px",
+   "weight": "400",
+   "tracking": "0.65002px",
+   "transform": "uppercase",
+   "line": "19.5px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "\ud83c\uddec\ud83c\udde7 FREE SHIPPING FOR ORDERS OF \u00a395+ \u00b7 FREE RETURNS"
+  },
+  "nav": {
+   "family": "futura-pt",
+   "stack": "futura-pt, Arial, Helvetica, sans-serif",
+   "size": "11px",
+   "weight": "400",
+   "tracking": "0.7px",
+   "transform": "uppercase",
+   "line": "11px",
+   "style": "normal",
+   "color": "rgb(32, 32, 32)",
+   "text": "WOMEN"
+  },
+  "nav_count": 5,
+  "nav_labels": [
+   "WOMEN",
+   "MEN",
+   "SEARCH",
+   "SIGN IN",
+   "MY CART\n(0)"
+  ],
+  "largest": [
+   {
+    "family": "futura-pt",
+    "stack": "futura-pt, Helvetica, Arial, sans-serif",
+    "size": "26px",
+    "weight": "400",
+    "tracking": "2.08px",
+    "transform": "uppercase",
+    "line": "35.0999px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "SELECTED FROM THE CURRENT EDIT"
+   },
+   {
+    "family": "Georgia",
+    "stack": "Georgia, \"Times New Roman\", serif",
+    "size": "26px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "35.0999px",
+    "style": "italic",
+    "color": "rgb(0, 0, 0)",
+    "text": "Faye Ribboned Vest, Black"
+   },
+   {
+    "family": "Georgia",
+    "stack": "Georgia, \"Times New Roman\", serif",
+    "size": "15px",
+    "weight": "400",
+    "tracking": "0.7px",
+    "transform": "none",
+    "line": "26.25px",
+    "style": "normal",
+    "color": "rgb(48, 45, 41)",
+    "text": "A fresh layering shape: black cotton, ribbon ties and a softly flared hem."
+   },
+   {
+    "family": "futura-pt",
+    "stack": "futura-pt, Arial, Helvetica, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "0.28px",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop the Piece"
+   }
+  ],
+  "families": [
+   [
+    "futura-pt",
+    10
+   ],
+   [
+    "Georgia",
+    2
+   ]
+  ],
+  "header": {
+   "h": 99,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "fixed"
+  },
+  "logo": null,
+  "images": [
+   {
+    "x": 0,
+    "y": 99,
+    "w": 1440,
+    "h": 864
+   }
+  ],
+  "buttons": [],
+  "page_h": 6710
+ },
+ "mobile": {
+  "title": "Olive | Contemporary Lifestyle",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "futura-pt",
+   "stack": "futura-pt, Arial, Helvetica, sans-serif",
+   "size": "13px",
+   "weight": "400",
+   "tracking": "0.65002px",
+   "transform": "uppercase",
+   "line": "19.5px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "\ud83c\uddec\ud83c\udde7 FREE SHIPPING FOR ORDERS OF \u00a395+ \u00b7 FREE RETURNS"
+  },
+  "nav": {
+   "family": "futura-pt",
+   "stack": "futura-pt, Arial, Helvetica, sans-serif",
+   "size": "0px",
+   "weight": "400",
+   "tracking": "0.7px",
+   "transform": "none",
+   "line": "0px",
+   "style": "normal",
+   "color": "rgb(79, 79, 79)",
+   "text": "Toggle search"
+  },
+  "nav_count": 3,
+  "nav_labels": [
+   "Toggle search",
+   "Toggle menu",
+   "(0)"
+  ],
+  "largest": [
+   {
+    "family": "futura-pt",
+    "stack": "futura-pt, Helvetica, Arial, sans-serif",
+    "size": "20px",
+    "weight": "400",
+    "tracking": "1.6px",
+    "transform": "uppercase",
+    "line": "27px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "SELECTED FROM THE CURRENT EDIT"
+   },
+   {
+    "family": "Georgia",
+    "stack": "Georgia, \"Times New Roman\", serif",
+    "size": "20px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "27px",
+    "style": "italic",
+    "color": "rgb(0, 0, 0)",
+    "text": "Faye Ribboned Vest, Black"
+   },
+   {
+    "family": "Georgia",
+    "stack": "Georgia, \"Times New Roman\", serif",
+    "size": "15px",
+    "weight": "400",
+    "tracking": "0.7px",
+    "transform": "none",
+    "line": "26.25px",
+    "style": "normal",
+    "color": "rgb(48, 45, 41)",
+    "text": "A fresh layering shape: black cotton, ribbon ties and a softly flared hem."
+   },
+   {
+    "family": "futura-pt",
+    "stack": "futura-pt, Arial, Helvetica, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "0.28px",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop the Piece"
+   }
+  ],
+  "families": [
+   [
+    "futura-pt",
+    10
+   ],
+   [
+    "Georgia",
+    2
+   ]
+  ],
+  "header": {
+   "h": 110,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "fixed"
+  },
+  "logo": null,
+  "images": [
+   {
+    "x": 0,
+    "y": 110,
+    "w": 390,
+    "h": 693
+   },
+   {
+    "x": 42,
+    "y": 845,
+    "w": 306,
+    "h": 459
+   }
+  ],
+  "buttons": [],
+  "page_h": 5613
+ }
+}

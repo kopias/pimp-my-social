@@ -1,0 +1,397 @@
+{
+ "id": "ganni",
+ "url": "https://www.ganni.com/us/home",
+ "desktop": {
+  "title": "GANNI \u2013 Women's Designer Fashion, Bags & Accessories | Official Site",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Helvetica Neue For Ganni",
+   "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+   "size": "14px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "normal",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "Welcome Offer | 15% Off Your First Purchase"
+  },
+  "nav": {
+   "family": "Helvetica Neue For Ganni",
+   "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+   "size": "0px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "0px",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "."
+  },
+  "nav_count": 11,
+  "nav_labels": [
+   ".",
+   "Close header banner",
+   "New Arrivals",
+   "Bags",
+   "Ready-to-Wear",
+   "Shoes",
+   "Accessories",
+   "Gifts",
+   "Private Sale",
+   "GANNI World",
+   "Search"
+  ],
+  "largest": [
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "18px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "normal",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Fall Wardrobe"
+   },
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "18px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "normal",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Fall/Winter Collection"
+   },
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "14px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "normal",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Welcome Offer | 15% Off Your First Purchase"
+   },
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "New Arrivals"
+   }
+  ],
+  "families": [
+   [
+    "Helvetica Neue For Ganni",
+    29
+   ]
+  ],
+  "header": {
+   "h": 84,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "sticky"
+  },
+  "logo": {
+   "x": 18,
+   "w": 104,
+   "h": 29,
+   "centred": false
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 94,
+    "w": 1440,
+    "h": 720
+   },
+   {
+    "x": 20,
+    "y": 836,
+    "w": 335,
+    "h": 495
+   },
+   {
+    "x": 20,
+    "y": 836,
+    "w": 335,
+    "h": 495
+   },
+   {
+    "x": 375,
+    "y": 836,
+    "w": 335,
+    "h": 495
+   },
+   {
+    "x": 375,
+    "y": 836,
+    "w": 335,
+    "h": 495
+   },
+   {
+    "x": 730,
+    "y": 836,
+    "w": 335,
+    "h": 495
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "New Arrivals",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Discover",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "5px"
+   },
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Quick buy",
+    "bg": "rgb(0, 0, 0)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "radius": "0px",
+    "padding": "0px 10px"
+   }
+  ],
+  "page_h": 3518
+ },
+ "mobile": {
+  "title": "GANNI \u2013 Women's Designer Fashion, Bags & Accessories | Official Site",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Helvetica Neue For Ganni",
+   "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+   "size": "12px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "normal",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "Welcome Offer | 15% Off Your First Purchase"
+  },
+  "nav": {
+   "family": "Helvetica Neue For Ganni",
+   "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+   "size": "0px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "0px",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "."
+  },
+  "nav_count": 4,
+  "nav_labels": [
+   ".",
+   "Close header banner",
+   "Search",
+   "Open Main Navigation"
+  ],
+  "largest": [
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "14px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "normal",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Fall Wardrobe"
+   },
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "14px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "normal",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "T-Shirts"
+   },
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "14px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "normal",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Knitwear"
+   },
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "14px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "normal",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Tops"
+   }
+  ],
+  "families": [
+   [
+    "Helvetica Neue For Ganni",
+    25
+   ]
+  ],
+  "header": {
+   "h": 120,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "sticky"
+  },
+  "logo": {
+   "x": 10,
+   "w": 110,
+   "h": 28,
+   "centred": false
+  },
+  "images": [
+   {
+    "x": 10,
+    "y": 120,
+    "w": 370,
+    "h": 506
+   },
+   {
+    "x": 10,
+    "y": 715,
+    "w": 180,
+    "h": 260
+   },
+   {
+    "x": 10,
+    "y": 715,
+    "w": 180,
+    "h": 260
+   },
+   {
+    "x": 200,
+    "y": 715,
+    "w": 180,
+    "h": 260
+   },
+   {
+    "x": 200,
+    "y": 715,
+    "w": 180,
+    "h": 260
+   },
+   {
+    "x": 390,
+    "y": 715,
+    "w": 180,
+    "h": 260
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "12px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Discover",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "6px"
+   },
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "12px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Quick buy",
+    "bg": "rgb(0, 0, 0)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "radius": "0px",
+    "padding": "0px 10px"
+   },
+   {
+    "family": "Helvetica Neue For Ganni",
+    "stack": "\"Helvetica Neue For Ganni\", Arial, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "12px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Quick buy",
+    "bg": "rgb(0, 0, 0)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "radius": "0px",
+    "padding": "0px 10px"
+   }
+  ],
+  "page_h": 4187
+ }
+}

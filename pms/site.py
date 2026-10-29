@@ -3,8 +3,13 @@
 - Copy (Muse Spark): headline, sections, product blurbs, search title and
   description, all held to the brand profile, so no invented claims.
 - Design and code (Muse Wonder): one hand-built page in the chosen direction,
-  from that copy and the reshot photos. Wonder is the strongest coder in the
-  Muse family, and a bespoke page is the part of a makeover people remember.
+  from that copy and the reshot photos. Each direction is a template skill
+  modelled on a real fashion site; Wonder gets the skill and the site's own
+  screenshots. Wonder is the strongest coder in the Muse family, and a bespoke
+  page is the part of a makeover people remember.
+- The fidelity check (Muse Spark, eyes on): the built page is screenshotted on
+  desktop and phone and judged against the template's screenshots and signature
+  moves. Below the bar, Wonder revises from the list of differences.
 - The findability layer (code, not a model, because it has to be right every
   time): meta and Open Graph tags, JSON-LD for the business, products and FAQs,
   robots.txt that welcomes search and AI crawlers, sitemap.xml, llms.txt, and
@@ -25,7 +30,7 @@ from PIL import Image
 
 from muse import client as m
 
-from . import inspo
+from . import inspo, templates
 from .audit import AI_BOTS
 from .photos import Shot
 from .text import tidy_all
@@ -85,20 +90,33 @@ def write_copy(profile: dict) -> dict:
 
 BUILD_PROMPT = """You are the master builder on "Pimp My Social", a show that makes over small \
 businesses' websites. Design and code this business's new homepage as ONE complete HTML file \
-with all CSS inline in a <style> tag. The bar is the best brand houses in the world: it should \
-feel as considered as the reference sites below, not like a template. Restraint is the point: \
-fewer, larger things, type set with care, space doing the work boxes and shadows do on cheap sites.
+with all CSS inline in a <style> tag.
 
-Direction: "{dname}". {layout}.
-Palette (use as CSS variables): {palette}
-Fonts, already loaded from Google Fonts: display "{display}", body "{body}".
+THE TEMPLATE. The owner picked the "{style}" direction, modelled on {tname} ({tsource}). Build \
+this business's page ON that template, so anyone who knows {tname}'s site would recognise the \
+design: the same header pattern, hero composition, type scale, casing and tracking, section \
+order, product presentation and palette roles. {shot_note} Borrow the DESIGN only. Never use \
+{tname}'s name, logo, photographs or copy: this business's own name, remade logo, photos and \
+words go into the template's structure.
 
-REFERENCES. The attached screenshots are real brand sites this direction is modelled on. \
-Borrow their STRUCTURE (grid, rhythm, type scale, navigation pattern, how products and \
-prices sit). Never borrow their content: no logos, names, photos or copy from them.
-{ref_notes}
+Here is the template skill. Treat the numbers as the spec and every signature move as required:
+{skill}
 
-TYPOGRAPHY. Follow this system exactly; it is what makes the page read as premium:
+Palette (CSS variables, exactly these values): {palette}
+Fonts, already loaded from Google Fonts (the template's own faces are proprietary; these are \
+the matched stand-ins): {fonts}
+
+Where the anatomy calls for content the business doesn't have (a category row, a second \
+campaign image, a founder's note), build it from the products, photos and copy given below, \
+or leave that section out. Never invent facts to fill a slot.
+
+Every word on the page is this business's. Navigation, category and section labels come from \
+what it actually sells and has (its product types, About, Visit, FAQ, Contact). Never carry \
+over the template site's own labels ({tlabels}) unless this business really has that thing. \
+A product without a photo is listed in type (name and price) or left out of image grids; \
+never fake an image tile with big lettering.
+
+TYPOGRAPHY DETAIL, where the template is silent (the template's measured type always wins):
 {typography}
 
 LOGO. {logo}
@@ -110,7 +128,8 @@ FAQs (verbatim; render as <details><summary> items): {faqs}
 Contact: {contact}
 
 Images, already in the site folder (use these paths; set width and height attributes; \
-loading="lazy" on all but the hero):
+loading="lazy" on all but the hero). Each product has a wide and a tall crop; use whichever \
+the template's layout needs. These are the ONLY image files; never reference any other path:
 {images}
 
 Hard requirements:
@@ -120,45 +139,279 @@ Hard requirements:
 <title>, meta description, Open Graph tags or JSON-LD yourself.
 - Put <!--PMS:BODY_END--> right before </body>.
 - Link the fonts: <link rel="stylesheet" href="{font_css}">
-- No JavaScript, no external images, no frameworks, no lorem ipsum, no placeholder text.
+- No JavaScript, no external images, no frameworks, no lorem ipsum, no placeholder text. \
+CSS animation is fine (respect prefers-reduced-motion).
 - Never add facts that aren't given: no star ratings, review counts, awards, badges, \
-"best in town" claims, prices or dates beyond the copy. Testimonials are shown as quotes only.
+"best in town" claims, prices, discounts or dates beyond the copy. Testimonials are shown as \
+quotes only. Announcement bars carry real facts from the copy or contact (hours, location, \
+how to order), never an invented offer.
+- A fixed or sticky header that sits transparent over the hero must stay legible over every \
+later section: give it the page background and ink colours once it leaves the hero (a CSS \
+scroll-driven animation or a solid header below the hero; no JavaScript).
 - A footer with the business name, contact, hours, and the social links: {socials}.
 
 Reply with only the HTML document, starting with <!doctype html>."""
+
+REVISE_PROMPT = """You built this page on the "{style}" template (modelled on {tname}). A side-by-side \
+check against the template found these differences. Fix every one, keep everything that already \
+matches, never delete a section the template's anatomy calls for (fixes add or adjust), keep all \
+copy, images, alt text, real prices, markers (<!--PMS:HEAD-->, <!--PMS:BODY_END-->) and the \
+hard requirements from the original brief.
+
+Differences to fix:
+{fixes}
+
+{shots_note}
+
+The template skill again:
+{skill}
+
+The current page:
+{page}
+
+Reply with only the full corrected HTML document, starting with <!doctype html>."""
 
 
 def logo_brief(mark: dict | None, name: str) -> str:
     if not mark:
         return (f"There is no logo file. Set the name \"{name}\" as a wordmark in the display "
-                "font, in the header and footer.")
+                "font, in the header and footer, styled the way the template sets its wordmark.")
     return (f"The business's remade logo mark is img/logo.png ({mark['w']}x{mark['h']}, ink on "
-            "transparent) with a reversed copy img/logo-light.png for dark sections. Use the mark "
-            f"in the header beside the name \"{name}\" set in the display font (the mark has no "
-            "lettering of its own), 32 to 48px tall, with clear space; repeat it larger in the "
-            "footer. Never put it in a box or pill, never add a shadow, never redraw it in CSS.")
+            "transparent) with a reversed copy img/logo-light.png for dark sections and for use over "
+            f"photos. Use the mark in the header beside the name \"{name}\" set the way the template "
+            "sets its wordmark (the mark has no lettering of its own), 28 to 48px tall, with clear "
+            "space; repeat it larger in the footer. Never put it in a box or pill, never add a "
+            "shadow, never redraw it in CSS.")
 
 
-def build_page(profile: dict, copy: dict, direction: dict, images: list[dict],
-               font_css: str, mark: dict | None = None) -> str:
-    img_lines = "\n".join(f"- {i['path']} ({i['w']}x{i['h']}): {i['what']}. alt: \"{i['alt']}\""
-                          for i in images)
-    refs = direction.get("refs", [])
-    prompt = BUILD_PROMPT.format(
-        ref_notes=inspo.notes(refs) or "(no reference notes for this direction)",
-        typography=inspo.typography(), logo=logo_brief(mark, profile["name"]),
-        dname=direction["name"], layout=direction["layout"], palette=json.dumps(direction["palette"]),
-        display=direction["fonts"]["display"], body=direction["fonts"]["body"],
-        copy=json.dumps(copy), proof=json.dumps(profile["proof"]),
-        faqs=json.dumps(profile["faqs"]), contact=json.dumps(profile["contact"]),
-        images=img_lines, font_css=font_css, socials=json.dumps(profile.get("socials", {})),
-    )
-    raw = m.ask(prompt, images=inspo.shots(refs)[:3], model=m.AGENT_MODEL, effort="medium",
-                max_tokens=32000)
+def _template(direction: dict) -> dict:
+    return templates.load(direction["id"]) if direction.get("id") in templates.SOURCES else direction
+
+
+def _shot_note(t: dict) -> str:
+    n = len(templates.shots(t["id"]))
+    if n == 3:
+        return ("The first three attached screenshots are the template site itself: desktop first "
+                "screen, desktop one scroll down, phone.")
+    if n == 1:
+        return "The attached screenshot is the template site on a phone (desktop blocks capture)."
+    return "No screenshots of this template are on file; build from the skill."
+
+
+def _wonder(prompt: str, images: list[Path]) -> str:
+    raw = m.ask(prompt, images=images, model=m.AGENT_MODEL, effort="medium", max_tokens=32000)
     match = re.search(r"<!doctype html.*</html>", raw, re.S | re.I)
     if not match:
         raise RuntimeError("Wonder didn't return an HTML document")
     return match.group(0)
+
+
+def build_page(profile: dict, copy: dict, direction: dict, images: list[dict],
+               font_css: str, mark: dict | None = None) -> str:
+    t = _template(direction)
+    img_lines = "\n".join(f"- {i['path']} ({i['w']}x{i['h']}): {i['what']}. alt: \"{i['alt']}\""
+                          for i in images)
+    prompt = BUILD_PROMPT.format(
+        style=t.get("style", t["name"]), tname=t["name"], tsource=t.get("source", ""),
+        shot_note=_shot_note(t), skill=t.get("skill", t.get("layout", "")),
+        tlabels=", ".join(template_labels(t["id"])) or "none on file",
+        palette=json.dumps(direction["palette"]), fonts=json.dumps(direction["fonts"]),
+        typography=inspo.typography(), logo=logo_brief(mark, profile["name"]),
+        copy=json.dumps(copy), proof=json.dumps(profile["proof"]),
+        faqs=json.dumps(profile["faqs"]), contact=json.dumps(profile["contact"]),
+        images=img_lines, font_css=font_css, socials=json.dumps(profile.get("socials", {})),
+    )
+    return _wonder(prompt, templates.shots(t["id"]))
+
+
+# --- the fidelity check ----------------------------------------------------------
+
+FIDELITY_ROUNDS = 2  # revisions after the first build, at most
+GOOD_ENOUGH = 8
+
+FIDELITY_SCHEMA = {
+    "type": "object", "additionalProperties": False,
+    "required": ["scores", "overall", "signature", "fixes", "verdict"],
+    "properties": {
+        "scores": {"type": "object", "additionalProperties": False,
+                   "required": ["header", "hero", "type", "palette", "sections", "products", "spacing",
+                                "mobile", "polish"],
+                   "properties": {k: {"type": "integer", "minimum": 0, "maximum": 10} for k in
+                                  ["header", "hero", "type", "palette", "sections", "products", "spacing",
+                                   "mobile", "polish"]}},
+        "overall": {"type": "integer", "minimum": 0, "maximum": 10,
+                    "description": "how recognisably the built page is the template, at the template's quality"},
+        "signature": {"type": "array", "items": {
+            "type": "object", "additionalProperties": False, "required": ["move", "present"],
+            "properties": {"move": {"type": "string"}, "present": {"type": "boolean"}}}},
+        "fixes": {"type": "array", "maxItems": 8, "items": {"type": "string"},
+                  "description": "concrete changes, most important first, in CSS/HTML terms with sizes"},
+        "verdict": {"type": "string", "description": "one sentence"},
+    },
+}
+
+FIDELITY_PROMPT = """You are the design director checking a website makeover against the template \
+it was built on: "{style}", modelled on {tname}. {order}
+
+Judge how recognisably the built page IS this template, at the template's level of quality, \
+with different content. Different photos, products, words and logo are expected and correct; \
+never mark it down for those. Mark it down for: a different header pattern, hero composition or \
+section order; wrong type scale, casing, weight or tracking; palette roles used differently; \
+products presented differently; cramped or template-cheap spacing; anything broken (overlaps, \
+unreadable text over photos, missing images, horizontal scroll on the phone). Words borrowed \
+from the template site that this business doesn't have (its menu categories, collection names, \
+offers) are a serious fault, not a match: cap overall at 5 and list them as fixes. So are fake \
+image tiles made of big lettering, and a header whose words vanish against a later section.
+
+The photographs are this business's own studio reshoots, the only images it has (often a \
+garment without a model). Judge how they are cropped, sized and placed against the template, \
+never what they show: never ask for a model, a portrait or new photography. Real prices, \
+including a sale price beside a struck-through regular price, stay; never ask to remove them.
+
+Score 0-10 each: header, hero, type, palette, sections, products, spacing, mobile, polish; then \
+overall (10 = a {tname} designer would think it came from their studio). For each signature move \
+below, say whether it is present. Then list the fixes, most important first, specific enough \
+to code ("hero headline is 40px bold sans; make it 90px Cormorant Garamond 300, two lines, \
+left-aligned at 7%").
+
+Signature moves:
+{signature}
+
+Template skill, for the numbers:
+{skill}"""
+
+
+# Labels any shop's header has; a template's other menu words are its own business.
+GENERIC_LABELS = {"search", "account", "bag", "cart", "log in", "login", "sign in", "menu", "wishlist",
+                  "shop", "shop all", "new", "new in", "new arrivals", "about", "about us", "contact",
+                  "contact us", "home", "stores", "help", "en", "close", "sale", "skip to content",
+                  "skip to main content", "info", "collections", "my cart", "the brand", "stories", "english", "language",
+                  "our story", "story", "journal", "visit", "faq", "gifts", "all"}
+
+
+def template_labels(tid: str) -> list[str]:
+    """The template site's own menu words, from its measured capture."""
+    f = templates.ROOT / tid / "measured.json"
+    if not f.exists():
+        return []
+    meas = json.loads(f.read_text())
+    out = []
+    for k in ("desktop", "mobile"):
+        for lab in (meas.get(k) or {}).get("nav_labels", []):
+            lab = re.sub(r"\s+", " ", lab).strip()
+            low = lab.lower()
+            if (2 < len(lab) <= 24 and re.fullmatch(r"[\w&'’ .-]+", lab) and low not in GENERIC_LABELS
+                    and not re.search(r"\d|\$|£|€|usd|\(", low) and lab not in out):
+                out.append(lab)
+    return out
+
+
+def borrowed_labels(page: str, tid: str, profile: dict) -> list[str]:
+    """Template menu words that turned up in the page's header but mean nothing for this
+    business (Mango's TEEN and KIDS on a shop that sells neither)."""
+    head = " ".join(re.findall(r"<(?:header|nav)\b.*?</(?:header|nav)>", page, re.S | re.I))
+    text = " " + re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", head)).lower() + " "
+    known = json.dumps(profile, ensure_ascii=False).lower()
+    return [lab for lab in template_labels(tid)
+            if re.search(r"[^\w]" + re.escape(lab.lower()) + r"[^\w]", text) and lab.lower() not in known]
+
+
+def swapped_photos(page: str, images: list[dict], products: list[str] = ()) -> list[str]:
+    """A product shown with another product's photo (the jacket's tile using the shirt's
+    picture because the jacket has none). Read from each <img>: its file says which product
+    the photo is; its alt says which product the page claims it is."""
+    owner = {i["path"]: i.get("product") for i in images if i.get("product")}
+    names = {i["product"] for i in images if i.get("product")} | set(products)  # incl. ones with no photo
+    out = []
+    for tag in re.findall(r"<img\b[^>]*>", page, re.I):
+        src = re.search(r'\bsrc="([^"]+)"', tag)
+        alt = re.search(r'\balt="([^"]*)"', tag)
+        if not src or not alt or src.group(1) not in owner:
+            continue
+        real, said = owner[src.group(1)], html.unescape(alt.group(1)).lower()
+        if real.lower() not in said:
+            out += [f"{n} shown with the photo of {real}" for n in names if n != real and n.lower() in said]
+    return sorted(set(out))
+
+
+def invented_numbers(page: str, *sources: dict) -> list[str]:
+    """Years and "100+"-style counts in the page's visible text that appear nowhere in what
+    the business gave us: the classic way a template example ("since 1984") leaks in."""
+    body = re.sub(r"<(script|style)\b.*?</\1>", " ", page, flags=re.S | re.I)
+    text = html.unescape(re.sub(r"<[^>]+>", " ", body))
+    known = " ".join(json.dumps(x, ensure_ascii=False) for x in sources)
+    found = re.findall(r"\b(?:19|20)\d\d\b|\b\d[\d,]*\+", text)
+    return sorted({n for n in found if n.rstrip("+") not in known})
+
+
+def snapshot(page: Path, out_dir: Path, tag: str) -> list[Path]:
+    """The built page as a visitor sees it: the desktop first screen, the whole desktop page
+    top to bottom (so the check sees every section, not just two screens), and a phone."""
+    from playwright.sync_api import sync_playwright
+    out_dir.mkdir(parents=True, exist_ok=True)
+    shots = []
+    with sync_playwright() as p:
+        b = p.chromium.launch(channel="chrome")
+        for name, vp, mobile in (("desktop", {"width": 1440, "height": 900}, False),
+                                 ("mobile", {"width": 390, "height": 844}, True)):
+            ctx = b.new_context(viewport=vp, is_mobile=mobile, has_touch=mobile,
+                                device_scale_factor=2 if mobile else 1)
+            pg = ctx.new_page()
+            pg.goto(page.resolve().as_uri(), wait_until="load", timeout=60_000)
+            pg.evaluate("document.fonts.ready")
+            pg.wait_for_timeout(600)
+            if mobile:
+                shots.append(out_dir / f"{tag}_mobile.jpg")
+                pg.screenshot(path=shots[-1], quality=70)
+            else:
+                shots.append(out_dir / f"{tag}_desktop_1.jpg")
+                pg.screenshot(path=shots[-1], quality=72)
+                # lazy images load as they scroll in; walk the page once first
+                pg.evaluate("""async () => { for (let y = 0; y < document.body.scrollHeight; y += 700) {
+                  scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } scrollTo(0, 0); }""")
+                pg.wait_for_timeout(500)
+                full = out_dir / f"{tag}_desktop_full.png"
+                pg.screenshot(path=full, full_page=True)
+                im = Image.open(full).convert("RGB")
+                im = im.resize((960, round(im.height * 960 / im.width)))
+                shots.append(out_dir / f"{tag}_desktop_full.jpg")
+                im.crop((0, 0, 960, min(im.height, 7200))).save(shots[-1], quality=70)
+                full.unlink()
+            ctx.close()
+        b.close()
+    return shots
+
+
+def fidelity(direction: dict, built_shots: list[Path]) -> dict:
+    t = _template(direction)
+    ref = templates.shots(t["id"])
+    names = {"desktop_1.jpg": "desktop first screen", "desktop_2.jpg": "desktop one scroll down",
+             "mobile_1.jpg": "phone"}
+    if ref:
+        order = (f"Images 1-{len(ref)} are the TEMPLATE site ({', '.join(names[p.name] for p in ref)}). "
+                 f"Images {len(ref) + 1}-{len(ref) + 3} are the BUILT page (desktop first screen, the WHOLE "
+                 "desktop page top to bottom, phone). The template shots only show its first two screens; "
+                 "judge lower sections against the skill's anatomy.")
+    else:
+        order = ("No screenshots of the template are on file; judge from the skill. The images are the "
+                 "BUILT page (desktop first screen, the WHOLE desktop page top to bottom, phone).")
+    raw = m.ask(FIDELITY_PROMPT.format(style=t.get("style", t["name"]), tname=t["name"], order=order,
+                                       signature="\n".join(f"- {x}" for x in t.get("signature", [])),
+                                       skill=t.get("skill", "")),
+                images=[*ref, *built_shots], schema=FIDELITY_SCHEMA, effort="medium", max_tokens=6000)
+    return json.loads(raw)
+
+
+def revise(direction: dict, page: str, fixes: list[str], built_shots: list[Path]) -> str:
+    t = _template(direction)
+    ref = templates.shots(t["id"])
+    note = (f"Attached: the template ({len(ref)} screenshots) then your current page (desktop first "
+            "screen, the whole desktop page, phone)." if ref else
+            "Attached: your current page (desktop first screen, the whole desktop page, phone).")
+    prompt = REVISE_PROMPT.format(style=t.get("style", t["name"]), tname=t["name"],
+                                  fixes="\n".join(f"{i + 1}. {f}" for i, f in enumerate(fixes)),
+                                  shots_note=note, skill=t.get("skill", ""), page=page)
+    return _wonder(prompt, [*ref, *built_shots])
 
 
 # --- the findability layer -----------------------------------------------------
@@ -384,8 +637,13 @@ def build(profile: dict, direction: dict, shots: list[Shot], base_url: str, out:
         stem = re.sub(r"[^a-z0-9]+", "-", s.product.lower()).strip("-")
         w, h = _web_jpeg(Path(s.landscape), out / "img" / f"{stem}.jpg", 1600)
         images.append({"path": f"img/{stem}.jpg", "w": w, "h": h, "product": s.product,
-                       "what": f"professional photo of {s.product}",
+                       "what": f"professional photo of {s.product}, wide crop",
                        "alt": alts.get(s.product) or s.product, "role": "hero" if k == 0 else "product"})
+        if s.portrait and Path(s.portrait).exists():
+            w, h = _web_jpeg(Path(s.portrait), out / "img" / f"{stem}-tall.jpg", 1600)
+            images.append({"path": f"img/{stem}-tall.jpg", "w": w, "h": h, "product": s.product,
+                           "what": f"professional photo of {s.product}, tall crop",
+                           "alt": alts.get(s.product) or s.product, "role": "tall"})
     if images:  # a 1200x630 share card from the hero
         im = Image.open(out / images[0]["path"])
         r = max(1200 / im.width, 630 / im.height)
@@ -400,16 +658,70 @@ def build(profile: dict, direction: dict, shots: list[Shot], base_url: str, out:
         shutil.copy(mark["mark_light"], out / "img" / "logo-light.png")
         logo = _abs(base, "img/logo.png")
     page_imgs = [i for i in images if i["role"] != "share"]
-    page = build_page(profile, copy, direction, page_imgs, direction["font_css"], mark)
-    page = enforce(page, page_imgs + [{"path": "img/logo.png", "alt": profile["name"]},
-                                      {"path": "img/logo-light.png", "alt": profile["name"]}])
+    logos = [{"path": "img/logo.png", "alt": profile["name"]},
+             {"path": "img/logo-light.png", "alt": profile["name"]}]
+    page = enforce(build_page(profile, copy, direction, page_imgs, direction["font_css"], mark),
+                   page_imgs + logos)
+    # Hold it to the template: screenshot, compare, revise, keep the best.
+    checks, best = [], None
+    for r in range(FIDELITY_ROUNDS + 1):
+        (out / "index.html").write_text(page)
+        try:
+            shots_r = snapshot(out / "index.html", out / "_fidelity", f"r{r}")
+            fid = fidelity(direction, shots_r)
+        except Exception as e:  # the check must never sink the build
+            print(f"fidelity check failed: {e!r}"[:300])
+            best = best or (page, None)
+            break
+        borrowed = borrowed_labels(page, direction.get("id", ""), profile)
+        if borrowed:  # caught in code, so it never depends on the reviewer noticing
+            fid["borrowed"] = borrowed
+            fid["overall"] = min(fid["overall"], 5)
+            fid["fixes"] = [f"Remove the template site's own menu labels {', '.join(borrowed)}: this business "
+                            "doesn't sell or have those. Use its real product types and pages."] + fid["fixes"]
+        missing = sorted({src for src in re.findall(r'<img\b[^>]*\bsrc="([^"]+)"', page, re.I)
+                          if not src.startswith(("http", "data:")) and not (out / src).exists()})
+        if missing:
+            fid["missing_images"] = missing
+            fid["overall"] = min(fid["overall"], 6)
+            fid["fixes"] = [f"These image paths don't exist: {', '.join(missing)}. Use only the listed "
+                            "image files."] + fid["fixes"]
+        swapped = swapped_photos(page, page_imgs, [p["name"] for p in profile["products"]])
+        if swapped:
+            fid["swapped_photos"] = swapped
+            fid["overall"] = min(fid["overall"], 5)
+            fid["fixes"] = ["Never show a product with another product's photo (" + "; ".join(swapped) + "). "
+                            "Products without their own photo are listed in type only."] + fid["fixes"]
+        invented = invented_numbers(page, profile, copy)
+        if invented:
+            fid["invented"] = invented
+            fid["overall"] = min(fid["overall"], 5)
+            fid["fixes"] = [f"Remove {', '.join(invented)}: no such year or number appears in this business's "
+                            "facts. Never invent dates or counts."] + fid["fixes"]
+        checks.append({"round": r, **fid, "shots": [str(p) for p in shots_r]})
+        if best is None or best[1] is None or fid["overall"] > best[1]["overall"]:
+            best = (page, fid)
+        if fid["overall"] >= GOOD_ENOUGH or r == FIDELITY_ROUNDS:
+            break
+        try:
+            page = enforce(revise(direction, page, fid["fixes"], shots_r), page_imgs + logos)
+        except Exception as e:
+            print(f"revision failed: {e!r}"[:300])
+            break
+    page = best[0]
+    (out / "fidelity.json").write_text(json.dumps(checks, indent=1))
     page = inject(page, head_tags(profile, copy, base, images, logo), body_end(profile, copy))
     (out / "index.html").write_text(page)
     (out / "robots.txt").write_text(robots_txt(base))
     (out / "sitemap.xml").write_text(sitemap_xml(base))
     (out / "llms.txt").write_text(llms_txt(profile, copy, base))
     (out / "copy.json").write_text(json.dumps(copy, indent=1))
-    return {"copy": copy, "images": images, "base": base}
+    fid = best[1] or {}
+    return {"copy": copy, "images": images, "base": base,
+            "fidelity": {"template": direction.get("name"), "style": direction.get("style"),
+                         "overall": fid.get("overall"), "scores": fid.get("scores"),
+                         "verdict": fid.get("verdict"), "rounds": len(checks),
+                         "history": [c["overall"] for c in checks]}}
 
 
 def clear(out: Path) -> None:

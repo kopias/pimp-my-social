@@ -1,0 +1,282 @@
+{
+ "id": "idioma",
+ "url": "https://idioma.world/",
+ "desktop": {
+  "title": "Idioma | Sustainable Multicultural Clothing & Design",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Courier New",
+   "stack": "\"Courier New\", Courier, monospace",
+   "size": "14px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "19.6px",
+   "style": "normal",
+   "color": "rgb(19, 19, 19)",
+   "text": "Derived from the Spanish word for \"language,\" originally from the Ancient Greek "
+  },
+  "nav": null,
+  "nav_count": 0,
+  "nav_labels": [],
+  "largest": [
+   {
+    "family": "Helvetica",
+    "stack": "Helvetica, Arial, sans-serif",
+    "size": "29.169px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "35.0028px",
+    "style": "normal",
+    "color": "rgb(19, 19, 19)",
+    "text": "NEW ARRIVALS"
+   },
+   {
+    "family": "Helvetica",
+    "stack": "Helvetica, Arial, sans-serif",
+    "size": "21px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "25.2px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "SEE THE WORLD - SPEAK THE LANGUAGE"
+   },
+   {
+    "family": "Helvetica",
+    "stack": "Helvetica, Arial, sans-serif",
+    "size": "21px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "25.2px",
+    "style": "normal",
+    "color": "rgb(19, 19, 19)",
+    "text": "SEE THE WORLD - SPEAK THE LANGUAGE"
+   },
+   {
+    "family": "Courier New",
+    "stack": "\"Courier New\", Courier, monospace",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "25.2px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "New Arrivals"
+   }
+  ],
+  "families": [
+   [
+    "Courier New",
+    44
+   ],
+   [
+    "Helvetica",
+    3
+   ],
+   [
+    "Arial",
+    1
+   ]
+  ],
+  "header": {
+   "h": 0,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "relative"
+  },
+  "logo": null,
+  "images": [
+   {
+    "x": 0,
+    "y": 16,
+    "w": 1440,
+    "h": 1028
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Courier New",
+    "stack": "\"Courier New\", Courier, monospace",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "25.2px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "New Arrivals",
+    "bg": "rgb(253, 255, 8)",
+    "border": "1px solid rgb(253, 255, 8)",
+    "radius": "0px",
+    "padding": "14px 28px"
+   }
+  ],
+  "page_h": 5775
+ },
+ "mobile": {
+  "title": "Idioma | Sustainable Multicultural Clothing & Design",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Courier New",
+   "stack": "\"Courier New\", Courier, monospace",
+   "size": "13px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "18.2px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "Free UK Shipping when you spend \u00a3150"
+  },
+  "nav": {
+   "family": "Arial",
+   "stack": "Arial",
+   "size": "14px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "normal",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "Menu"
+  },
+  "nav_count": 1,
+  "nav_labels": [
+   "Menu"
+  ],
+  "largest": [
+   {
+    "family": "Helvetica",
+    "stack": "Helvetica, Arial, sans-serif",
+    "size": "29.169px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "35.0028px",
+    "style": "normal",
+    "color": "rgb(19, 19, 19)",
+    "text": "NEW ARRIVALS"
+   },
+   {
+    "family": "Helvetica",
+    "stack": "Helvetica, Arial, sans-serif",
+    "size": "25.662px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "30.7944px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "SEE THE WORLD - SPEAK THE LANGUAGE"
+   },
+   {
+    "family": "Helvetica",
+    "stack": "Helvetica, Arial, sans-serif",
+    "size": "21px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "25.2px",
+    "style": "normal",
+    "color": "rgb(19, 19, 19)",
+    "text": "SEE THE WORLD - SPEAK THE LANGUAGE"
+   },
+   {
+    "family": "Courier New",
+    "stack": "\"Courier New\", Courier, monospace",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "25.2px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "New Arrivals"
+   }
+  ],
+  "families": [
+   [
+    "Courier New",
+    39
+   ],
+   [
+    "Arial",
+    12
+   ],
+   [
+    "Helvetica",
+    3
+   ]
+  ],
+  "header": {
+   "h": 119,
+   "y": 30,
+   "bg": "rgb(255, 255, 255)",
+   "position": "relative"
+  },
+  "logo": {
+   "x": 125,
+   "w": 130,
+   "h": 87,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 165,
+    "w": 390,
+    "h": 500
+   },
+   {
+    "x": 16,
+    "y": 772,
+    "w": 161,
+    "h": 161
+   },
+   {
+    "x": 187,
+    "y": 772,
+    "w": 161,
+    "h": 161
+   },
+   {
+    "x": 358,
+    "y": 772,
+    "w": 161,
+    "h": 161
+   },
+   {
+    "x": 125,
+    "y": 46,
+    "w": 130,
+    "h": 87
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Courier New",
+    "stack": "\"Courier New\", Courier, monospace",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "25.2px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "New Arrivals",
+    "bg": "rgb(253, 255, 8)",
+    "border": "1px solid rgb(253, 255, 8)",
+    "radius": "0px",
+    "padding": "14px 28px"
+   }
+  ],
+  "page_h": 7779
+ }
+}

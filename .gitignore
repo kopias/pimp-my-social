@@ -7,3 +7,4 @@ out/
 certs/
 .DS_Store
 inspo/shots/
+inspo/templates/*/*.jpg

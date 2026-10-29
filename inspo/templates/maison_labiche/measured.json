@@ -1,0 +1,258 @@
+{
+ "id": "maison_labiche",
+ "url": "https://www.maisonlabiche.com/",
+ "desktop": {
+  "title": "Maison Labiche \u2013 Embroidered clothing for Men, Women and Kids",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgb(255, 255, 255)",
+  "body": {
+   "family": "montserrat",
+   "stack": "montserrat",
+   "size": "12px",
+   "weight": "600",
+   "tracking": "0.6px",
+   "transform": "uppercase",
+   "line": "15.6px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "PERSONALIZATION"
+  },
+  "nav": {
+   "family": "montserrat",
+   "stack": "montserrat, sans-serif",
+   "size": "12px",
+   "weight": "400",
+   "tracking": "0.6px",
+   "transform": "none",
+   "line": "18px",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "Pause slideshow"
+  },
+  "nav_count": 10,
+  "nav_labels": [
+   "Pause slideshow",
+   "United States (USD $)",
+   "English",
+   "SEARCH",
+   "CART",
+   "PERSONALIZATION",
+   "WOMEN",
+   "MEN",
+   "THE ICONICS",
+   "THE BRAND"
+  ],
+  "largest": [
+   {
+    "family": "adobe-caslon-pro",
+    "stack": "adobe-caslon-pro",
+    "size": "30px",
+    "weight": "700",
+    "tracking": "0.6px",
+    "transform": "uppercase",
+    "line": "30px",
+    "style": "normal",
+    "color": "rgb(43, 51, 73)",
+    "text": "MAISON LABICHE"
+   },
+   {
+    "family": "adobe-caslon-pro",
+    "stack": "adobe-caslon-pro",
+    "size": "27px",
+    "weight": "700",
+    "tracking": "0.6px",
+    "transform": "none",
+    "line": "27px",
+    "style": "normal",
+    "color": "rgb(43, 51, 73)",
+    "text": "\"CORRESPONDENCE\""
+   },
+   {
+    "family": "adobe-caslon-pro",
+    "stack": "adobe-caslon-pro",
+    "size": "17px",
+    "weight": "700",
+    "tracking": "0.6px",
+    "transform": "none",
+    "line": "17px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Language"
+   },
+   {
+    "family": "adobe-caslon-pro",
+    "stack": "adobe-caslon-pro",
+    "size": "17px",
+    "weight": "700",
+    "tracking": "0.85px",
+    "transform": "none",
+    "line": "17px",
+    "style": "italic",
+    "color": "rgb(43, 51, 73)",
+    "text": "Men's Selection"
+   }
+  ],
+  "families": [
+   [
+    "montserrat",
+    57
+   ],
+   [
+    "adobe-caslon-pro",
+    5
+   ]
+  ],
+  "header": {
+   "h": 153,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "fixed"
+  },
+  "logo": {
+   "x": 585,
+   "w": 270,
+   "h": 24,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 1440,
+    "h": 900
+   },
+   {
+    "x": 585,
+    "y": 58,
+    "w": 270,
+    "h": 24
+   }
+  ],
+  "buttons": [],
+  "page_h": 6012
+ },
+ "mobile": {
+  "title": "Maison Labiche \u2013 Embroidered clothing for Men, Women and Kids",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgb(255, 255, 255)",
+  "body": {
+   "family": "adobe-caslon-pro",
+   "stack": "adobe-caslon-pro",
+   "size": "20px",
+   "weight": "700",
+   "tracking": "0.51px",
+   "transform": "none",
+   "line": "20px",
+   "style": "italic",
+   "color": "rgb(43, 51, 73)",
+   "text": "Embroidery"
+  },
+  "nav": {
+   "family": "montserrat",
+   "stack": "montserrat, sans-serif",
+   "size": "10.2px",
+   "weight": "400",
+   "tracking": "0.51px",
+   "transform": "none",
+   "line": "15.3px",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "Pause slideshow"
+  },
+  "nav_count": 4,
+  "nav_labels": [
+   "Pause slideshow",
+   "SITE NAVIGATION",
+   "SEARCH",
+   "CART"
+  ],
+  "largest": [
+   {
+    "family": "adobe-caslon-pro",
+    "stack": "adobe-caslon-pro",
+    "size": "30px",
+    "weight": "700",
+    "tracking": "0.51px",
+    "transform": "uppercase",
+    "line": "30px",
+    "style": "normal",
+    "color": "rgb(43, 51, 73)",
+    "text": "MAISON LABICHE"
+   },
+   {
+    "family": "adobe-caslon-pro",
+    "stack": "adobe-caslon-pro",
+    "size": "22px",
+    "weight": "700",
+    "tracking": "0.51px",
+    "transform": "none",
+    "line": "22px",
+    "style": "normal",
+    "color": "rgb(43, 51, 73)",
+    "text": "\"CORRESPONDENCE\""
+   },
+   {
+    "family": "adobe-caslon-pro",
+    "stack": "adobe-caslon-pro",
+    "size": "15px",
+    "weight": "700",
+    "tracking": "0.75px",
+    "transform": "none",
+    "line": "15px",
+    "style": "italic",
+    "color": "rgb(43, 51, 73)",
+    "text": "Men's Selection"
+   },
+   {
+    "family": "adobe-caslon-pro",
+    "stack": "adobe-caslon-pro",
+    "size": "15px",
+    "weight": "700",
+    "tracking": "0.75px",
+    "transform": "none",
+    "line": "15px",
+    "style": "italic",
+    "color": "rgb(43, 51, 73)",
+    "text": "Women's Selection"
+   }
+  ],
+  "families": [
+   [
+    "montserrat",
+    101
+   ],
+   [
+    "adobe-caslon-pro",
+    4
+   ]
+  ],
+  "header": {
+   "h": 96,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "fixed"
+  },
+  "logo": {
+   "x": 115,
+   "w": 160,
+   "h": 14,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 96,
+    "w": 390,
+    "h": 844
+   },
+   {
+    "x": 115,
+    "y": 58,
+    "w": 160,
+    "h": 14
+   }
+  ],
+  "buttons": [],
+  "page_h": 4708
+ }
+}

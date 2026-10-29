@@ -1,0 +1,382 @@
+{
+ "id": "khy",
+ "url": "https://www.khy.com/",
+ "desktop": {
+  "title": "KHY by Kylie Jenner",
+  "bg": "rgb(250, 249, 246)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Monospace-Typewriter",
+   "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+   "size": "13px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "uppercase",
+   "line": "15.6px",
+   "style": "normal",
+   "color": "rgb(49, 52, 72)",
+   "text": "KHY AFTER DARK IS HERE | SHOP NOW"
+  },
+  "nav": {
+   "family": "Monospace-Typewriter",
+   "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+   "size": "13px",
+   "weight": "500",
+   "tracking": "1.3px",
+   "transform": "uppercase",
+   "line": "15.6px",
+   "style": "normal",
+   "color": "rgb(250, 249, 246)",
+   "text": "MENU"
+  },
+  "nav_count": 7,
+  "nav_labels": [
+   "MENU",
+   "KHY",
+   "SEARCH",
+   "WISHLIST",
+   "WISHLIST",
+   "ACCOUNT",
+   "BAG"
+  ],
+  "largest": [
+   {
+    "family": "Times",
+    "stack": "Times",
+    "size": "24px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "28.8px",
+    "style": "normal",
+    "color": "rgb(250, 249, 246)",
+    "text": "KHY"
+   },
+   {
+    "family": "Monospace-Typewriter",
+    "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+    "size": "20px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "22px",
+    "style": "normal",
+    "color": "rgb(241, 240, 220)",
+    "text": "KHY"
+   },
+   {
+    "family": "Monospace-Typewriter",
+    "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+    "size": "20px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "22px",
+    "style": "normal",
+    "color": "rgb(241, 240, 220)",
+    "text": "AFTER DARK"
+   },
+   {
+    "family": "Times",
+    "stack": "Times",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "18.4px",
+    "style": "normal",
+    "color": "rgb(0, 0, 238)",
+    "text": "Skip to content"
+   }
+  ],
+  "families": [
+   [
+    "Monospace-Typewriter",
+    25
+   ],
+   [
+    "Times",
+    2
+   ]
+  ],
+  "header": {
+   "h": 72,
+   "y": 36,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "absolute"
+  },
+  "logo": {
+   "x": 619,
+   "w": 202,
+   "h": 40,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 36,
+    "w": 1440,
+    "h": 810
+   },
+   {
+    "x": 16,
+    "y": 878,
+    "w": 221,
+    "h": 277
+   },
+   {
+    "x": 253,
+    "y": 878,
+    "w": 221,
+    "h": 277
+   },
+   {
+    "x": 1084,
+    "y": 878,
+    "w": 221,
+    "h": 277
+   },
+   {
+    "x": 665,
+    "y": 52,
+    "w": 110,
+    "h": 40
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Monospace-Typewriter",
+    "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+    "size": "13px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "15.6px",
+    "style": "normal",
+    "color": "rgb(49, 52, 72)",
+    "text": "KHY AFTER DARK IS HERE | SHOP NOW",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(49, 52, 72)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Monospace-Typewriter",
+    "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+    "size": "13px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "15.6px",
+    "style": "normal",
+    "color": "rgb(49, 52, 72)",
+    "text": "LATEX IS BACK | SHOP NOW",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(49, 52, 72)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Monospace-Typewriter",
+    "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+    "size": "13px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "15.6px",
+    "style": "normal",
+    "color": "rgb(49, 52, 72)",
+    "text": "SHOP KHY DENIM",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(49, 52, 72)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 6219
+ },
+ "mobile": {
+  "title": "KHY by Kylie Jenner",
+  "bg": "rgb(250, 249, 246)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Monospace-Typewriter",
+   "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+   "size": "13px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "uppercase",
+   "line": "15.6px",
+   "style": "normal",
+   "color": "rgb(49, 52, 72)",
+   "text": "KHY AFTER DARK IS HERE | SHOP NOW"
+  },
+  "nav": {
+   "family": "Monospace-Typewriter",
+   "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+   "size": "12px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "uppercase",
+   "line": "14.4px",
+   "style": "normal",
+   "color": "rgb(250, 249, 246)",
+   "text": "MENU"
+  },
+  "nav_count": 3,
+  "nav_labels": [
+   "MENU",
+   "KHY",
+   "BAG"
+  ],
+  "largest": [
+   {
+    "family": "Monospace-Typewriter",
+    "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+    "size": "20px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "22px",
+    "style": "normal",
+    "color": "rgb(241, 240, 220)",
+    "text": "KHY"
+   },
+   {
+    "family": "Monospace-Typewriter",
+    "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+    "size": "20px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "22px",
+    "style": "normal",
+    "color": "rgb(241, 240, 220)",
+    "text": "AFTER DARK"
+   },
+   {
+    "family": "Times",
+    "stack": "Times",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "18.4px",
+    "style": "normal",
+    "color": "rgb(0, 0, 238)",
+    "text": "Skip to content"
+   },
+   {
+    "family": "Monospace-Typewriter",
+    "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+    "size": "15px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "16.5px",
+    "style": "normal",
+    "color": "oklch(0.331 0.0356 277.65)",
+    "text": "NEW ARRIVALS"
+   }
+  ],
+  "families": [
+   [
+    "Monospace-Typewriter",
+    22
+   ],
+   [
+    "Times",
+    2
+   ]
+  ],
+  "header": {
+   "h": 40,
+   "y": 36,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "absolute"
+  },
+  "logo": {
+   "x": 163,
+   "w": 63,
+   "h": 24,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 36,
+    "w": 390,
+    "h": 520
+   },
+   {
+    "x": 16,
+    "y": 580,
+    "w": 175,
+    "h": 219
+   },
+   {
+    "x": 199,
+    "y": 580,
+    "w": 175,
+    "h": 219
+   },
+   {
+    "x": 162,
+    "y": 44,
+    "w": 66,
+    "h": 24
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Monospace-Typewriter",
+    "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+    "size": "13px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "15.6px",
+    "style": "normal",
+    "color": "rgb(49, 52, 72)",
+    "text": "KHY AFTER DARK IS HERE | SHOP NOW",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(49, 52, 72)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Monospace-Typewriter",
+    "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+    "size": "13px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "15.6px",
+    "style": "normal",
+    "color": "rgb(49, 52, 72)",
+    "text": "LATEX IS BACK | SHOP NOW",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(49, 52, 72)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Monospace-Typewriter",
+    "stack": "Monospace-Typewriter, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+    "size": "13px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "15.6px",
+    "style": "normal",
+    "color": "rgb(49, 52, 72)",
+    "text": "SHOP KHY DENIM",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(49, 52, 72)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 5114
+ }
+}

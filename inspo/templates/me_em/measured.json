@@ -1,0 +1,334 @@
+{
+ "id": "me_em",
+ "url": "https://www.meandem.com/us",
+ "desktop": {
+  "title": "Women's Designer Fashion + Luxury Clothing | ME+EM",
+  "bg": "rgb(248, 247, 243)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "suisseIntl",
+   "stack": "suisseIntl, \"suisseIntl Fallback\"",
+   "size": "10px",
+   "weight": "500",
+   "tracking": "1px",
+   "transform": "uppercase",
+   "line": "15px",
+   "style": "normal",
+   "color": "rgb(248, 247, 243)",
+   "text": "EXPRESS DELIVERY & FREE RETURNS"
+  },
+  "nav": {
+   "family": "suisseIntl",
+   "stack": "suisseIntl, \"suisseIntl Fallback\"",
+   "size": "10px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "15px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "New In"
+  },
+  "nav_count": 6,
+  "nav_labels": [
+   "New In",
+   "Clothing",
+   "Dresses",
+   "Pants",
+   "Shoes",
+   "Accessories"
+  ],
+  "largest": [
+   {
+    "family": "suisseIntl",
+    "stack": "suisseIntl, \"suisseIntl Fallback\"",
+    "size": "30px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "45px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "The Fall Collection"
+   },
+   {
+    "family": "timesNow",
+    "stack": "timesNow, \"timesNow Fallback\"",
+    "size": "24px",
+    "weight": "100",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "31px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Dressing for every moment"
+   },
+   {
+    "family": "suisseIntl",
+    "stack": "suisseIntl, \"suisseIntl Fallback\"",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop New In"
+   },
+   {
+    "family": "suisseIntl",
+    "stack": "suisseIntl, \"suisseIntl Fallback\"",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "18px",
+    "style": "normal",
+    "color": "rgb(248, 247, 243)",
+    "text": "Stores"
+   }
+  ],
+  "families": [
+   [
+    "suisseIntl",
+    63
+   ],
+   [
+    "timesNow",
+    1
+   ]
+  ],
+  "header": {
+   "h": 70,
+   "y": 91,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "static"
+  },
+  "logo": null,
+  "images": [
+   {
+    "x": 0,
+    "y": 91,
+    "w": 1440,
+    "h": 809
+   },
+   {
+    "x": 0,
+    "y": 91,
+    "w": 1440,
+    "h": 809
+   }
+  ],
+  "buttons": [
+   {
+    "family": "suisseIntl",
+    "stack": "suisseIntl, \"suisseIntl Fallback\"",
+    "size": "10px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "New In",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "suisseIntl",
+    "stack": "suisseIntl, \"suisseIntl Fallback\"",
+    "size": "10px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(44, 44, 44)",
+    "text": "The Fall Collection\nDressing for every moment\nShop New In",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(44, 44, 44)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "suisseIntl",
+    "stack": "suisseIntl, \"suisseIntl Fallback\"",
+    "size": "10px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop New In",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px 16px 8px 0px"
+   }
+  ],
+  "page_h": 5625
+ },
+ "mobile": {
+  "title": "Women's Designer Fashion + Luxury Clothing | ME+EM",
+  "bg": "rgb(248, 247, 243)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "suisseIntl",
+   "stack": "suisseIntl, \"suisseIntl Fallback\"",
+   "size": "12px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "12px",
+   "style": "normal",
+   "color": "rgb(113, 113, 113)",
+   "text": "+1"
+  },
+  "nav": null,
+  "nav_count": 0,
+  "nav_labels": [],
+  "largest": [
+   {
+    "family": "suisseIntl",
+    "stack": "suisseIntl, \"suisseIntl Fallback\"",
+    "size": "24px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "36px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "The Fall Collection"
+   },
+   {
+    "family": "timesNow",
+    "stack": "timesNow, \"timesNow Fallback\"",
+    "size": "20px",
+    "weight": "100",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "31px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Dressing for every moment"
+   },
+   {
+    "family": "suisseIntl",
+    "stack": "suisseIntl, \"suisseIntl Fallback\"",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop New In"
+   },
+   {
+    "family": "suisseIntl",
+    "stack": "suisseIntl, \"suisseIntl Fallback\"",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "The Weekend Edit"
+   }
+  ],
+  "families": [
+   [
+    "suisseIntl",
+    44
+   ],
+   [
+    "timesNow",
+    1
+   ]
+  ],
+  "header": {
+   "h": 70,
+   "y": 56,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "static"
+  },
+  "logo": null,
+  "images": [
+   {
+    "x": 0,
+    "y": 56,
+    "w": 390,
+    "h": 788
+   },
+   {
+    "x": 0,
+    "y": 56,
+    "w": 390,
+    "h": 788
+   },
+   {
+    "x": 20,
+    "y": 893,
+    "w": 206,
+    "h": 288
+   },
+   {
+    "x": 241,
+    "y": 893,
+    "w": 206,
+    "h": 288
+   },
+   {
+    "x": 462,
+    "y": 893,
+    "w": 206,
+    "h": 288
+   },
+   {
+    "x": 683,
+    "y": 893,
+    "w": 206,
+    "h": 288
+   }
+  ],
+  "buttons": [
+   {
+    "family": "suisseIntl",
+    "stack": "suisseIntl, \"suisseIntl Fallback\"",
+    "size": "10px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(44, 44, 44)",
+    "text": "The Fall Collection\nDressing for every moment\nShop New In",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(44, 44, 44)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "suisseIntl",
+    "stack": "suisseIntl, \"suisseIntl Fallback\"",
+    "size": "10px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop New In",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px 16px 8px 0px"
+   }
+  ],
+  "page_h": 7480
+ }
+}

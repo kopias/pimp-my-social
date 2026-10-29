@@ -1,0 +1,297 @@
+{
+ "id": "sleeper",
+ "url": "https://the-sleeper.com/",
+ "desktop": {
+  "title": "Sleeper | Party Pajamas, Occasionwear & Resort Dresses",
+  "bg": "rgb(253, 249, 240)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Mabry",
+   "stack": "Mabry, sans-serif",
+   "size": "12px",
+   "weight": "400",
+   "tracking": "0.36px",
+   "transform": "none",
+   "line": "16.8px",
+   "style": "normal",
+   "color": "rgb(78, 46, 50)",
+   "text": "Sign up for our weekly updates and get 10% off your first purchase."
+  },
+  "nav": {
+   "family": "Mabry",
+   "stack": "Mabry, sans-serif",
+   "size": "12px",
+   "weight": "400",
+   "tracking": "0.36px",
+   "transform": "uppercase",
+   "line": "16.8px",
+   "style": "normal",
+   "color": "rgb(78, 46, 50)",
+   "text": "NEW IN"
+  },
+  "nav_count": 6,
+  "nav_labels": [
+   "NEW IN",
+   "SIGNATURES",
+   "ARCHIVAL PIECES",
+   "US/USD",
+   "LOG IN",
+   "(\n0\n)\n0 ITEMS"
+  ],
+  "largest": [
+   {
+    "family": "Mabry",
+    "stack": "Mabry, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.36px",
+    "transform": "none",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Skip to content"
+   },
+   {
+    "family": "Mabry",
+    "stack": "Mabry, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.36px",
+    "transform": "uppercase",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(78, 46, 50)",
+    "text": "ACCOUNT"
+   },
+   {
+    "family": "Mabry",
+    "stack": "Mabry, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.36px",
+    "transform": "uppercase",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(78, 46, 50)",
+    "text": "CLOSE"
+   },
+   {
+    "family": "Mabry",
+    "stack": "Mabry, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.36px",
+    "transform": "uppercase",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(78, 46, 50)",
+    "text": "MY INFORMATION"
+   }
+  ],
+  "families": [
+   [
+    "Mabry",
+    25
+   ]
+  ],
+  "header": {
+   "h": 50,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "static"
+  },
+  "logo": {
+   "x": 680,
+   "w": 80,
+   "h": 16,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 1440,
+    "h": 1007
+   },
+   {
+    "x": 42,
+    "y": 11,
+    "w": 12,
+    "h": 1660
+   },
+   {
+    "x": 54,
+    "y": 11,
+    "w": 12,
+    "h": 1660
+   },
+   {
+    "x": 680,
+    "y": 17,
+    "w": 80,
+    "h": 16
+   },
+   {
+    "x": 1370,
+    "y": 12,
+    "w": 32,
+    "h": 26
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Mabry",
+    "stack": "Mabry, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.36px",
+    "transform": "uppercase",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(78, 46, 50)",
+    "text": "NEW IN",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(78, 46, 50)",
+    "radius": "0px",
+    "padding": "0px 8px"
+   }
+  ],
+  "page_h": 4635
+ },
+ "mobile": {
+  "title": "Sleeper | Party Pajamas, Occasionwear & Resort Dresses",
+  "bg": "rgb(253, 249, 240)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Mabry",
+   "stack": "Mabry, sans-serif",
+   "size": "12px",
+   "weight": "400",
+   "tracking": "0.36px",
+   "transform": "none",
+   "line": "16.8px",
+   "style": "normal",
+   "color": "rgb(78, 46, 50)",
+   "text": "Sign up for our weekly updates and get 10% off your first purchase."
+  },
+  "nav": {
+   "family": "Mabry",
+   "stack": "Mabry, sans-serif",
+   "size": "12px",
+   "weight": "400",
+   "tracking": "0.36px",
+   "transform": "uppercase",
+   "line": "16.8px",
+   "style": "normal",
+   "color": "rgb(78, 46, 50)",
+   "text": "US/USD"
+  },
+  "nav_count": 2,
+  "nav_labels": [
+   "US/USD",
+   "(\n0\n)\n0 ITEMS"
+  ],
+  "largest": [
+   {
+    "family": "Mabry",
+    "stack": "Mabry, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.36px",
+    "transform": "none",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Skip to content"
+   },
+   {
+    "family": "Mabry",
+    "stack": "Mabry, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.36px",
+    "transform": "uppercase",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(78, 46, 50)",
+    "text": "ACCOUNT"
+   },
+   {
+    "family": "Mabry",
+    "stack": "Mabry, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.36px",
+    "transform": "uppercase",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(78, 46, 50)",
+    "text": "CLOSE"
+   },
+   {
+    "family": "Mabry",
+    "stack": "Mabry, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.36px",
+    "transform": "uppercase",
+    "line": "16.8px",
+    "style": "normal",
+    "color": "rgb(78, 46, 50)",
+    "text": "MY INFORMATION"
+   }
+  ],
+  "families": [
+   [
+    "Mabry",
+    14
+   ]
+  ],
+  "header": {
+   "h": 70,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "static"
+  },
+  "logo": {
+   "x": 140,
+   "w": 80,
+   "h": 16,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 25,
+    "w": 390,
+    "h": 731
+   },
+   {
+    "x": 0,
+    "y": 757,
+    "w": 195,
+    "h": 273
+   },
+   {
+    "x": 195,
+    "y": 757,
+    "w": 195,
+    "h": 273
+   },
+   {
+    "x": 140,
+    "y": 27,
+    "w": 80,
+    "h": 16
+   },
+   {
+    "x": 326,
+    "y": 16,
+    "w": 32,
+    "h": 32
+   }
+  ],
+  "buttons": [],
+  "page_h": 1862
+ }
+}

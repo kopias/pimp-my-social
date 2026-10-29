@@ -1,0 +1,278 @@
+{
+ "id": "rouvenat",
+ "url": "https://rouvenat.com/",
+ "desktop": {
+  "title": "Rouvenat | Joaillerie Circulaire \u2013 ROUVENAT",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Nuckle",
+   "stack": "Nuckle, sans-serif",
+   "size": "12px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "24px",
+   "style": "normal",
+   "color": "rgb(44, 44, 44)",
+   "text": "En 1852, L\u00e9on Rouvenat r\u00e9volutionne la joaillerie.\nEn 2022, Rouvenat r\u00e9volutionn"
+  },
+  "nav": {
+   "family": "Nuckle",
+   "stack": "Nuckle, sans-serif",
+   "size": "10px",
+   "weight": "500",
+   "tracking": "0.5px",
+   "transform": "uppercase",
+   "line": "18px",
+   "style": "normal",
+   "color": "rgb(44, 44, 44)",
+   "text": "CONTACT"
+  },
+  "nav_count": 10,
+  "nav_labels": [
+   "CONTACT",
+   "EN",
+   "FR",
+   "GIFT EDIT",
+   "MAISON",
+   "STORIES",
+   "LE 416",
+   "COLLIER",
+   "BAGUE",
+   "BOUCLE D'OREILLE"
+  ],
+  "largest": [
+   {
+    "family": "Nuckle",
+    "stack": "Nuckle, sans-serif",
+    "size": "32px",
+    "weight": "400",
+    "tracking": "-0.32px",
+    "transform": "uppercase",
+    "line": "32px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "COLLECTION"
+   },
+   {
+    "family": "Nuckle",
+    "stack": "Nuckle, sans-serif",
+    "size": "32px",
+    "weight": "400",
+    "tracking": "-0.32px",
+    "transform": "uppercase",
+    "line": "32px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "UNLOCK"
+   },
+   {
+    "family": "Nuckle",
+    "stack": "Nuckle, sans-serif",
+    "size": "12px",
+    "weight": "500",
+    "tracking": "0.6px",
+    "transform": "uppercase",
+    "line": "22px",
+    "style": "normal",
+    "color": "rgb(44, 44, 44)",
+    "text": "UNLOCK"
+   },
+   {
+    "family": "Nuckle",
+    "stack": "Nuckle, sans-serif",
+    "size": "12px",
+    "weight": "500",
+    "tracking": "0.6px",
+    "transform": "uppercase",
+    "line": "22px",
+    "style": "normal",
+    "color": "rgb(44, 44, 44)",
+    "text": "NOUVELLE COLLECTION"
+   }
+  ],
+  "families": [
+   [
+    "Nuckle",
+    39
+   ]
+  ],
+  "header": {
+   "h": 80,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "fixed"
+  },
+  "logo": {
+   "x": 667,
+   "w": 160,
+   "h": 35,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 40,
+    "y": 80,
+    "w": 1360,
+    "h": 780
+   }
+  ],
+  "buttons": [],
+  "page_h": 6971
+ },
+ "mobile": {
+  "title": "Rouvenat | Joaillerie Circulaire \u2013 ROUVENAT",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Nuckle",
+   "stack": "Nuckle, sans-serif",
+   "size": "12.48px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "18.72px",
+   "style": "normal",
+   "color": "rgb(44, 44, 44)",
+   "text": "En 1852, L\u00e9on Rouvenat r\u00e9volutionne la joaillerie.\nEn 2022, Rouvenat r\u00e9volutionn"
+  },
+  "nav": {
+   "family": "Nuckle",
+   "stack": "Nuckle, sans-serif",
+   "size": "11.44px",
+   "weight": "500",
+   "tracking": "0.572px",
+   "transform": "uppercase",
+   "line": "4.875px",
+   "style": "normal",
+   "color": "rgb(44, 44, 44)",
+   "text": "EN"
+  },
+  "nav_count": 22,
+  "nav_labels": [
+   "EN",
+   "FR",
+   "ALL",
+   "RINGS",
+   "BRACELETS",
+   "NECKLACES",
+   "EARRINGS",
+   "UNLOCK",
+   "TAG",
+   "STAMP",
+   "FRAME",
+   "REFLECTION",
+   "BOLT",
+   "BABYBOLT"
+  ],
+  "largest": [
+   {
+    "family": "Nuckle",
+    "stack": "Nuckle, sans-serif",
+    "size": "22.88px",
+    "weight": "400",
+    "tracking": "-0.6864px",
+    "transform": "uppercase",
+    "line": "24.96px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "COLLECTION"
+   },
+   {
+    "family": "Nuckle",
+    "stack": "Nuckle, sans-serif",
+    "size": "22.88px",
+    "weight": "400",
+    "tracking": "-0.6864px",
+    "transform": "uppercase",
+    "line": "24.96px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "UNLOCK"
+   },
+   {
+    "family": "Nuckle",
+    "stack": "Nuckle, sans-serif",
+    "size": "22.88px",
+    "weight": "400",
+    "tracking": "-0.6864px",
+    "transform": "uppercase",
+    "line": "24.96px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "JOAILLERIE"
+   },
+   {
+    "family": "Nuckle",
+    "stack": "Nuckle, sans-serif",
+    "size": "22.88px",
+    "weight": "400",
+    "tracking": "-0.6864px",
+    "transform": "uppercase",
+    "line": "24.96px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "(RE)INCARN\u00c9E"
+   }
+  ],
+  "families": [
+   [
+    "Nuckle",
+    56
+   ]
+  ],
+  "header": {
+   "h": 62,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "fixed"
+  },
+  "logo": {
+   "x": 132,
+   "w": 137,
+   "h": 30,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 21,
+    "y": 62,
+    "w": 348,
+    "h": 619
+   },
+   {
+    "x": 1904,
+    "y": 819,
+    "w": 290,
+    "h": 435
+   },
+   {
+    "x": 21,
+    "y": 789,
+    "w": 312,
+    "h": 209
+   },
+   {
+    "x": 344,
+    "y": 819,
+    "w": 290,
+    "h": 194
+   },
+   {
+    "x": 656,
+    "y": 819,
+    "w": 290,
+    "h": 194
+   },
+   {
+    "x": 968,
+    "y": 819,
+    "w": 290,
+    "h": 194
+   }
+  ],
+  "buttons": [],
+  "page_h": 7111
+ }
+}

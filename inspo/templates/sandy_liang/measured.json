@@ -1,0 +1,284 @@
+{
+ "id": "sandy_liang",
+ "url": "https://www.sandyliang.info/",
+ "desktop": {
+  "title": "Sandy Liang | Official Site",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": null,
+  "nav": {
+   "family": "Calibre-Regular",
+   "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+   "size": "12px",
+   "weight": "400",
+   "tracking": "0.48px",
+   "transform": "uppercase",
+   "line": "14.4px",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "SHOP"
+  },
+  "nav_count": 6,
+  "nav_labels": [
+   "SHOP",
+   "SEARCH",
+   "COLLECTIONS",
+   "INFO",
+   "ACCOUNT",
+   "CART"
+  ],
+  "largest": [
+   {
+    "family": "Calibre-Regular",
+    "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "none",
+    "line": "14.4px",
+    "style": "normal",
+    "color": "rgb(252, 149, 206)",
+    "text": "\u22c6.\ud801\ude5a \u030a The Dauphine Pump \u22c6.\ud801\ude5a"
+   },
+   {
+    "family": "Calibre-Regular",
+    "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "14.4px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "SHOP"
+   },
+   {
+    "family": "Calibre-Regular",
+    "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "14.4px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "SEARCH"
+   },
+   {
+    "family": "Calibre-Regular",
+    "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "14.4px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "COLLECTIONS"
+   }
+  ],
+  "families": [
+   [
+    "Calibre-Regular",
+    21
+   ]
+  ],
+  "header": {
+   "h": 41,
+   "y": 34,
+   "bg": "rgb(255, 255, 255)",
+   "position": "sticky"
+  },
+  "logo": {
+   "x": 645,
+   "w": 150,
+   "h": 15,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 75,
+    "w": 1440,
+    "h": 810
+   },
+   {
+    "x": 0,
+    "y": 75,
+    "w": 1440,
+    "h": 810
+   },
+   {
+    "x": 645,
+    "y": 47,
+    "w": 150,
+    "h": 15
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Calibre-Regular",
+    "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "14.4px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "SHOP",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Calibre-Regular",
+    "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "14.4px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "28 ORCHARD ST\nNEW YORK, NY 10002",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Calibre-Regular",
+    "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "13.8px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "NEWSLETTER",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 1158
+ },
+ "mobile": {
+  "title": "Sandy Liang | Official Site",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": null,
+  "nav": {
+   "family": "Calibre-Regular",
+   "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+   "size": "12px",
+   "weight": "400",
+   "tracking": "0.48px",
+   "transform": "uppercase",
+   "line": "14.4px",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "MENU"
+  },
+  "nav_count": 3,
+  "nav_labels": [
+   "MENU",
+   "SEARCH",
+   "0"
+  ],
+  "largest": [
+   {
+    "family": "Calibre-Regular",
+    "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "none",
+    "line": "14.4px",
+    "style": "normal",
+    "color": "rgb(252, 149, 206)",
+    "text": "\u22c6.\ud801\ude5a \u030a The Dauphine Pump \u22c6.\ud801\ude5a"
+   },
+   {
+    "family": "Calibre-Regular",
+    "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "14.4px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "MENU"
+   },
+   {
+    "family": "Calibre-Regular",
+    "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "13.8px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "SEARCH"
+   },
+   {
+    "family": "Calibre-Regular",
+    "stack": "Calibre-Regular, Arial, Helvetica, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "14.4px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "CONTACT"
+   }
+  ],
+  "families": [
+   [
+    "Calibre-Regular",
+    16
+   ]
+  ],
+  "header": {
+   "h": 41,
+   "y": 34,
+   "bg": "rgb(255, 255, 255)",
+   "position": "sticky"
+  },
+  "logo": {
+   "x": 120,
+   "w": 150,
+   "h": 15,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 75,
+    "w": 390,
+    "h": 488
+   },
+   {
+    "x": 0,
+    "y": 75,
+    "w": 390,
+    "h": 488
+   },
+   {
+    "x": 120,
+    "y": 47,
+    "w": 150,
+    "h": 15
+   }
+  ],
+  "buttons": [],
+  "page_h": 1180
+ }
+}

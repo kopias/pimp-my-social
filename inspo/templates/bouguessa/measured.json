@@ -1,0 +1,304 @@
+{
+ "id": "bouguessa",
+ "url": "https://bouguessa.com/",
+ "desktop": {
+  "title": "Bouguessa | Architectural Luxury Womenswear",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "GalanoGrotesque",
+   "stack": "GalanoGrotesque, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, sans-serif",
+   "size": "14px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "18.2px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "FALL/WINTER 2026 COLLECTION"
+  },
+  "nav": {
+   "family": "GalanoGrotesque",
+   "stack": "GalanoGrotesque, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, sans-serif",
+   "size": "10px",
+   "weight": "400",
+   "tracking": "1.4px",
+   "transform": "uppercase",
+   "line": "12.5px",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "SHOP"
+  },
+  "nav_count": 6,
+  "nav_labels": [
+   "SHOP",
+   "COLLECTIONS",
+   "NEW IN",
+   "L'ATELIER",
+   "LOOKS",
+   "ABOUT"
+  ],
+  "largest": [
+   {
+    "family": "GalanoGrotesque",
+    "stack": "GalanoGrotesque, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, sans-serif",
+    "size": "13.5px",
+    "weight": "400",
+    "tracking": "1.35px",
+    "transform": "uppercase",
+    "line": "13.5px",
+    "style": "normal",
+    "color": "rgb(17, 17, 17)",
+    "text": "SKIP TO CONTENT"
+   },
+   {
+    "family": "Moulin",
+    "stack": "Moulin, serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(17, 17, 17)",
+    "text": "CITY BLAZER - GREIGE"
+   },
+   {
+    "family": "Moulin",
+    "stack": "Moulin, serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(17, 17, 17)",
+    "text": "800 USD"
+   },
+   {
+    "family": "GalanoGrotesque",
+    "stack": "GalanoGrotesque, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(17, 17, 17)",
+    "text": "REGULAR PRICE"
+   }
+  ],
+  "families": [
+   [
+    "GalanoGrotesque",
+    14
+   ],
+   [
+    "Moulin",
+    8
+   ]
+  ],
+  "header": {
+   "h": 64,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "sticky"
+  },
+  "logo": {
+   "x": 18,
+   "w": 134,
+   "h": 18,
+   "centred": false
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 64,
+    "w": 1440,
+    "h": 960
+   },
+   {
+    "x": 18,
+    "y": 22,
+    "w": 134,
+    "h": 18
+   }
+  ],
+  "buttons": [
+   {
+    "family": "GalanoGrotesque",
+    "stack": "GalanoGrotesque, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, sans-serif",
+    "size": "10px",
+    "weight": "400",
+    "tracking": "1.4px",
+    "transform": "uppercase",
+    "line": "12.5px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "SHOP",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "6.25px 0px"
+   },
+   {
+    "family": "GalanoGrotesque",
+    "stack": "GalanoGrotesque, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, sans-serif",
+    "size": "10px",
+    "weight": "400",
+    "tracking": "1.4px",
+    "transform": "uppercase",
+    "line": "12.5px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "NEW IN",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "6.25px 0px"
+   }
+  ],
+  "page_h": 3516
+ },
+ "mobile": {
+  "title": "Bouguessa | Architectural Luxury Womenswear",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "GalanoGrotesque",
+   "stack": "GalanoGrotesque, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, sans-serif",
+   "size": "14px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "18.2px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "FALL/WINTER 2026 COLLECTION"
+  },
+  "nav": null,
+  "nav_count": 0,
+  "nav_labels": [],
+  "largest": [
+   {
+    "family": "GalanoGrotesque",
+    "stack": "GalanoGrotesque, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, sans-serif",
+    "size": "13.5px",
+    "weight": "400",
+    "tracking": "1.35px",
+    "transform": "uppercase",
+    "line": "13.5px",
+    "style": "normal",
+    "color": "rgb(17, 17, 17)",
+    "text": "SKIP TO CONTENT"
+   },
+   {
+    "family": "Moulin",
+    "stack": "Moulin, serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(17, 17, 17)",
+    "text": "CITY BLAZER - GREIGE"
+   },
+   {
+    "family": "Moulin",
+    "stack": "Moulin, serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(17, 17, 17)",
+    "text": "800 USD"
+   },
+   {
+    "family": "GalanoGrotesque",
+    "stack": "GalanoGrotesque, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.48px",
+    "transform": "uppercase",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(17, 17, 17)",
+    "text": "REGULAR PRICE"
+   }
+  ],
+  "families": [
+   [
+    "GalanoGrotesque",
+    10
+   ],
+   [
+    "Moulin",
+    8
+   ]
+  ],
+  "header": {
+   "h": 65,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "sticky"
+  },
+  "logo": {
+   "x": 138,
+   "w": 115,
+   "h": 15,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 65,
+    "w": 390,
+    "h": 693
+   },
+   {
+    "x": 138,
+    "y": 24,
+    "w": 115,
+    "h": 15
+   }
+  ],
+  "buttons": [
+   {
+    "family": "GalanoGrotesque",
+    "stack": "GalanoGrotesque, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "1.2px",
+    "transform": "uppercase",
+    "line": "15px",
+    "style": "normal",
+    "color": "rgb(17, 17, 17)",
+    "text": "DISCOVER THE COLLECTION",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(17, 17, 17)",
+    "radius": "0px",
+    "padding": "4.25px 0px"
+   },
+   {
+    "family": "GalanoGrotesque",
+    "stack": "GalanoGrotesque, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "22.4px",
+    "style": "normal",
+    "color": "rgb(17, 17, 17)",
+    "text": "NEW IN'S",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(17, 17, 17)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 3720
+ }
+}

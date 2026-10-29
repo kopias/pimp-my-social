@@ -1,0 +1,345 @@
+{
+ "id": "everlane",
+ "url": "https://www.everlane.com/",
+ "desktop": {
+  "title": "Everlane",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Maison Neue Book",
+   "stack": "\"Maison Neue Book\", sans-serif",
+   "size": "16px",
+   "weight": "400",
+   "tracking": "0.64px",
+   "transform": "uppercase",
+   "line": "24px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "LIMITED TIME ONLY"
+  },
+  "nav": {
+   "family": "Maison Neue Book",
+   "stack": "\"Maison Neue Book\", sans-serif",
+   "size": "12px",
+   "weight": "400",
+   "tracking": "0.24px",
+   "transform": "uppercase",
+   "line": "15.6px",
+   "style": "normal",
+   "color": "rgb(0, 0, 0)",
+   "text": "WOMEN"
+  },
+  "nav_count": 8,
+  "nav_labels": [
+   "WOMEN",
+   "MEN",
+   "SUSTAINABILITY",
+   "STORES",
+   "Everlane",
+   "SEARCH",
+   "ACCOUNT\nLOG IN",
+   "BAG\nCART"
+  ],
+  "largest": [
+   {
+    "family": "Maison Neue",
+    "stack": "\"Maison Neue\", sans-serif",
+    "size": "60px",
+    "weight": "300",
+    "tracking": "4%",
+    "transform": "none",
+    "line": "84px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Better Gift Guide"
+   },
+   {
+    "family": "Maison Neue",
+    "stack": "\"Maison Neue\", sans-serif",
+    "size": "23px",
+    "weight": "400",
+    "tracking": "0.92px",
+    "transform": "uppercase",
+    "line": "32px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "BETTER SWEATERS"
+   },
+   {
+    "family": "Maison Neue",
+    "stack": "\"Maison Neue\", sans-serif",
+    "size": "23px",
+    "weight": "400",
+    "tracking": "0.92px",
+    "transform": "uppercase",
+    "line": "32px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "BEST-SELLERS"
+   },
+   {
+    "family": "Maison Neue Book",
+    "stack": "\"Maison Neue Book\", sans-serif",
+    "size": "21px",
+    "weight": "400",
+    "tracking": "0.84px",
+    "transform": "capitalize",
+    "line": "32px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Responsibly Crafted, Effortless Style, And Designed To Last. At Prices That Make"
+   }
+  ],
+  "families": [
+   [
+    "Maison Neue Book",
+    38
+   ],
+   [
+    "Arial",
+    10
+   ],
+   [
+    "Maison Neue",
+    5
+   ]
+  ],
+  "header": {
+   "h": 40,
+   "y": 32,
+   "bg": "rgb(255, 255, 255)",
+   "position": "static"
+  },
+  "logo": {
+   "x": 655,
+   "w": 130,
+   "h": 14,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 183,
+    "w": 1440,
+    "h": 806
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Maison Neue Book",
+    "stack": "\"Maison Neue Book\", sans-serif",
+    "size": "16px",
+    "weight": "700",
+    "tracking": "0.6px",
+    "transform": "none",
+    "line": "28.8px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Accessibility Screen-Reader Guide, Feedback, and Issue Reporting | New window",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Maison Neue Book",
+    "stack": "\"Maison Neue Book\", sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.24px",
+    "transform": "uppercase",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "SHOP WOMEN",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Maison Neue Book",
+    "stack": "\"Maison Neue Book\", sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.24px",
+    "transform": "uppercase",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "SHOP MEN",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 6657
+ },
+ "mobile": {
+  "title": "Everlane",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Maison Neue Book",
+   "stack": "\"Maison Neue Book\", sans-serif",
+   "size": "14px",
+   "weight": "400",
+   "tracking": "0.56px",
+   "transform": "uppercase",
+   "line": "20px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "LIMITED TIME ONLY"
+  },
+  "nav": {
+   "family": "Maison Neue Book",
+   "stack": "\"Maison Neue Book\", sans-serif",
+   "size": "14px",
+   "weight": "700",
+   "tracking": "0.24px",
+   "transform": "none",
+   "line": "0px",
+   "style": "normal",
+   "color": "rgb(18, 18, 18)",
+   "text": "Everlane"
+  },
+  "nav_count": 3,
+  "nav_labels": [
+   "Everlane",
+   "SEARCH",
+   "CART"
+  ],
+  "largest": [
+   {
+    "family": "Maison Neue",
+    "stack": "\"Maison Neue\", sans-serif",
+    "size": "50px",
+    "weight": "300",
+    "tracking": "4%",
+    "transform": "capitalize",
+    "line": "54px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Better Gift Guide"
+   },
+   {
+    "family": "Maison Neue",
+    "stack": "\"Maison Neue\", sans-serif",
+    "size": "20px",
+    "weight": "400",
+    "tracking": "0.8px",
+    "transform": "uppercase",
+    "line": "27px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "BETTER SWEATERS"
+   },
+   {
+    "family": "Maison Neue",
+    "stack": "\"Maison Neue\", sans-serif",
+    "size": "20px",
+    "weight": "400",
+    "tracking": "0.8px",
+    "transform": "uppercase",
+    "line": "27px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "BEST-SELLERS"
+   },
+   {
+    "family": "Maison Neue Book",
+    "stack": "\"Maison Neue Book\", sans-serif",
+    "size": "15px",
+    "weight": "400",
+    "tracking": "0.6px",
+    "transform": "none",
+    "line": "27px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "For screen-reader mode - click the first button of the website"
+   }
+  ],
+  "families": [
+   [
+    "Maison Neue Book",
+    19
+   ],
+   [
+    "Maison Neue",
+    3
+   ]
+  ],
+  "header": {
+   "h": 45,
+   "y": 32,
+   "bg": "rgb(255, 255, 255)",
+   "position": "static"
+  },
+  "logo": {
+   "x": 130,
+   "w": 130,
+   "h": 14,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 221,
+    "w": 390,
+    "h": 690
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Maison Neue Book",
+    "stack": "\"Maison Neue Book\", sans-serif",
+    "size": "15px",
+    "weight": "700",
+    "tracking": "0.6px",
+    "transform": "none",
+    "line": "27px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Accessibility Screen-Reader Guide, Feedback, and Issue Reporting | New window",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Maison Neue Book",
+    "stack": "\"Maison Neue Book\", sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.24px",
+    "transform": "uppercase",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "SHOP WOMEN",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Maison Neue Book",
+    "stack": "\"Maison Neue Book\", sans-serif",
+    "size": "12px",
+    "weight": "400",
+    "tracking": "0.24px",
+    "transform": "uppercase",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "SHOP MEN",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 844
+ }
+}

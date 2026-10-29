@@ -1,0 +1,374 @@
+{
+ "id": "lisa_says_gah",
+ "url": "https://lisasaysgah.com/",
+ "desktop": {
+  "title": "Lisa Says Gah",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Domaine",
+   "stack": "Domaine",
+   "size": "13px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "16.9px",
+   "style": "normal",
+   "color": "rgb(210, 16, 8)",
+   "text": "\u2764\ufe0f Want 15% OFF? Download the LSG App now!"
+  },
+  "nav": {
+   "family": "Times NR MT W01 Condensed",
+   "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+   "size": "16px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "normal",
+   "style": "normal",
+   "color": "rgb(210, 16, 8)",
+   "text": "United States (USD $)"
+  },
+  "nav_count": 23,
+  "nav_labels": [
+   "United States (USD $)",
+   "\u2764\ufe0f Want 15% OFF? Downloa",
+   "Shop All",
+   "New In",
+   "Fall Collection",
+   "Gah! Hits",
+   "Trade In",
+   "Sign in",
+   "Cart",
+   "New",
+   "Best Sellers",
+   "Gift Shop",
+   "Shop All",
+   "Dresses"
+  ],
+  "largest": [
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "32px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "0px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "Lisa Says Gah"
+   },
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "22px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "28.6px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "New Arrivals"
+   },
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "23.4px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "Shop All"
+   },
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "23.4px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "New In"
+   }
+  ],
+  "families": [
+   [
+    "Domaine",
+    37
+   ],
+   [
+    "Times NR MT W01 Condensed",
+    34
+   ],
+   [
+    "-apple-system",
+    8
+   ]
+  ],
+  "header": {
+   "h": 146,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "sticky"
+  },
+  "logo": {
+   "x": 609,
+   "w": 215,
+   "h": 47,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 146,
+    "w": 720,
+    "h": 960
+   },
+   {
+    "x": 720,
+    "y": 146,
+    "w": 720,
+    "h": 960
+   },
+   {
+    "x": 546,
+    "y": 36,
+    "w": 40,
+    "h": 40
+   },
+   {
+    "x": 546,
+    "y": 36,
+    "w": 40,
+    "h": 40
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "23.4px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "Shop All",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(210, 16, 8)",
+    "radius": "0px",
+    "padding": "15px 7px"
+   },
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "23.4px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "New In",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(210, 16, 8)",
+    "radius": "0px",
+    "padding": "15px 7px"
+   },
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "17px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "21.25px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "New",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(210, 16, 8)",
+    "radius": "0px",
+    "padding": "15px 0px"
+   }
+  ],
+  "page_h": 5573
+ },
+ "mobile": {
+  "title": "Lisa Says Gah",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "Domaine",
+   "stack": "Domaine",
+   "size": "13px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "16.9px",
+   "style": "normal",
+   "color": "rgb(210, 16, 8)",
+   "text": "\u2764\ufe0f Want 15% OFF? Download the LSG App now!"
+  },
+  "nav": {
+   "family": "Times NR MT W01 Condensed",
+   "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+   "size": "16px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "20px",
+   "style": "normal",
+   "color": "rgb(210, 16, 8)",
+   "text": "\u2764\ufe0f Want 15% OFF? Download the LSG App now!"
+  },
+  "nav_count": 2,
+  "nav_labels": [
+   "\u2764\ufe0f Want 15% OFF? Downloa",
+   "Cart"
+  ],
+  "largest": [
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "24px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "0px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "Lisa Says Gah"
+   },
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "20px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "26px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "New Arrivals"
+   },
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "22.5px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "Cart"
+   },
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "21.6px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "\ud83c\udf81"
+   }
+  ],
+  "families": [
+   [
+    "Domaine",
+    37
+   ],
+   [
+    "Times NR MT W01 Condensed",
+    23
+   ]
+  ],
+  "header": {
+   "h": 103,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "sticky"
+  },
+  "logo": {
+   "x": 113,
+   "w": 165,
+   "h": 40,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 103,
+    "w": 390,
+    "h": 520
+   },
+   {
+    "x": 0,
+    "y": 623,
+    "w": 390,
+    "h": 520
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "20px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "The Gah! Gift Shop",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(210, 16, 8)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "18px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "21.6px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "\ud83c\udf81\nThe Gah! Gift Shop",
+    "bg": "rgb(255, 255, 255)",
+    "border": "0px none rgb(210, 16, 8)",
+    "radius": "7px",
+    "padding": "22px"
+   },
+   {
+    "family": "Times NR MT W01 Condensed",
+    "stack": "\"Times NR MT W01 Condensed\", \"Times New Roman\", Times, serif",
+    "size": "20px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "26px",
+    "style": "normal",
+    "color": "rgb(210, 16, 8)",
+    "text": "New Arrivals",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(210, 16, 8)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 4958
+ }
+}

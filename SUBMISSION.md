@@ -13,18 +13,21 @@ website and hands back everything they'd need an agency for, in about ten minute
 2. **Brand read.** Muse Spark reads the screenshots, photos and pages into a brand
    profile: products with exact prices matched to their photos, voice, FAQs
    answered from the site's own words, and what customers can't find out.
-3. **Paint job.** Spark picks three style directions for the brand plus one random
-   wildcard. Each is modelled on real premium brand sites (Toteme, Aimé Leon Dore,
-   Our Legacy, Bode...). Muse Image previews each on the owner's own hero photo.
-   The owner picks.
+3. **Paint job.** The owner's style tags map to a library of 25 template skills, each a
+   measured build spec of a leading fashion site (COS, GANNI, KHY, Sézane, Dior,
+   Tiffany & Co., Net-a-Porter...). Spark picks the three that fit the brand from that
+   shortlist plus one random wildcard; Muse Image previews each on the owner's own
+   hero photo. The owner picks.
 4. **Photo studio.** SAM 3.1 isolates each product from the owner's photo; Muse Image
    reshoots it (set, light, lens, depth of field); SAM finds it again and scores
    fidelity, so a reshoot that changed the product is caught.
 5. **Logo.** Spark reads what the current logo is about; Muse Image redraws it as one
    clean mark; Spark checks the remake still reads as the business. The old logo is
    the reference, never the asset.
-6. **The build.** Spark writes the copy; **Muse Wonder** designs and codes a bespoke
-   editorial site. Code adds what must be right every time: JSON-LD, Open Graph,
+6. **The build.** Spark writes the copy; **Muse Wonder** builds the site on the chosen
+   template from its skill and screenshots. Spark then screenshots the result on desktop
+   and phone and scores it against the template side by side; below 8/10 Wonder revises
+   from Spark's list of differences. Code adds what must be right every time: JSON-LD, Open Graph,
    robots.txt that welcomes AI crawlers, sitemap.xml, llms.txt, and **WebMCP** tools
    so browser agents can query products, prices, hours and answers directly.
 7. **Social kit.** Posts for each chosen channel (Instagram, TikTok, Facebook,
@@ -56,8 +59,8 @@ website and hands back everything they'd need an agency for, in about ten minute
 
 | Model | Job |
 |---|---|
-| Muse Spark 1.3 | vision brand read, art direction picks, logo read + check, copy, social plan, **campaign brief + every image check (hands, product match, lettering) + film review**, **reverse engineering popular posts** (it watches them), grounding, **video review** |
-| Muse Wonder 1.0 | designs and codes the website from real brand references (it sees their screenshots) |
+| Muse Spark 1.3 | vision brand read, art direction picks, **site-vs-template fidelity check**, logo read + check, copy, social plan, **campaign brief + every image check (hands, product match, lettering) + film review**, **reverse engineering popular posts** (it watches them), grounding, **video review** |
+| Muse Wonder 1.0 | builds the website on one of 25 measured fashion-site templates (it sees the template's screenshots) and revises it from Spark's side-by-side check |
 | Muse Image 1.0 | direction previews, product reshoots, logo redraw, campaign casting (multi-image edits: cast reference + product photo), new angles for video formats |
 | SAM 3.1 | product isolation, reshoot fidelity check, finding every hand for the campaign check, lifting the person off the set for film parallax |
 | Muse Voice Transcribe | hears the speech in an uploaded post so its script's shape carries into the remix |

@@ -1,0 +1,387 @@
+{
+ "id": "carolina_herrera",
+ "url": "https://www.carolinaherrera.com/us/en",
+ "desktop": {
+  "title": "Carolina Herrera | Fashion, Perfumes, Makeup | Official Website WW | Carolina Herrera",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "fontBody",
+   "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+   "size": "28px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "30.8px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "New In | A New Chapter in Herrera Handbags"
+  },
+  "nav": {
+   "family": "fontBody",
+   "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+   "size": "16px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "24px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "Accessibility Statement"
+  },
+  "nav_count": 6,
+  "nav_labels": [
+   "Accessibility Statement",
+   "HERRERA AIRWAYS",
+   "FASHION",
+   "FRAGRANCES",
+   "MAKEUP",
+   "STORIES"
+  ],
+  "largest": [
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "28px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "30.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Welcome to Herrera Airways | The Art of Gifting Takes Flight"
+   },
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "28px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "30.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Embellishments | Fall 26 Collection"
+   },
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "28px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "30.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "New In | A New Chapter in Herrera Handbags"
+   },
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "28px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "30.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "The Herrera Gift Edit | Find the Ideal Gift for Your Loved Ones"
+   }
+  ],
+  "families": [
+   [
+    "fontBody",
+    50
+   ],
+   [
+    "fontHerreraSansMono",
+    1
+   ]
+  ],
+  "header": {
+   "h": 72,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "relative"
+  },
+  "logo": null,
+  "images": [
+   {
+    "x": -2880,
+    "y": 0,
+    "w": 1440,
+    "h": 900
+   },
+   {
+    "x": -1440,
+    "y": 0,
+    "w": 1440,
+    "h": 900
+   },
+   {
+    "x": 0,
+    "y": 0,
+    "w": 1440,
+    "h": 900
+   },
+   {
+    "x": 0,
+    "y": 0,
+    "w": 1440,
+    "h": 900
+   },
+   {
+    "x": 1440,
+    "y": 0,
+    "w": 1440,
+    "h": 900
+   },
+   {
+    "x": 1440,
+    "y": 0,
+    "w": 1440,
+    "h": 900
+   }
+  ],
+  "buttons": [
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "capitalize",
+    "line": "17.5px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Discover",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(229, 231, 235)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "capitalize",
+    "line": "17.5px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(229, 231, 235)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "capitalize",
+    "line": "17.5px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(229, 231, 235)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 8044
+ },
+ "mobile": {
+  "title": "Carolina Herrera | Fashion, Perfumes, Makeup | Official Website WW | Carolina Herrera",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "fontBody",
+   "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+   "size": "24px",
+   "weight": "500",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "26.4px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "New In | A New Chapter in Herrera Handbags"
+  },
+  "nav": {
+   "family": "fontBody",
+   "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+   "size": "16px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "24px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "Accessibility Statement"
+  },
+  "nav_count": 1,
+  "nav_labels": [
+   "Accessibility Statement"
+  ],
+  "largest": [
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "24px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "26.4px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Welcome to Herrera Airways | The Art of Gifting Takes Flight"
+   },
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "24px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "26.4px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Embellishments | Fall 26 Collection"
+   },
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "24px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "26.4px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "New In | A New Chapter in Herrera Handbags"
+   },
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "24px",
+    "weight": "500",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "26.4px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "The Herrera Gift Edit | Find the Ideal Gift for Your Loved Ones"
+   }
+  ],
+  "families": [
+   [
+    "fontBody",
+    45
+   ],
+   [
+    "fontHerreraSansMono",
+    1
+   ]
+  ],
+  "header": {
+   "h": 60,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "relative"
+  },
+  "logo": null,
+  "images": [
+   {
+    "x": -603,
+    "y": 0,
+    "w": 390,
+    "h": 844
+   },
+   {
+    "x": -213,
+    "y": 0,
+    "w": 390,
+    "h": 844
+   },
+   {
+    "x": 177,
+    "y": 0,
+    "w": 390,
+    "h": 844
+   },
+   {
+    "x": 177,
+    "y": 0,
+    "w": 390,
+    "h": 844
+   },
+   {
+    "x": 567,
+    "y": 0,
+    "w": 390,
+    "h": 844
+   },
+   {
+    "x": 567,
+    "y": 0,
+    "w": 390,
+    "h": 844
+   }
+  ],
+  "buttons": [
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "capitalize",
+    "line": "17.5px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Discover",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(229, 231, 235)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "capitalize",
+    "line": "17.5px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(229, 231, 235)",
+    "radius": "0px",
+    "padding": "0px"
+   },
+   {
+    "family": "fontBody",
+    "stack": "fontBody, \"fontBody Fallback\", system-ui, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "size": "14px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "capitalize",
+    "line": "17.5px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Shop",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px solid rgb(229, 231, 235)",
+    "radius": "0px",
+    "padding": "0px"
+   }
+  ],
+  "page_h": 5427
+ }
+}

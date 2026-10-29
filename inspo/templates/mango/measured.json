@@ -1,0 +1,331 @@
+{
+ "id": "mango",
+ "url": "https://shop.mango.com/us",
+ "desktop": {
+  "title": "Mango USA | Online fashion",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "InspirationalFontEN",
+   "stack": "InspirationalFontEN, serif",
+   "size": "96px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "96px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "Designed in Barcelona"
+  },
+  "nav": {
+   "family": "DefaultFontEN",
+   "stack": "DefaultFontEN, sans-serif",
+   "size": "13px",
+   "weight": "600",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "20px",
+   "style": "normal",
+   "color": "rgb(67, 67, 67)",
+   "text": "Skip to main content"
+  },
+  "nav_count": 11,
+  "nav_labels": [
+   "Skip to main content",
+   "WOMEN",
+   "MEN",
+   "TEEN",
+   "KIDS",
+   "HOME",
+   "Home",
+   "SEARCH",
+   "LOG IN",
+   "WISHLIST",
+   "BAG\n(0)"
+  ],
+  "largest": [
+   {
+    "family": "InspirationalFontEN",
+    "stack": "InspirationalFontEN, serif",
+    "size": "96px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "96px",
+    "style": "italic",
+    "color": "rgb(255, 255, 255)",
+    "text": "Barcelona"
+   },
+   {
+    "family": "InspirationalFontEN",
+    "stack": "InspirationalFontEN, serif",
+    "size": "96px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "96px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "since 1984"
+   },
+   {
+    "family": "DefaultFontEN",
+    "stack": "DefaultFontEN, sans-serif",
+    "size": "14.4px",
+    "weight": "600",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(253, 253, 253)",
+    "text": "05"
+   },
+   {
+    "family": "DefaultFontEN",
+    "stack": "DefaultFontEN, sans-serif",
+    "size": "14.4px",
+    "weight": "600",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(253, 253, 253)",
+    "text": "15"
+   }
+  ],
+  "families": [
+   [
+    "HeadingsFontEN",
+    54
+   ],
+   [
+    "DefaultFontEN",
+    12
+   ],
+   [
+    "InspirationalFontEN",
+    2
+   ]
+  ],
+  "header": {
+   "h": 56,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "sticky"
+  },
+  "logo": {
+   "x": 32,
+   "w": 49,
+   "h": 16,
+   "centred": false
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 106,
+    "w": 1440,
+    "h": 794
+   },
+   {
+    "x": 0,
+    "y": 106,
+    "w": 1440,
+    "h": 794
+   },
+   {
+    "x": 0,
+    "y": 106,
+    "w": 1440,
+    "h": 794
+   },
+   {
+    "x": 0,
+    "y": 106,
+    "w": 1440,
+    "h": 794
+   },
+   {
+    "x": 0,
+    "y": 106,
+    "w": 1440,
+    "h": 794
+   },
+   {
+    "x": 0,
+    "y": 106,
+    "w": 1440,
+    "h": 794
+   }
+  ],
+  "buttons": [
+   {
+    "family": "HeadingsFontEN",
+    "stack": "HeadingsFontEN, DefaultFontEN, sans-serif",
+    "size": "12px",
+    "weight": "600",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(19, 19, 19)",
+    "text": "DISCOVER",
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(19, 19, 19)",
+    "radius": "0px",
+    "padding": "7px 0px"
+   }
+  ],
+  "page_h": 900
+ },
+ "mobile": {
+  "title": "Mango USA | Online fashion",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "InspirationalFontEN",
+   "stack": "InspirationalFontEN, serif",
+   "size": "54px",
+   "weight": "400",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "54px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "Designed in Barcelona"
+  },
+  "nav": {
+   "family": "DefaultFontEN",
+   "stack": "DefaultFontEN, sans-serif",
+   "size": "13px",
+   "weight": "600",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "20px",
+   "style": "normal",
+   "color": "rgb(67, 67, 67)",
+   "text": "Skip to main content"
+  },
+  "nav_count": 3,
+  "nav_labels": [
+   "Skip to main content",
+   "Home",
+   "0"
+  ],
+  "largest": [
+   {
+    "family": "InspirationalFontEN",
+    "stack": "InspirationalFontEN, serif",
+    "size": "54px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "54px",
+    "style": "italic",
+    "color": "rgb(255, 255, 255)",
+    "text": "Barcelona"
+   },
+   {
+    "family": "InspirationalFontEN",
+    "stack": "InspirationalFontEN, serif",
+    "size": "54px",
+    "weight": "400",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "54px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "since 1984"
+   },
+   {
+    "family": "DefaultFontEN",
+    "stack": "DefaultFontEN, sans-serif",
+    "size": "14.4px",
+    "weight": "600",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(253, 253, 253)",
+    "text": "05"
+   },
+   {
+    "family": "DefaultFontEN",
+    "stack": "DefaultFontEN, sans-serif",
+    "size": "14.4px",
+    "weight": "600",
+    "tracking": "normal",
+    "transform": "none",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(253, 253, 253)",
+    "text": "15"
+   }
+  ],
+  "families": [
+   [
+    "HeadingsFontEN",
+    32
+   ],
+   [
+    "DefaultFontEN",
+    11
+   ],
+   [
+    "InspirationalFontEN",
+    2
+   ]
+  ],
+  "header": {
+   "h": 60,
+   "y": 0,
+   "bg": "rgb(255, 255, 255)",
+   "position": "sticky"
+  },
+  "logo": {
+   "x": 46,
+   "w": 96,
+   "h": 16,
+   "centred": false
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": 275,
+    "w": 390,
+    "h": 569
+   },
+   {
+    "x": 0,
+    "y": 275,
+    "w": 390,
+    "h": 569
+   },
+   {
+    "x": 0,
+    "y": 275,
+    "w": 390,
+    "h": 569
+   },
+   {
+    "x": 0,
+    "y": 275,
+    "w": 390,
+    "h": 569
+   },
+   {
+    "x": 0,
+    "y": 275,
+    "w": 390,
+    "h": 569
+   },
+   {
+    "x": 0,
+    "y": 275,
+    "w": 390,
+    "h": 569
+   }
+  ],
+  "buttons": [],
+  "page_h": 844
+ }
+}

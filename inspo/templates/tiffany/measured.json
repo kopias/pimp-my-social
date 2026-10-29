@@ -1,0 +1,329 @@
+{
+ "id": "tiffany",
+ "url": "https://www.tiffany.com/",
+ "desktop": {
+  "title": "Tiffany & Co. US | Luxury Jewelry, Gifts & Accessories Since 1837",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": null,
+  "nav": {
+   "family": "Santral Book",
+   "stack": "\"Santral Book\", \"Santral Book Fallback\", Verdana, sans-serif",
+   "size": "16px",
+   "weight": "400",
+   "tracking": "-0.32px",
+   "transform": "none",
+   "line": "24px",
+   "style": "normal",
+   "color": "rgb(68, 68, 68)",
+   "text": "Skip to main content"
+  },
+  "nav_count": 22,
+  "nav_labels": [
+   "Skip to main content",
+   "Skip to footer content",
+   "SEARCH",
+   "Go to stores page",
+   "Contact Us\nCONTACT US",
+   "Login to your account",
+   "HOLIDAY GIFTS",
+   "JEWELRY",
+   "HIGH JEWELRY",
+   "LOVE & CELEBRATION",
+   "Sixteen Stone by Tiffany",
+   "The Tiffany\u00ae Setting",
+   "Tiffany True\u00ae",
+   "Tiffany Forever"
+  ],
+  "largest": [
+   {
+    "family": "Sterling SSM",
+    "stack": "\"Sterling SSM\", \"Sterling Fallback\", serif",
+    "size": "52px",
+    "weight": "325",
+    "tracking": "-2.08px",
+    "transform": "none",
+    "line": "64px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Love Is a Gift"
+   },
+   {
+    "family": "Sterling SSM",
+    "stack": "\"Sterling SSM\", \"Sterling Fallback\", serif",
+    "size": "32px",
+    "weight": "325",
+    "tracking": "-1.28px",
+    "transform": "none",
+    "line": "40px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Shop by Category"
+   },
+   {
+    "family": "Santral Book",
+    "stack": "\"Santral Book\", \"Santral Book Fallback\", Verdana, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "-0.32px",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(68, 68, 68)",
+    "text": "Skip to main content"
+   },
+   {
+    "family": "Santral Book",
+    "stack": "\"Santral Book\", \"Santral Book Fallback\", Verdana, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "-0.32px",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(68, 68, 68)",
+    "text": "Skip to footer content"
+   }
+  ],
+  "families": [
+   [
+    "Santral Book",
+    11
+   ],
+   [
+    "Santral Semibold",
+    9
+   ],
+   [
+    "Sterling SSM",
+    4
+   ]
+  ],
+  "header": {
+   "h": 163,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "fixed"
+  },
+  "logo": {
+   "x": 389,
+   "w": 634,
+   "h": 70,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": -1,
+    "w": 1440,
+    "h": 810
+   },
+   {
+    "x": 0,
+    "y": -1,
+    "w": 1440,
+    "h": 810
+   },
+   {
+    "x": 2,
+    "y": 99,
+    "w": 720,
+    "h": 64
+   },
+   {
+    "x": 24,
+    "y": 238,
+    "w": 212,
+    "h": 212
+   },
+   {
+    "x": 260,
+    "y": 238,
+    "w": 212,
+    "h": 212
+   },
+   {
+    "x": 496,
+    "y": 238,
+    "w": 212,
+    "h": 212
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Santral Semibold",
+    "stack": "\"Santral Semibold\", Verdana, sans-serif",
+    "size": "11px",
+    "weight": "400",
+    "tracking": "0.88px",
+    "transform": "uppercase",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "EXPLORE NOW",
+    "bg": "rgb(255, 255, 255)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "23px 32px 21px"
+   }
+  ],
+  "page_h": 5451
+ },
+ "mobile": {
+  "title": "Tiffany & Co. US | Luxury Jewelry, Gifts & Accessories Since 1837",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": null,
+  "nav": {
+   "family": "Santral Book",
+   "stack": "\"Santral Book\", \"Santral Book Fallback\", Verdana, sans-serif",
+   "size": "16px",
+   "weight": "400",
+   "tracking": "-0.32px",
+   "transform": "none",
+   "line": "24px",
+   "style": "normal",
+   "color": "rgb(68, 68, 68)",
+   "text": "Skip to main content"
+  },
+  "nav_count": 3,
+  "nav_labels": [
+   "Skip to main content",
+   "Skip to footer content",
+   "Contact Us"
+  ],
+  "largest": [
+   {
+    "family": "Sterling SSM",
+    "stack": "\"Sterling SSM\", \"Sterling Fallback\", serif",
+    "size": "40px",
+    "weight": "325",
+    "tracking": "-1.6px",
+    "transform": "none",
+    "line": "48px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "Love Is a Gift"
+   },
+   {
+    "family": "Sterling SSM",
+    "stack": "\"Sterling SSM\", \"Sterling Fallback\", serif",
+    "size": "24px",
+    "weight": "325",
+    "tracking": "-0.48px",
+    "transform": "none",
+    "line": "32px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "Shop by Category"
+   },
+   {
+    "family": "Santral Book",
+    "stack": "\"Santral Book\", \"Santral Book Fallback\", Verdana, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "-0.32px",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(68, 68, 68)",
+    "text": "Skip to main content"
+   },
+   {
+    "family": "Santral Book",
+    "stack": "\"Santral Book\", \"Santral Book Fallback\", Verdana, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "tracking": "-0.32px",
+    "transform": "none",
+    "line": "24px",
+    "style": "normal",
+    "color": "rgb(68, 68, 68)",
+    "text": "Skip to footer content"
+   }
+  ],
+  "families": [
+   [
+    "Santral Semibold",
+    7
+   ],
+   [
+    "Santral Book",
+    3
+   ],
+   [
+    "Sterling SSM",
+    2
+   ]
+  ],
+  "header": {
+   "h": 58,
+   "y": -1,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "static"
+  },
+  "logo": {
+   "x": 106,
+   "w": 181,
+   "h": 20,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 0,
+    "y": -1,
+    "w": 390,
+    "h": 693
+   },
+   {
+    "x": 0,
+    "y": -1,
+    "w": 390,
+    "h": 693
+   },
+   {
+    "x": 16,
+    "y": 812,
+    "w": 171,
+    "h": 171
+   },
+   {
+    "x": 16,
+    "y": 812,
+    "w": 171,
+    "h": 171
+   },
+   {
+    "x": 203,
+    "y": 812,
+    "w": 171,
+    "h": 171
+   },
+   {
+    "x": 203,
+    "y": 812,
+    "w": 171,
+    "h": 171
+   }
+  ],
+  "buttons": [
+   {
+    "family": "Santral Semibold",
+    "stack": "\"Santral Semibold\", Verdana, sans-serif",
+    "size": "11px",
+    "weight": "400",
+    "tracking": "0.88px",
+    "transform": "uppercase",
+    "line": "16px",
+    "style": "normal",
+    "color": "rgb(0, 0, 0)",
+    "text": "EXPLORE NOW",
+    "bg": "rgb(255, 255, 255)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "padding": "14px 20px"
+   }
+  ],
+  "page_h": 6358
+ }
+}

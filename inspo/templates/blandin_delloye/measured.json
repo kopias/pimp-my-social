@@ -1,0 +1,227 @@
+{
+ "id": "blandin_delloye",
+ "url": "https://www.blandindelloye.com/",
+ "desktop": {
+  "title": "Made-to-measure outfit - Blandin & Delloye Tailor made suit",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "graphik",
+   "stack": "graphik, sans-serif",
+   "size": "14px",
+   "weight": "300",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "25.2px",
+   "style": "normal",
+   "color": "rgb(20, 20, 20)",
+   "text": "We offer tailor-made outfits for all occasions, whether formal, casual or ceremo"
+  },
+  "nav": {
+   "family": "Roxborough CF",
+   "stack": "\"Roxborough CF\", sans-serif",
+   "size": "12px",
+   "weight": "700",
+   "tracking": "3px",
+   "transform": "uppercase",
+   "line": "14px",
+   "style": "normal",
+   "color": "rgb(28, 28, 28)",
+   "text": "LET'S MEET\nLET'S MEET"
+  },
+  "nav_count": 1,
+  "nav_labels": [
+   "LET'S MEET\nLET'S MEET"
+  ],
+  "largest": [
+   {
+    "family": "Roxborough CF",
+    "stack": "\"Roxborough CF\", sans-serif",
+    "size": "80px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "96px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "YOU ARE UNIQUE,"
+   },
+   {
+    "family": "Roxborough CF",
+    "stack": "\"Roxborough CF\", sans-serif",
+    "size": "80px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "96px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "SO IS YOUR SUIT"
+   },
+   {
+    "family": "Roxborough CF",
+    "stack": "\"Roxborough CF\", sans-serif",
+    "size": "48px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "57.6px",
+    "style": "normal",
+    "color": "rgb(20, 20, 20)",
+    "text": "OUR PRODUCT WORLDS"
+   },
+   {
+    "family": "Roxborough CF",
+    "stack": "\"Roxborough CF\", sans-serif",
+    "size": "16px",
+    "weight": "700",
+    "tracking": "3px",
+    "transform": "uppercase",
+    "line": "14px",
+    "style": "normal",
+    "color": "rgb(28, 28, 28)",
+    "text": "WEDDING"
+   }
+  ],
+  "families": [
+   [
+    "Roxborough CF",
+    9
+   ],
+   [
+    "graphik",
+    2
+   ]
+  ],
+  "header": {
+   "h": 102,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "fixed"
+  },
+  "logo": {
+   "x": 595,
+   "w": 250,
+   "h": 33,
+   "centred": true
+  },
+  "images": [
+   {
+    "x": 1091,
+    "y": 44,
+    "w": 12,
+    "h": 12
+   }
+  ],
+  "buttons": [],
+  "page_h": 12201
+ },
+ "mobile": {
+  "title": "Made-to-measure outfit - Blandin & Delloye Tailor made suit",
+  "bg": "rgb(255, 255, 255)",
+  "htmlbg": "rgba(0, 0, 0, 0)",
+  "body": {
+   "family": "graphik",
+   "stack": "graphik, sans-serif",
+   "size": "14px",
+   "weight": "300",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "25.2px",
+   "style": "normal",
+   "color": "rgb(20, 20, 20)",
+   "text": "We offer tailor-made outfits for all occasions, whether formal, casual or ceremo"
+  },
+  "nav": {
+   "family": "graphik",
+   "stack": "graphik, sans-serif",
+   "size": "14px",
+   "weight": "300",
+   "tracking": "normal",
+   "transform": "none",
+   "line": "25.2px",
+   "style": "normal",
+   "color": "rgb(255, 255, 255)",
+   "text": "BOOK"
+  },
+  "nav_count": 1,
+  "nav_labels": [
+   "BOOK"
+  ],
+  "largest": [
+   {
+    "family": "Roxborough CF",
+    "stack": "\"Roxborough CF\", sans-serif",
+    "size": "32px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "38.4px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "YOU ARE UNIQUE,"
+   },
+   {
+    "family": "Roxborough CF",
+    "stack": "\"Roxborough CF\", sans-serif",
+    "size": "32px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "38.4px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "SO IS YOUR SUIT"
+   },
+   {
+    "family": "Roxborough CF",
+    "stack": "\"Roxborough CF\", sans-serif",
+    "size": "30px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "36px",
+    "style": "normal",
+    "color": "rgb(20, 20, 20)",
+    "text": "OUR PRODUCT WORLDS"
+   },
+   {
+    "family": "Roxborough CF",
+    "stack": "\"Roxborough CF\", sans-serif",
+    "size": "24px",
+    "weight": "300",
+    "tracking": "normal",
+    "transform": "uppercase",
+    "line": "28.8px",
+    "style": "normal",
+    "color": "rgb(255, 255, 255)",
+    "text": "BUSINESS"
+   }
+  ],
+  "families": [
+   [
+    "Roxborough CF",
+    14
+   ],
+   [
+    "graphik",
+    6
+   ]
+  ],
+  "header": {
+   "h": 83,
+   "y": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "position": "fixed"
+  },
+  "logo": {
+   "x": 96,
+   "w": 200,
+   "h": 27,
+   "centred": true
+  },
+  "images": [],
+  "buttons": [],
+  "page_h": 14025
+ }
+}
