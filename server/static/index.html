@@ -124,6 +124,24 @@
   .dcard { text-align: left; border: 0; background: transparent; padding: 0; display: flex; flex-direction: column; }
   .dcard img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; background: var(--paper2); transition: opacity .2s; }
   .dcard:hover img { opacity: .88; }
+  .cards.sketches { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+  .thumb { position: relative; display: block; border: 0; padding: 0; background: var(--paper2); cursor: zoom-in; }
+  .thumb .desk { aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border: 1px solid var(--line); }
+  .thumb .phone { position: absolute; right: 10px; bottom: -14px; width: 21%; aspect-ratio: 390 / 844; object-fit: cover;
+    object-position: top; border: 3px solid var(--ink); border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,.18); background: #fff; }
+  .thumb .zoom { position: absolute; left: 10px; top: 10px; background: rgba(255,255,255,.92); padding: 4px 8px; opacity: 0; transition: opacity .2s; }
+  .thumb:hover .zoom, .thumb:focus-visible .zoom { opacity: 1; }
+  .dcard .actions { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; }
+  .dcard .actions button { border: 0; background: transparent; padding: 0; font: inherit; color: inherit; cursor: pointer; }
+  dialog.lb { border: 0; padding: 0; max-width: min(1280px, 96vw); width: 100%; background: var(--paper); color: var(--ink); }
+  dialog.lb::backdrop { background: rgba(10,10,10,.72); }
+  .lb .lbhead { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+  .lb .lbbody { display: grid; grid-template-columns: 1fr 22%; gap: 16px; padding: 16px 20px; align-items: start; }
+  .lb .lbbody img { width: 100%; display: block; border: 1px solid var(--line); }
+  .lb .lbfoot { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 0 20px 20px; flex-wrap: wrap; }
+  .lb .go { background: var(--ink); color: var(--paper); border: 0; padding: 14px 24px; cursor: pointer; }
+  .lb .x { border: 0; background: transparent; font-size: 22px; cursor: pointer; color: inherit; }
+  @media (max-width: 700px) { .lb .lbbody { grid-template-columns: 1fr; } .thumb .phone { width: 26%; } }
   .dcard .body { padding: 16px 0 0; display: flex; flex-direction: column; gap: 9px; flex: 1; }
   .dcard .name { font-size: 34px; line-height: 1; }
   .sw { display: flex; height: 6px; } .sw span { flex: 1; }
@@ -310,8 +328,16 @@
     <div id="choose" hidden>
       <div class="label" style="color:var(--hot)">Pick your paint job</div>
       <h2 class="big">Which one feels like you?</h2>
-      <p class="muted" style="max-width:40em">Spark picked three that suit your brand, plus one wildcard. Each preview is your own photo, reshot in that style; each direction is a template modelled on one of 25 leading fashion sites.</p>
-      <div class="cards" id="cards"></div>
+      <p class="muted" style="max-width:42em" id="choose-note">Your homepage, sketched in the looks that fit your style. Each is a template modelled on one of 25 leading fashion sites, with your own words and your own photo reshot to match. Open one to see it large; pick the one you want built.</p>
+      <div class="cards sketches" id="cards"></div>
+      <dialog class="lb" id="lb" aria-labelledby="lb-title">
+        <div class="lbhead"><div><div class="label muted" id="lb-tpl"></div><h3 id="lb-title" style="margin:4px 0 0;font-weight:400;font-size:30px"></h3></div>
+          <button class="x" type="button" aria-label="Close" onclick="$('lb').close()">×</button></div>
+        <div class="lbbody"><img id="lb-desk" alt=""><img id="lb-phone" alt=""></div>
+        <div class="lbfoot"><span class="muted" id="lb-why" style="max-width:52em"></span>
+          <span style="display:flex;gap:18px;align-items:center"><a id="lb-open" target="_blank" rel="noopener" class="label">Open the sketch ↗</a>
+          <button class="go label" type="button" id="lb-go">Build this one →</button></span></div>
+      </dialog>
     </div>
   </section>
 
@@ -464,22 +490,43 @@ function drawScore(a) {
 function drawCards() {
   $('choose').hidden = false;
   const box = $('cards'); box.innerHTML = '';
-  for (const c of job.data.cards) {
+  const cards = job.data.cards;
+  $('choose-note').textContent = `Your homepage, sketched ${cards.length} ways from your style picks. Each is a template modelled on a leading fashion site, with your own words and your own photo reshot to match. Open one to see it large, then pick the one you want built.`;
+  for (const c of cards) {
     const sw = el('div', { class: 'sw' });
     for (const v of Object.values(c.palette)) sw.append(el('span', { style: 'background:' + v }));
     document.head.append(el('link', { rel: 'stylesheet', href: c.font_css }));
-    box.append(el('button', { class: 'dcard', onclick: () => choose(c.id) },
-      c.preview ? el('img', { src: c.preview, alt: c.name + ' preview' }) : el('img', { alt: '' }),
-      el('div', { class: 'body' },
+    const pic = c.sketch_url
+      ? el('button', { class: 'thumb', type: 'button', 'aria-label': `See the ${c.style || c.name} sketch large`, onclick: () => zoom(c) },
+          el('img', { class: 'desk', src: c.sketch_url, alt: `Your homepage in the ${c.style || c.name} look` }),
+          c.sketch_phone ? el('img', { class: 'phone', src: c.sketch_phone, alt: '' }) : null,
+          el('span', { class: 'zoom label', text: 'See it large' }))
+      : (c.preview ? el('img', { src: c.preview, alt: c.name + ' preview' }) : el('img', { alt: '' }));
+    box.append(el('div', { class: 'dcard' }, pic,
+      el('div', { class: 'body', style: c.sketch_phone ? 'padding-top:26px' : '' },
         c.wildcard ? el('span', { class: 'badge mono', text: 'Wildcard' }) : null,
         el('div', { class: 'name', style: `font-family:'${c.fonts.display}', serif;font-weight:400`, text: c.style || c.name }),
         sw, el('div', { style: `font-family:'${c.fonts.body}'`, text: c.pitch }),
         c.why ? el('div', { class: 'why', text: c.why }) : null,
         c.style ? el('div', { class: 'refs label', text: 'Template: ' + c.name })
           : (c.refs || []).length ? el('div', { class: 'refs label', text: 'Modelled on ' + c.refs.map((r) => REF_NAMES[r] || r).join(' · ') }) : null,
-        el('span', { class: 'pick label', text: 'Paint it this way →' }))));
+        el('div', { class: 'actions' },
+          c.sketch_url ? el('button', { type: 'button', class: 'label muted', text: 'See it large', onclick: () => zoom(c) }) : el('span'),
+          el('button', { type: 'button', class: 'pick label', text: 'Build this one →', onclick: () => choose(c.id) })))));
   }
   setTimeout(() => $('choose').scrollIntoView({ behavior: 'smooth' }), 300);
+}
+
+function zoom(c) {
+  $('lb-tpl').textContent = (c.wildcard ? 'Wildcard · ' : '') + 'Template: ' + c.name;
+  $('lb-title').textContent = c.style || c.name;
+  $('lb-title').style.fontFamily = `'${c.fonts.display}', serif`;
+  $('lb-desk').src = c.sketch_url; $('lb-desk').alt = `Your homepage in the ${c.style || c.name} look, desktop`;
+  $('lb-phone').src = c.sketch_phone || ''; $('lb-phone').alt = 'The same, on a phone';
+  $('lb-why').textContent = [c.why, c.pitch].filter(Boolean).join(' ');
+  $('lb-open').href = c.sketch_page || c.sketch_url;
+  $('lb-go').onclick = () => { $('lb').close(); choose(c.id); };
+  $('lb').showModal();
 }
 
 async function choose(id) {

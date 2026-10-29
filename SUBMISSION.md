@@ -15,9 +15,12 @@ website and hands back everything they'd need an agency for, in about ten minute
    answered from the site's own words, and what customers can't find out.
 3. **Paint job.** The owner's style tags map to a library of 25 template skills, each a
    measured build spec of a leading fashion site (COS, GANNI, KHY, Sézane, Dior,
-   Tiffany & Co., Net-a-Porter...). Spark picks the three that fit the brand from that
-   shortlist plus one random wildcard; Muse Image previews each on the owner's own
-   hero photo. The owner picks.
+   Tiffany & Co., Net-a-Porter...). Spark picks the ones that fit the brand (3 to 6
+   options, fewer when the ask is precise) plus a random wildcard. Muse Image reshoots a
+   product in each look and **Muse Wonder sketches the owner's own homepage in each**,
+   drawing a different headline, lead product and twist every time, so the same inputs
+   never give the same set. The owner picks from the thumbnails; that sketch is the
+   brief for the full build.
 4. **Photo studio.** SAM 3.1 isolates each product from the owner's photo; Muse Image
    reshoots it (set, light, lens, depth of field); SAM finds it again and scores
    fidelity, so a reshoot that changed the product is caught.
@@ -60,7 +63,7 @@ website and hands back everything they'd need an agency for, in about ten minute
 | Model | Job |
 |---|---|
 | Muse Spark 1.3 | vision brand read, art direction picks, **site-vs-template fidelity check**, logo read + check, copy, social plan, **campaign brief + every image check (hands, product match, lettering) + film review**, **reverse engineering popular posts** (it watches them), grounding, **video review** |
-| Muse Wonder 1.0 | builds the website on one of 25 measured fashion-site templates (it sees the template's screenshots) and revises it from Spark's side-by-side check |
+| Muse Wonder 1.0 | sketches the owner's homepage in every option they're offered, then builds the website on the chosen one of 25 measured fashion-site templates (it sees the template's screenshots) and revises it from Spark's side-by-side check |
 | Muse Image 1.0 | direction previews, product reshoots, logo redraw, campaign casting (multi-image edits: cast reference + product photo), new angles for video formats |
 | SAM 3.1 | product isolation, reshoot fidelity check, finding every hand for the campaign check, lifting the person off the set for film parallax |
 | Muse Voice Transcribe | hears the speech in an uploaded post so its script's shape carries into the remix |

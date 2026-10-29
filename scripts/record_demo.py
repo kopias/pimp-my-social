@@ -117,7 +117,7 @@ def main() -> None:
         page.mouse.move(700, 600, steps=10)
         page.wait_for_timeout(3500)
         page.wait_for_selector("#choose:not([hidden]) .dcard", timeout=600_000)
-        page.wait_for_timeout(1500)  # let the previews load and the page scroll
+        page.wait_for_timeout(2500)  # let the sketches load and the page scroll
         mark("choose")
         page.wait_for_timeout(4000)
         cards = page.locator(".dcard")
@@ -126,7 +126,14 @@ def main() -> None:
             if b:
                 page.mouse.move(b["x"] + b["width"] / 2, b["y"] + b["height"] / 3, steps=14)
                 page.wait_for_timeout(900)
-        glide(page, f".dcard >> nth={args.pick}")
+        # Open the chosen sketch large, look at it, then build it.
+        if page.locator(f".dcard >> nth={args.pick} >> .thumb").count():
+            glide(page, f".dcard >> nth={args.pick} >> .thumb")
+            page.wait_for_selector("#lb[open]")
+            page.wait_for_timeout(3500)
+            glide(page, "#lb-go")
+        else:
+            glide(page, f".dcard >> nth={args.pick} >> .pick")
         mark("building")
 
         page.wait_for_selector("#v-reveal.on", timeout=1_500_000)

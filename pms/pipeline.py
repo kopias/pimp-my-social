@@ -12,14 +12,16 @@ from __future__ import annotations
 
 import asyncio
 import json
+import random
 import shutil
 import time
 import traceback
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
 from pathlib import Path
 
-from . import audit, brand, campaign, directions, logo, photos, remix, report, site, skill, social
+from . import audit, brand, campaign, directions, logo, mockups, photos, remix, report, site, skill, social
 from .crawl import Site, inspect
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -29,7 +31,7 @@ STAGES = [
     ("inspect", "Inspection", "Rendering the site like a visitor, a search engine and an AI agent"),
     ("audit", "Scorecard", "17 checks across search, AI answers, agents, social and speed"),
     ("brand", "Brand read", "Muse Spark reads the screenshots, photos and pages"),
-    ("paint", "Paint job", "Spark picks your directions; Muse Image previews each"),
+    ("paint", "Paint job", "Spark shortlists looks from your tags; Muse Wonder sketches your homepage in each"),
     ("studio", "Photo studio", "SAM 3.1 isolates each product; Muse Image reshoots it; SAM checks it"),
     ("logo", "Logo", "Spark reads your logo's idea; Muse Image redraws it; Spark checks it still reads as you"),
     ("site", "The build", "Spark writes the copy; Muse Wonder designs and codes the site"),
@@ -112,18 +114,34 @@ class Job:
                                                "voice", "products", "gaps", "proof")}
 
             def paint() -> list[dict]:
-                cards = directions.pick(prof, self.state["tags"])
-                hero = prof["hero_photo"] if prof["hero_photo"] >= 0 else 0
-                subj = next((p["subject"] for p in prof["products"] if p["photo"] == hero), "product")
-                if prof["_photos"]:
-                    outs = directions.previews(cards, Path(prof["_photos"][hero]["path"]), subj,
-                                               self.dir / "directions")
-                    for c, o in zip(cards, outs):
-                        c["preview"] = self.url_of(o) if o else None
+                # Shortlist from the tags, then sketch their homepage in every look, so the
+                # owner chooses from their own site, not from a description.
+                rng = random.Random()
+                cards = directions.pick(prof, self.state["tags"], rng)
+                firsts = mockups.leads(cards, prof, rng)
+                photos = {p["index"]: Path(p["path"]) for p in prof["_photos"]}
+                with ThreadPoolExecutor(max_workers=2) as pool:
+                    copy_f = pool.submit(site.write_copy, prof)
+                    prev_f = pool.submit(directions.previews, cards,
+                                         [photos.get(f["photo"]) if f else None for f in firsts],
+                                         [f["subject"] if f else "" for f in firsts], self.dir / "directions")
+                    copy, outs = copy_f.result(), prev_f.result()
+                (self.dir / "copy.json").write_text(json.dumps(copy, indent=1))
+                for c, v, o in zip(cards, mockups.variants(cards, firsts, copy, rng), outs):
+                    c["variant"] = v
+                    c["preview_path"] = str(o) if o else None
+                    c["preview"] = self.url_of(o) if o else None
+                for c, sk in zip(cards, mockups.sketches(cards, prof, copy, self.dir / "directions")):
+                    c["sketch"] = sk
+                    if sk:
+                        c["sketch_url"] = self.url_of(Path(sk["desktop"]))
+                        c["sketch_phone"] = self.url_of(Path(sk["phone"]))
+                        c["sketch_page"] = self.url_of(Path(sk["html"]))
                 return cards
             cards = await self.stage("paint", paint)
             (self.dir / "cards.json").write_text(json.dumps(cards, indent=1))
-            d["cards"] = cards
+            # The browser gets the cards without local file paths; the build reads cards.json.
+            d["cards"] = [{k: v for k, v in c.items() if k not in ("sketch", "preview_path")} for c in cards]
             self.state["status"] = "choose"
             self.save()
         except Exception as e:
@@ -158,8 +176,16 @@ class Job:
                          "motif": mark.get("motif"), "note": mark["note"]}
             mark = mark if mark["mark"] else None
 
-            built = await self.stage("site", site.build, prof, direction, shots,
-                                     site_before.final_url, self.dir / "site", mark)
+            # Build what they chose: the sketch's copy, headline and lead product.
+            copy = json.loads((self.dir / "copy.json").read_text()) if (self.dir / "copy.json").exists() else None
+            v = direction.get("variant") or {}
+            if copy and v.get("headline"):
+                copy["h1"] = v["headline"]
+            lead = [x for x in shots if x.product == v.get("hero_product")]
+            site_shots = lead + [x for x in shots if x not in lead]
+            approved = {**direction["sketch"], "variant": v} if direction.get("sketch") else None
+            built = await self.stage("site", site.build, prof, direction, site_shots,
+                                     site_before.final_url, self.dir / "site", mark, copy, approved)
             d["site"] = {"url": f"/jobs/{self.id}/site/index.html", "copy": built["copy"],
                          "fidelity": built.get("fidelity")}
 

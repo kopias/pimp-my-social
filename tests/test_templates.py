@@ -80,3 +80,28 @@ def test_invented_years_and_counts_are_caught():
     from pms import site
     page = "<style>.a{width:2019px}</style><h1>Made in Oakland since 2019</h1><p>100+ reviews, 500+ fans</p>"
     assert site.invented_numbers(page, {"proof": ["100+ Five-Star Reviews"]}) == ["2019", "500+"]
+
+
+def test_option_count_follows_how_precise_the_ask_is():
+    from pms import directions
+    assert directions.how_many(1) == 3 and directions.how_many(25) == 6 and directions.how_many(3) == 5
+
+
+def test_headline_contrast_measures_the_ground_not_the_letters(tmp_path):
+    from PIL import Image, ImageDraw
+    from pms import site
+    for ground, expect_weak in (("#111111", False), ("#F2EFE6", True)):
+        im = Image.new("RGB", (400, 100), ground)
+        ImageDraw.Draw(im).rectangle((20, 30, 380, 70), fill="#FFFFFF")  # stand-in for white letters
+        im.save(tmp_path / "s.png")
+        weak = site.headline_contrast(tmp_path / "s.png", {"x": 0, "y": 0, "w": 400, "h": 100, "rgb": [255, 255, 255]})
+        assert (weak > 0.5) == expect_weak, ground
+
+
+def test_neighbouring_sketches_get_different_headlines_and_twists():
+    import random
+    from pms import mockups
+    copy = {"h1": "A", "h1_options": ["B", "C", "D"]}
+    firsts = [{"name": f"P{k}", "photo": k} for k in range(4)]
+    vs = mockups.variants([{}] * 4, firsts, copy, random.Random(1))
+    assert len({v["headline"] for v in vs}) == 4 and len({v["twist"] for v in vs}) == 4

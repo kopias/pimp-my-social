@@ -19,7 +19,7 @@ unrecognisable. Built for the Meta Global AI Developer Hackathon (Oct 26 to Nov
 | Stage | Model | What it does |
 |---|---|---|
 | Inspection | **Muse Spark 1.3** (vision) | Reads the before screenshots, photos and pages into a grounded brand profile: products matched to photos, prices as stated, voice, FAQs, gaps |
-| Paint job | **Muse Spark 1.3** + **Muse Image** | the owner's style tags shortlist 25 fashion-site templates; Spark picks three plus one random wildcard; Image reshoots their hero photo in each as a preview |
+| Paint job | **Muse Spark 1.3** + **Muse Image** + **Muse Wonder** | the owner's style tags shortlist 25 fashion-site templates; Spark picks 2-5 plus a random wildcard; Image reshoots a product in each look; Wonder sketches their homepage in each, with a different headline, lead product and twist every time; the owner picks from the thumbnails |
 | Photo studio | **SAM 3.1** + **Muse Image** | SAM isolates each product from the owner's photo; Image reshoots it (set, light, lens, depth of field); SAM finds it again in the result and scores fidelity, so a reshoot that changed the product is caught |
 | Logo | **Muse Spark** + **Muse Image** | Spark reads what the current logo is about; Image redraws it as one clean mark; Spark compares old and new and rejects a redraw that lost the idea |
 | Website | **Muse Spark** + **Muse Wonder 1.0** | Spark writes the copy, held to the facts on the site; Wonder builds the page on the chosen template from its skill and screenshots; Spark screenshots the result and scores it against the template side by side, and Wonder revises below 8/10 |
@@ -85,7 +85,8 @@ pms/crawl.py       render the site in Chrome: text, photos, colours, fonts, sche
 pms/audit.py       17 measured checks across search, AI answers, agents, social and speed; scores 0-100
 pms/brand.py       Muse Spark: the grounded brand profile
 pms/templates.py   the 25 template skills: loader, tag ranking, screenshots
-pms/directions.py  style tags -> template shortlist, Spark's picks + a wildcard, Muse Image previews
+pms/directions.py  style tags -> template shortlist (3-6 options), Spark's picks + a wildcard, Muse Image previews
+pms/mockups.py     homepage sketches in each option, with variants, code checks and measured contrast
 pms/photos.py      SAM 3.1 isolate -> Muse Image reshoot -> SAM fidelity check
 pms/site.py        Spark copy, Muse Wonder page on the template, Spark's fidelity check + revisions, findability layer (incl. WebMCP)
 pms/social.py      Spark's channel plan; posts composed in the direction's fonts and colours

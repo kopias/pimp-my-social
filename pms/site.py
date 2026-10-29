@@ -37,12 +37,14 @@ from .text import tidy_all
 
 COPY_SCHEMA = {
     "type": "object", "additionalProperties": False,
-    "required": ["seo_title", "meta_description", "h1", "kicker", "subhead", "cta", "about",
+    "required": ["seo_title", "meta_description", "h1", "h1_options", "kicker", "subhead", "cta", "about",
                  "products", "proof_heading", "faq_heading", "visit", "share_title"],
     "properties": {
         "seo_title": {"type": "string", "description": "40-60 chars: what + where/who + name"},
         "meta_description": {"type": "string", "description": "120-160 chars, specific"},
         "h1": {"type": "string", "description": "the hero headline, punchy, under 9 words"},
+        "h1_options": {"type": "array", "items": {"type": "string"},
+                       "description": "3 more hero headlines, each a different angle, same rules"},
         "kicker": {"type": "string", "description": "2-5 word label above the headline"},
         "subhead": {"type": "string", "description": "one or two sentences under the headline"},
         "cta": {"type": "object", "additionalProperties": False, "required": ["label", "kind"],
@@ -106,7 +108,7 @@ Palette (CSS variables, exactly these values): {palette}
 Fonts, already loaded from Google Fonts (the template's own faces are proprietary; these are \
 the matched stand-ins): {fonts}
 
-Where the anatomy calls for content the business doesn't have (a category row, a second \
+{approved}Where the anatomy calls for content the business doesn't have (a category row, a second \
 campaign image, a founder's note), build it from the products, photos and copy given below, \
 or leave that section out. Never invent facts to fill a slot.
 
@@ -145,6 +147,8 @@ CSS animation is fine (respect prefers-reduced-motion).
 "best in town" claims, prices, discounts or dates beyond the copy. Testimonials are shown as \
 quotes only. Announcement bars carry real facts from the copy or contact (hours, location, \
 how to order), never an invented offer.
+- Text over a photo must read clearly: if the photo is light or busy behind the words, add a soft \
+gradient scrim or move the words to a calm area of the image.
 - A fixed or sticky header that sits transparent over the hero must stay legible over every \
 later section: give it the page background and ink colours once it leaves the hero (a CSS \
 scroll-driven animation or a solid header below the hero; no JavaScript).
@@ -198,30 +202,49 @@ def _shot_note(t: dict) -> str:
     return "No screenshots of this template are on file; build from the skill."
 
 
-def _wonder(prompt: str, images: list[Path]) -> str:
-    raw = m.ask(prompt, images=images, model=m.AGENT_MODEL, effort="medium", max_tokens=32000)
+def _wonder(prompt: str, images: list[Path], effort: str = "medium") -> str:
+    raw = m.ask(prompt, images=images, model=m.AGENT_MODEL, effort=effort, max_tokens=32000)
     match = re.search(r"<!doctype html.*</html>", raw, re.S | re.I)
     if not match:
         raise RuntimeError("Wonder didn't return an HTML document")
     return match.group(0)
 
 
+APPROVED = """THE OWNER'S CHOICE. The owner picked this look from a sketch of their homepage \
+(the LAST attached image; its HTML is below). Keep what they saw: the same header, the same hero \
+composition with the same headline ("{headline}") and lead product ({hero}), the same first \
+section and the same twist ({twist}). Swap the sketch's photos for the studio photos listed \
+below and the typed wordmark for the logo; then build the rest of the page in the same hand.
+The sketch's HTML:
+{html}
+
+"""
+
+
 def build_page(profile: dict, copy: dict, direction: dict, images: list[dict],
-               font_css: str, mark: dict | None = None) -> str:
+               font_css: str, mark: dict | None = None, approved: dict | None = None) -> str:
     t = _template(direction)
+    shown = templates.shots(t["id"])
+    approved_txt = ""
+    if approved and Path(approved.get("html", "")).exists():
+        v = approved.get("variant", {})
+        approved_txt = APPROVED.format(headline=v.get("headline", copy["h1"]), hero=v.get("hero_product", ""),
+                                       twist=v.get("twist", ""), html=Path(approved["html"]).read_text()[:40000])
+        if Path(approved.get("desktop", "")).exists():
+            shown = [*shown, Path(approved["desktop"])]
     img_lines = "\n".join(f"- {i['path']} ({i['w']}x{i['h']}): {i['what']}. alt: \"{i['alt']}\""
                           for i in images)
     prompt = BUILD_PROMPT.format(
         style=t.get("style", t["name"]), tname=t["name"], tsource=t.get("source", ""),
         shot_note=_shot_note(t), skill=t.get("skill", t.get("layout", "")),
-        tlabels=", ".join(template_labels(t["id"])) or "none on file",
+        tlabels=", ".join(template_labels(t["id"])) or "none on file", approved=approved_txt,
         palette=json.dumps(direction["palette"]), fonts=json.dumps(direction["fonts"]),
         typography=inspo.typography(), logo=logo_brief(mark, profile["name"]),
         copy=json.dumps(copy), proof=json.dumps(profile["proof"]),
         faqs=json.dumps(profile["faqs"]), contact=json.dumps(profile["contact"]),
         images=img_lines, font_css=font_css, socials=json.dumps(profile.get("socials", {})),
     )
-    return _wonder(prompt, templates.shots(t["id"]))
+    return _wonder(prompt, shown)
 
 
 # --- the fidelity check ----------------------------------------------------------
@@ -342,6 +365,63 @@ def invented_numbers(page: str, *sources: dict) -> list[str]:
     known = " ".join(json.dumps(x, ensure_ascii=False) for x in sources)
     found = re.findall(r"\b(?:19|20)\d\d\b|\b\d[\d,]*\+", text)
     return sorted({n for n in found if n.rstrip("+") not in known})
+
+
+def _lum(rgb: tuple) -> float:
+    c = [v / 255 for v in rgb[:3]]
+    c = [v / 12.92 if v <= 0.03928 else ((v + 0.055) / 1.055) ** 2.4 for v in c]
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+
+
+HEADLINE_JS = """() => { const h = document.querySelector('h1'); if (!h) return null;
+  const r = h.getBoundingClientRect(); const m = getComputedStyle(h).color.match(/[\\d.]+/g).map(Number);
+  return {x: r.left, y: r.top, w: r.width, h: r.height, rgb: m.slice(0, 3)}; }"""
+
+
+def headline_contrast(shot: Path, box: dict | None) -> float | None:
+    """How much of what sits behind the hero headline is too close to the text's colour to
+    read (WCAG 3:1, the large-text floor): the share of background pixels under 3:1, 0 to 1.
+    Letters are the pixels (nearly) exactly the text's colour and are left out. Measured, not judged."""
+    if not box or box["w"] < 4 or box["h"] < 4:
+        return None
+    im = Image.open(shot).convert("RGB")
+    x0, y0 = max(0, int(box["x"])), max(0, int(box["y"]))
+    x1, y1 = min(im.width, int(box["x"] + box["w"])), min(im.height, int(box["y"] + box["h"]))
+    if x1 - x0 < 4 or y1 - y0 < 4:
+        return None
+    rgb = tuple(box["rgb"])
+    t = _lum(rgb)
+    # letters = pixels (nearly) exactly the text colour; everything else is what they sit on
+    ground = [q for q in im.crop((x0, y0, x1, y1)).resize((80, 24), Image.NEAREST).get_flattened_data()
+              if sum((a - b) ** 2 for a, b in zip(q, rgb)) > 12 ** 2]
+    if not ground:
+        return None
+    weak = sum((max(t, _lum(q)) + 0.05) / (min(t, _lum(q)) + 0.05) < 3 for q in ground)
+    return round(weak / len(ground), 2)
+
+
+def snapshot_screens(page: Path, out_dir: Path) -> list[Path]:
+    """Just the first screen on desktop and on a phone: a sketch's thumbnail. Also measures
+    the hero headline's contrast on desktop (written to contrast.txt beside the shots)."""
+    from playwright.sync_api import sync_playwright
+    shots = [out_dir / "desktop.jpg", out_dir / "phone.jpg"]
+    with sync_playwright() as p:
+        b = p.chromium.launch(channel="chrome")
+        for path, vp, mobile in ((shots[0], {"width": 1440, "height": 900}, False),
+                                 (shots[1], {"width": 390, "height": 844}, True)):
+            ctx = b.new_context(viewport=vp, is_mobile=mobile, has_touch=mobile,
+                                device_scale_factor=2 if mobile else 1)
+            pg = ctx.new_page()
+            pg.goto(page.resolve().as_uri(), wait_until="load", timeout=60_000)
+            pg.evaluate("document.fonts.ready")
+            pg.wait_for_timeout(500)
+            pg.screenshot(path=path, quality=78)
+            if not mobile:
+                ratio = headline_contrast(path, pg.evaluate(HEADLINE_JS))
+                (out_dir / "contrast.txt").write_text("" if ratio is None else str(ratio))
+            ctx.close()
+        b.close()
+    return shots
 
 
 def snapshot(page: Path, out_dir: Path, tag: str) -> list[Path]:
@@ -625,12 +705,12 @@ def _web_jpeg(src: Path, dst: Path, max_side: int) -> tuple[int, int]:
 
 
 def build(profile: dict, direction: dict, shots: list[Shot], base_url: str, out: Path,
-          mark: dict | None = None) -> dict:
+          mark: dict | None = None, copy: dict | None = None, approved: dict | None = None) -> dict:
     """The whole site folder. Returns paths and timings for the report."""
     out.mkdir(parents=True, exist_ok=True)
     (out / "img").mkdir(exist_ok=True)
     base = f"{urlparse(base_url).scheme}://{urlparse(base_url).netloc}/"
-    copy = write_copy(profile)
+    copy = copy or write_copy(profile)
     alts = {p["name"]: p["alt"] for p in copy["products"]}
     images: list[dict] = []
     for k, s in enumerate(shots):
@@ -660,7 +740,7 @@ def build(profile: dict, direction: dict, shots: list[Shot], base_url: str, out:
     page_imgs = [i for i in images if i["role"] != "share"]
     logos = [{"path": "img/logo.png", "alt": profile["name"]},
              {"path": "img/logo-light.png", "alt": profile["name"]}]
-    page = enforce(build_page(profile, copy, direction, page_imgs, direction["font_css"], mark),
+    page = enforce(build_page(profile, copy, direction, page_imgs, direction["font_css"], mark, approved),
                    page_imgs + logos)
     # Hold it to the template: screenshot, compare, revise, keep the best.
     checks, best = [], None

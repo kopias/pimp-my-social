@@ -22,14 +22,21 @@ Each folder is one template: a real fashion site, captured and measured in a bro
 ## How a makeover uses them
 
 1. **Map.** The owner's style tags (up to three) shortlist every template that carries the
-   most of them (`pms/templates.py: rank`); Spark picks the three that fit the business
-   best, plus one wildcard. Each is offered as a card with their own photo reshot to the
-   template's photo brief.
-2. **Build.** Muse Wonder gets the chosen template's skill and its screenshots and builds
-   the business's page on that template: same header, hero composition, type scale,
+   most of them (`pms/templates.py: rank`), shuffled so no two makeovers meet the same list.
+   Spark picks the ones that fit the business best, plus a random wildcard: 3 options when
+   one template matches every tag, up to 6 when the ask is broad.
+2. **Sketch.** Muse Wonder sketches the business's own homepage (header, hero, first
+   section) on each shortlisted template, with its real copy and a product photo reshot to
+   that template's photo brief. Each sketch draws a variant: which product leads, which of
+   Spark's headlines, wide or tall crop, one small twist. A browser screenshots each on
+   desktop and phone; code checks it (borrowed menu words, invented numbers, missing
+   images, measured headline contrast) and Wonder fixes it once if needed. The owner picks
+   from these thumbnails (`pms/mockups.py`).
+3. **Build.** Muse Wonder gets the chosen template's skill, its screenshots and the sketch
+   the owner picked (same headline, lead product and twist), and builds the full page: same header, hero composition, type scale,
    section order and product presentation; the business's own name, remade logo, photos
    and words.
-3. **Check.** The built page is screenshotted (desktop, scroll, phone) and Muse Spark
+4. **Check.** The built page is screenshotted (desktop, scroll, phone) and Muse Spark
    compares it side by side with the template: nine scores, every signature move present
    or not, and a list of concrete fixes. Below 8/10, Wonder revises from the fixes (up to
    twice) and the best round ships. `uv run scripts/template_qa.py <job> <ids|--all>`

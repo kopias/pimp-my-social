@@ -32,16 +32,17 @@ DIRECTIONS: dict[str, dict] = templates.all_templates()
 PICK_SCHEMA = {
     "type": "object", "additionalProperties": False, "required": ["picks"],
     "properties": {"picks": {
-        "type": "array", "description": "exactly 3, best fit first",
+        "type": "array", "description": "exactly as many as asked, best fit first",
         "items": {"type": "object", "additionalProperties": False, "required": ["id", "why"],
                   "properties": {"id": {"type": "string", "enum": list(DIRECTIONS)},
                                  "why": {"type": "string",
                                          "description": "one sentence to the owner"}}}}},
 }
 
-PICK_PROMPT = """You are the art director on a makeover crew. Pick the 3 style directions that \
-would suit this business best, best fit first. Each is modelled on a real fashion site. Weigh \
-who their customers are, what they sell, their price point and how they sound. {tags}
+PICK_PROMPT = """You are the art director on a makeover crew. Pick the {n} style directions that \
+would suit this business best, best fit first, and make them different enough from each other \
+that the owner has a real choice. Each is modelled on a real fashion site. Weigh who their \
+customers are, what they sell, their price point and how they sound. {tags}
 
 Business: {profile}
 
@@ -59,8 +60,18 @@ def font_css(d: dict) -> str:
     return "https://fonts.googleapis.com/css2?" + "&".join(fam(n) for n in dict.fromkeys(fams)) + "&display=swap"
 
 
+def how_many(exact: int) -> int:
+    """Options to show, 3 to 6 including the wildcard, from how many templates carry every
+    tag the owner asked for: a precise ask (one exact fit) gets a short, sure list; a
+    broad one (or no tags) gets range."""
+    return max(3, min(6, exact + 2))
+
+
 def pick(profile: dict, tags: list[str], rng: random.Random | None = None) -> list[dict]:
-    """Three picks from Spark plus one random wildcard, as cards."""
+    """Spark's picks plus one random wildcard, as cards: 3 to 6 in all.
+
+    Never the same twice: the shortlist is shuffled and, when it's long, sampled, so two
+    makeovers with the same tags meet different templates in a different order."""
     rng = rng or random.Random()
     summary = {k: profile[k] for k in ("name", "one_liner", "category", "audience", "voice",
                                        "value_props")}
@@ -69,22 +80,28 @@ def pick(profile: dict, tags: list[str], rng: random.Random | None = None) -> li
     ranked = templates.rank(tags) if tags else [(0, k) for k in DIRECTIONS]
     best = ranked[0][0]
     short = [k for n, k in ranked if n == best and n > 0] or [k for _, k in ranked]
+    exact = len(short) if tags else len(DIRECTIONS)
     short += [k for n, k in ranked if k not in short and n > 0][:max(0, 6 - len(short))]
+    rng.shuffle(short)
+    short = short[:10]
+    total = how_many(exact)
+    n = min(total - 1, len(short))
     menu = {k: {"name": f"{v['style']} (modelled on {v['name']})", "tags": v["tags"], "pitch": v["pitch"],
                 "layout": v["layout"][:400]} for k, v in DIRECTIONS.items() if k in short}
+    menu = {k: menu[k] for k in short}  # Spark sees them in the shuffled order
     tag_line = (f"The owner chose these style tags; lean toward them: {', '.join(tags)}."
                 if tags else "The owner chose no style tags.")
     schema = json.loads(json.dumps(PICK_SCHEMA))
     schema["properties"]["picks"]["items"]["properties"]["id"]["enum"] = list(menu)
-    raw = m.ask(PICK_PROMPT.format(tags=tag_line, profile=json.dumps(summary),
+    raw = m.ask(PICK_PROMPT.format(n=n, tags=tag_line, profile=json.dumps(summary),
                                    directions=json.dumps(menu)), schema=schema, effort="low")
     seen, cards = set(), []
     for p in json.loads(raw)["picks"]:
-        if p["id"] in DIRECTIONS and p["id"] not in seen:
+        if p["id"] in DIRECTIONS and p["id"] not in seen and len(cards) < n:
             seen.add(p["id"])
             cards.append({"id": p["id"], "why": p["why"], "wildcard": False})
-    rest = [k for k in short if k not in seen] + [k for k in DIRECTIONS if k not in short and k not in seen]
-    while len(cards) < 3 and rest:  # Spark returned fewer than asked
+    rest = [k for k in short if k not in seen]
+    while len(cards) < n and rest:  # Spark returned fewer than asked
         k = rest.pop(0)
         seen.add(k)
         cards.append({"id": k, "why": "", "wildcard": False})
@@ -105,18 +122,23 @@ RESHOOT = ("Reshoot this exact {subject} as a professional product photograph. K
 
 
 def preview(card: dict, photo: Path, subject: str, out: Path) -> Path:
-    """Their hero photo, reshot in this direction (one Muse Image edit, $0.01)."""
+    """One product photo, reshot in this direction (one Muse Image edit, $0.01)."""
     return m.edit_image(photo, RESHOOT.format(subject=subject or "product", photo=card["photo"]), out)
 
 
-def previews(cards: list[dict], photo: Path, subject: str, out_dir: Path) -> list[Path | None]:
+def previews(cards: list[dict], photos: list[Path | None], subjects: list[str],
+             out_dir: Path) -> list[Path | None]:
+    """Each card's lead photo reshot in that card's direction, all at once."""
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    def one(c: dict) -> Path | None:
+    def one(args: tuple) -> Path | None:
+        c, photo, subject = args
+        if not photo:
+            return None
         try:
             return preview(c, photo, subject, out_dir / f"preview_{c['id']}.png")
         except Exception as e:
             print(f"preview {c['id']} failed: {e!r}"[:300])
             return None
-    with ThreadPoolExecutor(max_workers=4) as pool:
-        return list(pool.map(one, cards))
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        return list(pool.map(one, zip(cards, photos, subjects)))
