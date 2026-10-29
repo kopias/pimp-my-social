@@ -21,6 +21,7 @@ from PIL import Image as PILImage
 from muse import client as m
 
 from .crawl import UA, Site, _allowed
+from .text import tidy_all
 
 MAX_PHOTOS = 10  # candidate photos shown to Spark
 MAX_TEXT = 14000  # characters of page text
@@ -173,4 +174,4 @@ def read_brand(site: Site, photos: list[Photo]) -> dict:
             prod["photo"] = -1
     if not 0 <= profile["hero_photo"] < n:
         profile["hero_photo"] = -1
-    return profile
+    return tidy_all(profile)

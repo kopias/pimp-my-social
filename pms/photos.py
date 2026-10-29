@@ -25,7 +25,10 @@ from muse import client as m
 from .directions import RESHOOT
 
 MIN_FIDELITY = 0.6
-SIZES = {"landscape": "1536x1024", "portrait": "1024x1536"}
+SIZES = {"landscape": "1536x1024", "portrait": "1024x1536", "detail": "1024x1536"}
+DETAIL = ("An extreme close-up detail shot of this exact {subject}: fill the frame with its "
+          "texture and surface, the same product with nothing changed. {photo}. Macro lens, "
+          "very shallow depth of field, photorealistic, no text, no people.")
 
 
 @dataclass
@@ -38,6 +41,7 @@ class Shot:
     fidelity: float | None  # 0-1, shape + colour agreement with the original
     sam_confidence: float | None
     note: str = ""
+    detail: str | None = None  # a close-up, so a grid doesn't repeat the same frame
 
 
 def _mask_image(seg: m.Segment, size: tuple[int, int]) -> np.ndarray:
@@ -110,10 +114,17 @@ async def reshoot(product: dict, photo: Path, direction: dict, out: Path) -> Sho
         src, conf, note = cut, seg.confidence, ""
 
     prompt = RESHOOT.format(subject=subject, photo=direction["photo"])
-    land, port = await asyncio.gather(
+    land, port, detail = await asyncio.gather(
         asyncio.to_thread(m.edit_image, src, prompt, out / f"{stem}_landscape.png", size=SIZES["landscape"]),
         asyncio.to_thread(m.edit_image, src, prompt, out / f"{stem}_portrait.png", size=SIZES["portrait"]),
+        asyncio.to_thread(m.edit_image, src, DETAIL.format(subject=subject, photo=direction["photo"]),
+                          out / f"{stem}_detail.png", size=SIZES["detail"]),
+        return_exceptions=True,
     )
+    for r in (land, port):
+        if isinstance(r, Exception):
+            raise r
+    detail = None if isinstance(detail, Exception) else detail
     score = None
     if mask is not None and cut is not None:
         _, new_mask = await find(subject, land)
@@ -123,7 +134,8 @@ async def reshoot(product: dict, photo: Path, direction: dict, out: Path) -> Sho
                 note = f"Fidelity {score:.2f}: check this one before publishing."
         else:
             note = f"SAM couldn't find the {subject} in the reshoot: check it before publishing."
-    return Shot(name, str(photo), str(cut) if cut else None, str(land), str(port), score, conf, note)
+    return Shot(name, str(photo), str(cut) if cut else None, str(land), str(port), score, conf, note,
+                str(detail) if detail else None)
 
 
 async def studio(products: list[dict], photos: dict[int, Path], direction: dict, out: Path,

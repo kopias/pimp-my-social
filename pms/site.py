@@ -27,6 +27,7 @@ from muse import client as m
 
 from .audit import AI_BOTS
 from .photos import Shot
+from .text import tidy_all
 
 COPY_SCHEMA = {
     "type": "object", "additionalProperties": False,
@@ -78,7 +79,7 @@ def write_copy(profile: dict) -> dict:
                                    keywords="; ".join(profile["keywords"][:8]),
                                    profile=json.dumps(profile)),
                 schema=COPY_SCHEMA, effort="medium", max_tokens=8000)
-    return json.loads(raw)
+    return tidy_all(json.loads(raw))
 
 
 BUILD_PROMPT = """You are the master builder on "Pimp My Social", a show that makes over small \

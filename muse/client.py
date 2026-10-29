@@ -82,19 +82,24 @@ def ask(prompt: str, *, images: list[str | Path] = (), model: str = TEXT_MODEL,
 
 
 def ask_video(prompt: str, video: str | Path, *, model: str = TEXT_MODEL,
-              effort: str = "low") -> str:
+              effort: str = "low", schema: dict | None = None, max_tokens: int = 4000) -> str:
     """Upload an mp4 through the Files API, then ask about it."""
     c = client()
     with open(video, "rb") as f:
         uploaded = c.files.create(file=f, purpose="user_data")
+    kwargs: dict[str, Any] = {}
+    if schema:
+        kwargs["text"] = {"format": {"type": "json_schema", "name": "out", "schema": schema,
+                                     "strict": True}}
     response = c.responses.create(
         model=model,
         reasoning={"effort": effort},
-        max_output_tokens=4000,
+        max_output_tokens=max_tokens,
         input=[{"type": "message", "role": "user", "content": [
             {"type": "input_text", "text": prompt},
             {"type": "input_file", "file_id": uploaded.id},
         ]}],
+        **kwargs,
     )
     return output_text(response)
 

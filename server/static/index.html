@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pimp My Social</title>
+<meta name="description" content="Give us your website. We hand back a makeover: a new editorial site, studio photos of your products, posts and a video for your channels, and a report on what changed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root {
+    --paper: #f4f0e8; --paper2: #ebe5d9; --ink: #121110; --muted: #6f685e; --line: #d9d1c3;
+    --hot: #ff4b1f; --good: #1f7a4d; --card: #fbf8f2;
+    --serif: "Instrument Serif", Georgia, serif; --sans: "Inter Tight", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 var(--sans); }
+  a { color: inherit; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+  .muted { color: var(--muted); }
+  header.top { display: flex; justify-content: space-between; align-items: center; padding: 22px 0;
+    border-bottom: 1px solid var(--line); }
+  header.top b { font-family: var(--serif); font-size: 22px; font-weight: 400; }
+  header.top b i { color: var(--hot); }
+  button { font: inherit; cursor: pointer; }
+  .view { display: none; } .view.on { display: block; }
+
+  /* --- splash --- */
+  .hero { padding: 9vh 0 40px; }
+  .hero .mono { color: var(--hot); }
+  h1.title { font-family: var(--serif); font-weight: 400; font-size: clamp(64px, 12vw, 176px);
+    line-height: .86; letter-spacing: -.02em; margin: 18px 0 26px; }
+  h1.title i { color: var(--hot); }
+  .lede { font-size: clamp(18px, 2vw, 22px); max-width: 640px; color: #2c2925; }
+  form.go { margin-top: 38px; max-width: 760px; }
+  .urlrow { display: flex; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--card);
+    padding: 6px; }
+  .urlrow input { flex: 1; border: 0; background: transparent; font: 500 20px var(--sans); padding: 12px 18px;
+    outline: none; color: var(--ink); min-width: 0; }
+  .urlrow button { border: 0; background: var(--ink); color: var(--paper); border-radius: 999px;
+    padding: 14px 26px; font-weight: 600; font-size: 17px; white-space: nowrap; }
+  .urlrow button:hover { background: var(--hot); }
+  .urlrow button:disabled { opacity: .5; }
+  fieldset { border: 0; padding: 0; margin: 24px 0 0; }
+  legend { margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 7px 14px;
+    color: #3a3632; font-size: 14px; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .chip.locked { opacity: .65; cursor: default; }
+  .consent { display: flex; gap: 10px; align-items: flex-start; margin-top: 22px; font-size: 14px; color: var(--muted); }
+  .consent input { margin-top: 3px; accent-color: var(--hot); }
+  .err { color: var(--hot); min-height: 1.5em; margin-top: 12px; font-weight: 500; }
+  .models { margin: 70px 0 50px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    border-top: 1px solid var(--line); }
+  .models div { padding: 18px 16px 18px 0; border-bottom: 1px solid var(--line); }
+  .models b { font-family: var(--serif); font-weight: 400; font-size: 24px; display: block; }
+  .models span { font-size: 14px; color: var(--muted); }
+
+  /* --- garage --- */
+  .garage { display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; padding: 40px 0 60px; }
+  .shot { position: relative; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--paper2);
+    aspect-ratio: 16 / 10; }
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .stamp { position: absolute; top: 16px; left: 16px; background: var(--ink); color: var(--paper); padding: 6px 12px;
+    border-radius: 6px; }
+  .stamp.after { background: var(--hot); }
+  h2.big { font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 5vw, 64px); line-height: 1; margin: 6px 0 18px; }
+  ol.stages { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+  ol.stages li { display: grid; grid-template-columns: 26px 1fr auto; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid var(--line); align-items: start; }
+  ol.stages .dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--line); margin-top: 4px; }
+  ol.stages li[data-state="running"] .dot { border-color: var(--hot); background: var(--hot); animation: pulse 1s infinite; }
+  ol.stages li[data-state="done"] .dot { background: var(--ink); border-color: var(--ink); }
+  ol.stages li[data-state="skipped"] { opacity: .4; }
+  ol.stages li[data-state="failed"] .dot { background: var(--hot); border-radius: 2px; }
+  ol.stages li b { font-weight: 600; } ol.stages li small { display: block; color: var(--muted); font-size: 13px; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  .scorebox { margin-top: 26px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+  .score-n { font-family: var(--serif); font-size: 84px; line-height: .9; }
+  .score-n small { font-size: 28px; color: var(--muted); }
+  .bars { display: grid; gap: 8px; margin-top: 16px; }
+  .barrow { display: grid; grid-template-columns: 170px 1fr 34px; gap: 10px; align-items: center; font-size: 14px; }
+  .track { height: 8px; background: var(--paper2); border-radius: 4px; overflow: hidden; }
+  .fill { height: 100%; background: var(--ink); border-radius: 4px; transition: width .8s; }
+  .fails { margin-top: 16px; font-size: 14px; }
+  .fails li { margin: 4px 0; } .fails li::marker { color: var(--hot); }
+
+  /* --- choose --- */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; margin: 26px 0 70px; }
+  .dcard { text-align: left; border: 1px solid var(--line); background: var(--card); border-radius: 16px; padding: 0;
+    overflow: hidden; display: flex; flex-direction: column; transition: transform .15s, box-shadow .15s; }
+  .dcard:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(0,0,0,.08); }
+  .dcard img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; background: var(--paper2); }
+  .dcard .body { padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .dcard .name { font-size: 30px; line-height: 1; }
+  .sw { display: flex; gap: 0; border-radius: 6px; overflow: hidden; height: 16px; }
+  .sw span { flex: 1; }
+  .badge { align-self: flex-start; background: var(--hot); color: white; border-radius: 999px; padding: 3px 10px; }
+  .dcard .why { font-size: 14px; color: var(--muted); }
+  .dcard .pick { margin-top: auto; padding-top: 8px; font-weight: 600; }
+
+  /* --- reveal --- */
+  .revealhead { padding: 40px 0 10px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: end; }
+  .delta { font-family: var(--serif); font-size: clamp(56px, 8vw, 110px); line-height: .9; }
+  .delta .from { color: var(--muted); } .delta .to { color: var(--hot); }
+  .compare { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line);
+    aspect-ratio: 16 / 10; background: var(--paper2); user-select: none; }
+  .compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .compare .top { clip-path: inset(0 50% 0 0); }
+  .compare input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; }
+  .compare .handle { position: absolute; top: 0; bottom: 0; width: 3px; background: var(--hot); left: 50%; pointer-events: none; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 34px 0 18px; border-bottom: 1px solid var(--line); }
+  .tab { border: 0; background: transparent; padding: 10px 12px; border-bottom: 2px solid transparent; color: var(--muted);
+    font-weight: 600; }
+  .tab[aria-selected="true"] { color: var(--ink); border-color: var(--hot); }
+  .panel { display: none; padding-bottom: 80px; } .panel.on { display: block; }
+  .frame { width: 100%; height: 78vh; border: 1px solid var(--line); border-radius: 14px; background: white; }
+  .pairs { display: grid; gap: 22px; }
+  .pair { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 12px; align-items: start; }
+  .pair img { width: 100%; border-radius: 10px; display: block; }
+  .pair figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .phone { width: 360px; max-width: 100%; border: 10px solid #111; border-radius: 42px; background: white; overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,.18); }
+  .phone .bar { padding: 12px 16px; font-weight: 700; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
+  .ig-head { display: flex; gap: 14px; padding: 14px 16px; align-items: center; }
+  .avatar { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; color: white;
+    font: 400 30px var(--serif); flex: none; }
+  .ig-bio { padding: 0 16px 12px; font-size: 13px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .grid3 img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; cursor: pointer; }
+  .side { display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: start; }
+  .caption { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; white-space: pre-wrap; font-size: 15px; }
+  .tt { position: relative; aspect-ratio: 9 / 16; background: black; }
+  .tt video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .scores { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 14px 0; }
+  .scores div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px; text-align: center; }
+  .scores b { font: 400 34px var(--serif); display: block; }
+  .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+  .post { background: white; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .post .who { display: flex; gap: 10px; align-items: center; padding: 12px 14px; font-weight: 600; }
+  .post .who .avatar { width: 36px; height: 36px; font-size: 18px; }
+  .post p { padding: 0 14px; margin: 0 0 12px; font-size: 14px; white-space: pre-wrap; }
+  .post img { width: 100%; display: block; }
+  pre.skill { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; white-space: pre-wrap;
+    font: 13px/1.6 var(--mono); max-height: 70vh; overflow: auto; }
+  .dl { display: inline-block; background: var(--ink); color: var(--paper); text-decoration: none; border-radius: 999px;
+    padding: 14px 24px; font-weight: 600; }
+  .dl:hover { background: var(--hot); }
+  .fixedlist { columns: 2; column-gap: 32px; margin: 0; padding-left: 18px; }
+  .fixedlist li { break-inside: avoid; margin-bottom: 10px; font-size: 15px; }
+  .fixedlist small { color: var(--muted); display: block; }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 13px; }
+  @media (max-width: 860px) {
+    .garage, .side, .revealhead { grid-template-columns: 1fr; }
+    .pair { grid-template-columns: 1fr 1fr; } .pair figure:nth-child(2) { grid-column: 1 / -1; order: 3; }
+    .fixedlist { columns: 1; } .scores { grid-template-columns: repeat(3, 1fr); }
+    .barrow { grid-template-columns: 120px 1fr 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <b>Pimp My <i>Social</i></b>
+    <span class="mono muted">Makeovers for small businesses</span>
+  </header>
+
+  <!-- 1. splash -->
+  <section class="view on" id="v-splash">
+    <div class="hero">
+      <div class="mono">Episode 01 · your business</div>
+      <h1 class="title">Pimp My<br><i>Social.</i></h1>
+      <p class="lede">Give us your website. We hand back a makeover: a new editorial site built to be found
+        by search engines and AI agents, studio photos of your own products, posts and a short video for
+        every channel you pick, and a report on what changed.</p>
+      <form class="go" id="form">
+        <div class="urlrow">
+          <input id="url" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" aria-label="Your website address" required>
+          <button id="goBtn" type="submit">Pimp it</button>
+        </div>
+        <fieldset>
+          <legend class="mono muted">Channels to pimp</legend>
+          <div class="chips" id="channels"><button type="button" class="chip locked" aria-pressed="true" disabled>Website</button></div>
+        </fieldset>
+        <fieldset>
+          <legend class="mono muted">Your vibe <span style="text-transform:none;letter-spacing:0">(optional, up to 3)</span></legend>
+          <div class="chips" id="tags"></div>
+        </fieldset>
+        <label class="consent"><input type="checkbox" id="consent"> I own this business, or have its permission to remake its website and photos.</label>
+        <p class="err" id="err" role="alert"></p>
+      </form>
+    </div>
+    <div class="models">
+      <div><b>Muse Spark</b><span>reads your brand, writes the copy, reviews the video</span></div>
+      <div><b>Muse Wonder</b><span>designs and codes your new site</span></div>
+      <div><b>Muse Image</b><span>reshoots your products in the studio</span></div>
+      <div><b>SAM 3.1</b><span>isolates each product and checks the reshoot</span></div>
+      <div><b>Voice Transcribe</b><span>checks every word of the voiceover</span></div>
+    </div>
+  </section>
+
+  <!-- 2. garage (also hosts the choose step) -->
+  <section class="view" id="v-garage">
+    <div class="garage">
+      <div>
+        <div class="mono muted" id="g-url"></div>
+        <h2 class="big" id="g-title">In the garage</h2>
+        <div class="shot"><img id="g-before" alt="The current website" hidden onload="this.hidden=false"><span class="stamp mono">Before</span></div>
+        <div class="scorebox" id="scorebox" hidden>
+          <div class="mono muted">Scorecard</div>
+          <div class="score-n" id="score-n"></div>
+          <div class="bars" id="bars"></div>
+          <ul class="fails" id="fails"></ul>
+        </div>
+      </div>
+      <div>
+        <div class="mono muted">The crew is working</div>
+        <ol class="stages" id="stages"></ol>
+        <p class="err" id="g-err"></p>
+      </div>
+    </div>
+    <div id="choose" hidden>
+      <div class="mono" style="color:var(--hot)">Pick your paint job</div>
+      <h2 class="big">Which one feels like you?</h2>
+      <p class="muted" style="max-width:640px">Spark picked three that suit your brand, plus one wildcard. Each preview is your own photo, reshot in that style.</p>
+      <div class="cards" id="cards"></div>
+    </div>
+  </section>
+
+  <!-- 3. reveal -->
+  <section class="view" id="v-reveal">
+    <div class="revealhead">
+      <div>
+        <div class="mono" style="color:var(--hot)">The reveal</div>
+        <h2 class="big" id="r-title"></h2>
+      </div>
+      <div class="delta"><span class="from" id="r-from"></span> → <span class="to" id="r-to"></span></div>
+    </div>
+    <div class="compare" id="compare">
+      <img id="r-after" alt="The new website"><img class="top" id="r-before" alt="The old website">
+      <span class="stamp mono" style="z-index:2">Before</span>
+      <span class="stamp mono after" style="z-index:2;left:auto;right:16px">After</span>
+      <div class="handle" id="handle"></div>
+      <input type="range" min="0" max="100" value="50" id="slider" aria-label="Compare before and after">
+    </div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div id="panels"></div>
+  </section>
+
+  <footer>Pimp My Social runs on Meta Muse Spark, Muse Wonder, Muse Image, SAM 3.1 and Muse Voice Transcribe.
+    Every fact in your new copy comes from your current site. Check prices and hours before you publish.</footer>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const el = (tag, attrs = {}, ...kids) => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === 'class') n.className = v; else if (k === 'text') n.textContent = v;
+    else if (k.startsWith('on')) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v);
+  }
+  for (const k of kids) if (k != null) n.append(k);
+  return n;
+};
+const CAT = { overall: 'Overall', seo: 'Search engines', aeo: 'Answer engines (AI search)', agents: 'AI agents', social: 'Social sharing', speed: 'Speed' };
+let job = null, jobId = null, poll = null, picked = new Set(['instagram', 'tiktok']), tags = new Set();
+
+function show(view) {
+  for (const v of document.querySelectorAll('.view')) v.classList.toggle('on', v.id === 'v-' + view);
+  window.scrollTo({ top: 0 });
+}
+
+// --- splash ---
+fetch('/api/options').then((r) => r.json()).then((o) => {
+  for (const c of o.channels) {
+    $('channels').append(el('button', { type: 'button', class: 'chip', 'aria-pressed': String(picked.has(c.id)),
+      text: c.name, onclick: (e) => toggle(e.currentTarget, picked, c.id, 9) }));
+  }
+  for (const t of o.tags) {
+    $('tags').append(el('button', { type: 'button', class: 'chip', 'aria-pressed': 'false', text: t,
+      onclick: (e) => toggle(e.currentTarget, tags, t, 3) }));
+  }
+});
+function toggle(btn, set, id, max) {
+  if (set.has(id)) set.delete(id); else if (set.size < max) set.add(id); else return;
+  btn.setAttribute('aria-pressed', String(set.has(id)));
+}
+
+$('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  $('err').textContent = '';
+  if (!$('consent').checked) { $('err').textContent = 'Please confirm you own this business or have its permission.'; return; }
+  $('goBtn').disabled = true; $('goBtn').textContent = 'Opening the garage…';
+  try {
+    const r = await fetch('/api/jobs', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: $('url').value, channels: [...picked], tags: [...tags], consent: true }) });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.detail || 'Something went wrong.');
+    open(d.id);
+  } catch (err) { $('err').textContent = err.message; }
+  finally { $('goBtn').disabled = false; $('goBtn').textContent = 'Pimp it'; }
+});
+
+function open(id) {
+  jobId = id; history.replaceState(null, '', '#' + id);
+  show('garage'); clearInterval(poll); tick(); poll = setInterval(tick, 2000);
+}
+
+async function tick() {
+  const r = await fetch('/api/jobs/' + jobId);
+  if (!r.ok) { clearInterval(poll); $('g-err').textContent = 'That makeover could not be found.'; return; }
+  job = await r.json();
+  drawGarage();
+  if (job.status === 'done') { clearInterval(poll); drawReveal(); show('reveal'); }
+  if (job.status === 'error') { clearInterval(poll); $('g-err').textContent = 'The crew hit a problem: ' + job.error; }
+}
+
+// --- garage ---
+function drawGarage() {
+  const d = job.data;
+  $('g-url').textContent = job.url;
+  $('g-title').textContent = d.brand ? d.brand.name : (d.before ? d.before.name : 'In the garage');
+  if (d.before && !$('g-before').src) $('g-before').src = d.before.desktop;
+  const ol = $('stages'); ol.innerHTML = '';
+  for (const [key, st] of Object.entries(job.stages)) {
+    ol.append(el('li', { 'data-state': st.state }, el('span', { class: 'dot' }),
+      el('div', {}, el('b', { text: st.label }), el('small', { text: st.detail })),
+      el('span', { class: 'mono muted', text: st.seconds != null ? st.seconds + 's' : st.state === 'running' ? '…' : '' })));
+  }
+  if (d.audit_before && $('scorebox').hidden) drawScore(d.audit_before);
+  if (job.status === 'choose' && $('choose').hidden) drawCards();
+  if (job.status !== 'choose') $('choose').hidden = true;
+}
+
+function drawScore(a) {
+  $('scorebox').hidden = false;
+  $('score-n').innerHTML = '';
+  $('score-n').append(String(a.score.overall), el('small', { text: ' / 100' }));
+  const bars = $('bars'); bars.innerHTML = '';
+  for (const k of Object.keys(CAT).slice(1)) {
+    const fill = el('div', { class: 'fill' }); setTimeout(() => (fill.style.width = a.score[k] + '%'), 50);
+    bars.append(el('div', { class: 'barrow' }, el('span', { text: CAT[k] }), el('div', { class: 'track' }, fill),
+      el('span', { class: 'mono', text: a.score[k] })));
+  }
+  const fails = $('fails'); fails.innerHTML = '';
+  for (const c of a.checks.filter((c) => !c.passed).slice(0, 8))
+    fails.append(el('li', {}, el('b', { text: c.label + ': ' }), c.found));
+}
+
+function drawCards() {
+  $('choose').hidden = false;
+  const box = $('cards'); box.innerHTML = '';
+  for (const c of job.data.cards) {
+    const sw = el('div', { class: 'sw' });
+    for (const v of Object.values(c.palette)) sw.append(el('span', { style: 'background:' + v }));
+    document.head.append(el('link', { rel: 'stylesheet', href: c.font_css }));
+    box.append(el('button', { class: 'dcard', onclick: () => choose(c.id) },
+      c.preview ? el('img', { src: c.preview, alt: c.name + ' preview' }) : el('img', { alt: '' }),
+      el('div', { class: 'body' },
+        c.wildcard ? el('span', { class: 'badge mono', text: 'Wildcard' }) : null,
+        el('div', { class: 'name', style: `font-family:'${c.fonts.display}', serif`, text: c.name }),
+        sw, el('div', { style: `font-family:'${c.fonts.body}'`, text: c.pitch }),
+        c.why ? el('div', { class: 'why', text: c.why }) : null,
+        el('span', { class: 'pick', text: 'Paint it this way →' }))));
+  }
+  setTimeout(() => $('choose').scrollIntoView({ behavior: 'smooth' }), 300);
+}
+
+async function choose(id) {
+  $('choose').hidden = true;
+  await fetch(`/api/jobs/${jobId}/direction`, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id }) });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  clearInterval(poll); poll = setInterval(tick, 2000);
+}
+
+// --- reveal ---
+function drawReveal() {
+  const d = job.data, b = d.audit_before.score, a = d.audit_after.score;
+  $('r-title').textContent = d.brand.name + ', made over';
+  $('r-from').textContent = b.overall; $('r-to').textContent = a.overall;
+  $('r-before').src = d.before.desktop; $('r-after').src = d.audit_after.desktop;
+  $('slider').oninput = (e) => { $('r-before').style.clipPath = `inset(0 ${100 - e.target.value}% 0 0)`;
+    $('handle').style.left = e.target.value + '%'; };
+  const cardsById = Object.fromEntries(d.cards.map((c) => [c.id, c]));
+  const dir = cardsById[d.direction];
+  const tabs = [['site', 'Website'], ['photos', 'Photos'], ['changes', 'What changed']];
+  const chans = (d.social.channels || []).map((c) => c.channel);
+  if (chans.includes('instagram')) tabs.push(['instagram', 'Instagram']);
+  if (d.video) tabs.push(['video', 'Short video']);
+  for (const c of ['facebook', 'linkedin', 'x']) if (chans.includes(c)) tabs.push([c, { facebook: 'Facebook', linkedin: 'LinkedIn', x: 'X' }[c]]);
+  tabs.push(['report', 'Report'], ['skill', 'Brand skill'], ['download', 'Download']);
+  $('tabs').innerHTML = ''; $('panels').innerHTML = '';
+  for (const [key, label] of tabs) {
+    $('tabs').append(el('button', { class: 'tab', role: 'tab', 'aria-selected': 'false', text: label, onclick: () => tab(key) }));
+    $('panels').append(el('div', { class: 'panel', id: 'p-' + key }, render[key](d, dir, key)));
+  }
+  tab('site');
+}
+function tab(key) {
+  const panels = [...document.querySelectorAll('.panel')];
+  document.querySelectorAll('.tab').forEach((t, i) => t.setAttribute('aria-selected', String(panels[i].id === 'p-' + key)));
+  panels.forEach((p) => p.classList.toggle('on', p.id === 'p-' + key));
+  // Pause the video when leaving its tab.
+  document.querySelectorAll('.panel:not(.on) video').forEach((v) => v.pause());
+}
+const avatar = (name, dir, small) => el('div', { class: 'avatar', style: `background:${dir.palette.accent}` }, name.trim()[0]);
+const render = {
+  site: (d) => el('div', {}, el('p', {}, el('a', { href: d.site.url, target: '_blank', rel: 'noopener', text: 'Open the new site in a new tab ↗' })),
+    el('iframe', { class: 'frame', src: d.site.url, title: 'The new website' })),
+  photos: (d) => {
+    const box = el('div', { class: 'pairs' });
+    for (const s of d.shots) box.append(el('div', { class: 'pair' },
+      el('figure', { style: 'margin:0' }, el('img', { src: s.source_url, alt: 'Original photo of ' + s.product }), el('figcaption', { text: 'Before: ' + s.product })),
+      el('figure', { style: 'margin:0' }, el('img', { src: s.landscape_url, alt: 'Reshoot of ' + s.product }),
+        el('figcaption', { text: s.fidelity != null ? `Reshot by Muse Image. SAM 3.1 fidelity check: ${Math.round(s.fidelity * 100)}% match` : 'Reshot by Muse Image' + (s.note ? '. ' + s.note : '') })),
+      el('figure', { style: 'margin:0' }, el('img', { src: s.detail_url || s.portrait_url, alt: 'Close-up of ' + s.product }),
+        el('figcaption', { text: s.detail_url ? 'Close-up, for social' : 'Portrait, for social' }))));
+    return box;
+  },
+  changes: (d) => {
+    const ul = el('ul', { class: 'fixedlist' });
+    for (const f of d.package.fixed) ul.append(el('li', {}, el('b', { text: (f.passes_now ? '✓ ' : '✗ ') + f.label }),
+      el('small', { text: 'Before: ' + f.found }), el('small', { text: 'Added: ' + f.added })));
+    const agents = el('ul', {}); for (const a of d.package.agent_ready) agents.append(el('li', { text: a }));
+    return el('div', {}, ul, el('h3', { text: 'Ready for AI assistants and agents' }), agents);
+  },
+  instagram: (d, dir) => {
+    const posts = d.social.channels.find((c) => c.channel === 'instagram').posts;
+    const cap = el('div', { class: 'caption', text: posts[0].caption });
+    const grid = el('div', { class: 'grid3' });
+    for (const p of posts) grid.append(el('img', { src: p.image_url, alt: p.alt, onclick: () => (cap.textContent = p.caption) }));
+    return el('div', { class: 'side' }, el('div', { class: 'phone' },
+      el('div', { class: 'bar' }, el('span', { text: d.social.handle }), el('span', { class: 'mono muted', text: 'Instagram · preview' })),
+      el('div', { class: 'ig-head' }, avatar(d.brand.name, dir), el('div', {}, el('b', { text: d.brand.name }), el('div', { class: 'muted', text: posts.length + ' new posts' }))),
+      el('div', { class: 'ig-bio', text: d.social.bio }), grid),
+      el('div', {}, el('div', { class: 'mono muted', text: 'Caption · tap a post' }), cap,
+        el('p', { class: 'muted', text: (d.social.hashtags || []).join(' ') })));
+  },
+  video: (d) => {
+    const v = d.video, rv = v.review;
+    const sc = el('div', { class: 'scores' });
+    for (const k of ['hook', 'pacing', 'legibility', 'on_brand', 'overall'])
+      sc.append(el('div', {}, el('b', { text: rv[k] }), el('span', { class: 'mono muted', text: k.replace('_', ' ') })));
+    const fixes = el('ul', {}); for (const f of rv.fixes) fixes.append(el('li', { text: f }));
+    const cuts = v.cuts.length > 1 ? el('p', { class: 'muted', text: `Spark reviewed ${v.cuts.length} cuts (scores ${v.cuts.map((c) => c.review.overall).join(' → ')}); this is the best.` }) : null;
+    return el('div', { class: 'side' },
+      el('div', { class: 'phone' }, el('div', { class: 'tt' }, el('video', { src: v.mp4, poster: v.poster, controls: '', playsinline: '', loop: '' }))),
+      el('div', {}, el('div', { class: 'mono muted', text: 'Muse Spark watched it like an editor' }), sc,
+        el('div', { class: 'caption', text: rv.verdict }), el('h4', { text: 'For the next cut' }), fixes, cuts,
+        el('p', { class: 'muted', text: 'Every voiceover line was checked by Muse Voice Transcribe before the cut.' })));
+  },
+  facebook: (d, dir, key) => postList(d, dir, key), linkedin: (d, dir, key) => postList(d, dir, key), x: (d, dir, key) => postList(d, dir, key),
+  report: (d) => el('div', {}, el('p', {}, el('a', { href: d.package.report, target: '_blank', rel: 'noopener', text: 'Open the report in a new tab ↗' })),
+    el('iframe', { class: 'frame', src: d.package.report, title: 'Makeover report' })),
+  skill: (d) => el('div', {}, el('p', { class: 'muted', text: 'Load this into Claude (or paste it into any AI assistant) and everything it writes or designs for you stays in your voice, colours and photo style, with your real facts.' }),
+    el('pre', { class: 'skill', text: d.package.skill_md })),
+  download: (d) => el('div', {}, el('p', { text: 'Everything in one zip: the website (ready to upload), the photos, every post with its caption and alt text, the video with captions, the brand skill, and the report.' }),
+    el('a', { class: 'dl', href: d.package.zip, download: '', text: 'Download the makeover kit' })),
+};
+function postList(d, dir, key) {
+  const ch = d.social.channels.find((c) => c.channel === key), box = el('div', { class: 'posts' });
+  for (const p of ch.posts) box.append(el('article', { class: 'post' },
+    el('div', { class: 'who' }, avatar(d.brand.name, dir), el('span', {}, d.brand.name, el('br'), el('small', { class: 'mono muted', text: { facebook: 'Facebook', linkedin: 'LinkedIn', x: 'X' }[key] + ' · preview' }))),
+    el('p', { text: p.caption }), p.image_url ? el('img', { src: p.image_url, alt: p.alt }) : null));
+  return box;
+}
+
+if (location.hash.length > 1) open(location.hash.slice(1));
+</script>
+</body>
+</html>

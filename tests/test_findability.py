@@ -80,3 +80,12 @@ def test_inline_data_cannot_close_its_script_tag():
     end = S.body_end(evil, COPY)
     blob = re.search(r'id="pms-data">(.*?)</script>', end, re.S).group(1)
     assert json.loads(blob.replace("<\\/", "</"))["faqs"][0]["q"].startswith("</script>")
+
+
+def test_tidy_calms_the_shouting_but_keeps_the_facts():
+    from pms.text import tidy, tidy_all
+    assert tidy("Saturdays only, they go fast!! Come early!") == "Saturdays only, they go fast! Come early."
+    assert tidy("Sun 8am - 12pm (NEW!)") == "Sun 8am - 12pm"
+    assert tidy("NOW OPEN SUNDAYS") == "Now Open Sundays"
+    out = tidy_all({"caption": "Wow!! So good!", "price": "$9!!", "contact": {"phone": "555-0142"}})
+    assert out == {"caption": "Wow! So good.", "price": "$9!!", "contact": {"phone": "555-0142"}}

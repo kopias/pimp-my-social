@@ -65,6 +65,7 @@ def _public_host(host: str) -> None:
 
 
 _host_ok: dict[str, bool] = {}
+_trusted: dict[str, bool] = {}  # our own server, for the after audit
 
 
 def _allowed(url: str) -> bool:
@@ -233,14 +234,19 @@ def _pick_inner(links: list[dict], base: str) -> list[str]:
 
 
 async def _guard(route: Route) -> None:
-    if _allowed(route.request.url):
+    if _trusted.get(urlparse(route.request.url).netloc) or _allowed(route.request.url):
         await route.continue_()
     else:
         await route.abort()
 
 
-async def inspect(url: str, out: Path) -> Site:
-    url = check_public(url)
+async def inspect(url: str, out: Path, *, trusted: bool = False, follow: bool = True) -> Site:
+    """`trusted` is only for re-inspecting our own output on our own server (the after
+    audit): it skips the public-address check. Never pass it a user's URL."""
+    if trusted:
+        _trusted[urlparse(url).netloc] = True
+    else:
+        url = check_public(url)
     out.mkdir(parents=True, exist_ok=True)
     async with async_playwright() as p:
         browser = await p.chromium.launch(channel="chrome")
@@ -261,7 +267,7 @@ async def inspect(url: str, out: Path) -> Site:
         site.name_guess = (home["meta"].get("og:site_name") or re.split(r"\s[|\-–—:]\s", home["title"])[0]
                            or urlparse(final).hostname).strip()
 
-        for inner in _pick_inner(home["links"], final):
+        for inner in (_pick_inner(home["links"], final) if follow else []):
             try:
                 await page.goto(inner, wait_until="domcontentloaded", timeout=20000)
                 await _settle(page)
@@ -279,7 +285,9 @@ async def inspect(url: str, out: Path) -> Site:
         site.shots["phone"] = str(out / "before_phone.png")
         await browser.close()
 
-    _agent_files(site)
+    # Blocking HTTP, so off the event loop: when the site is our own server (the after
+    # audit), fetching it from the loop would wait on ourselves.
+    await asyncio.to_thread(_agent_files, site, final.rsplit("/", 1)[0] if trusted else None)
     site.images = _rank_images(site.images)
     (out / "site.json").write_text(site.to_json())
     return site
@@ -344,8 +352,10 @@ def _rank_images(images: list[Image]) -> list[Image]:
     return out[:24]
 
 
-def _agent_files(site: Site) -> None:
-    root = f"{urlparse(site.final_url).scheme}://{urlparse(site.final_url).netloc}"
+def _agent_files(site: Site, root: str | None = None) -> None:
+    """robots.txt, sitemap.xml, llms.txt at the site root (or `root`, for a site
+    served from a folder, like our previews)."""
+    root = root or f"{urlparse(site.final_url).scheme}://{urlparse(site.final_url).netloc}"
     def get(path: str) -> requests.Response | None:
         try:
             r = requests.get(root + path, headers={"User-Agent": UA}, timeout=10, allow_redirects=False)

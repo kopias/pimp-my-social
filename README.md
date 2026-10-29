@@ -57,9 +57,32 @@ pms/brand.py       Muse Spark: the grounded brand profile
 pms/directions.py  the style library, Spark's picks + a wildcard, Muse Image previews
 pms/photos.py      SAM 3.1 isolate -> Muse Image reshoot -> SAM fidelity check
 pms/site.py        Spark copy, Muse Wonder page, and the findability layer (incl. WebMCP)
+pms/social.py      Spark's channel plan; posts composed in the direction's fonts and colours
+pms/video.py       voiceover + Transcribe check, SAM parallax, word-lit captions, Spark review + revision
+pms/report.py      before/after report with a value calculator on cited figures
+pms/skill.py       the brand skill folder (SKILL.md + references)
+pms/text.py        house style: calms shouting, never touches facts
+pms/pipeline.py    a job in two acts, state in out/jobs/<id>/job.json
+server/            FastAPI app + the splash page (server/static/index.html)
+scripts/serve.py   run it (--demo lets the crawler reach the local demo site)
+scripts/record_demo.py  Playwright records a full makeover, waits sped up
 muse/client.py     thin helpers over the Meta Model API
 demo/              the fictional "before" site
 ```
+
+## Run it
+
+```bash
+uv run scripts/serve.py --demo                      # http://localhost:8000
+(cd demo/marigold-lane && python3 -m http.server 8765 --bind 127.0.0.1)
+# in the page: http://127.0.0.1:8765/  -> Pimp it
+
+uv run scripts/record_demo.py http://127.0.0.1:8765/   # out/demo/<name>.mp4
+```
+
+Voiceover uses ElevenLabs when `ELEVENLABS_API_KEY` is in `.env`, else the Mac's
+`say` (local only). Cost per makeover is not measured yet; my estimate is $1-2 in Meta API calls (Wonder's page
+is most of it).
 
 ## Rules this repo follows
 
