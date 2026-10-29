@@ -497,7 +497,7 @@ class Film:
         r = np.sqrt(((xx - W / 2) / (W / 2)) ** 2 + ((yy - H / 2) / (H / 2)) ** 2)
         self.vignette = np.clip(1.08 - 0.32 * r ** 2, 0.55, 1.0)[..., None]
         rng = np.random.default_rng(7)
-        self.grain = [rng.normal(0, 7, (H, W, 1)) for _ in range(4)]
+        self.grain = [rng.normal(0, 5, (H, W, 1)) for _ in range(4)]
         self.bar = int(H * bars)
 
     def grade(self, im: Image.Image, f: int) -> Image.Image:
@@ -534,7 +534,8 @@ def render(g: dict, spec: dict, shots: list[Shot], angles: dict, direction: dict
     ff = subprocess.Popen(
         ["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
          "-r", str(FPS), "-i", "-", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
-         "-c:v", "libx264", "-preset", "veryfast", "-crf", "19", "-pix_fmt", "yuv420p",
+         "-c:v", "libx264", "-preset", "veryfast", "-crf", "25" if film else "20", "-pix_fmt", "yuv420p",
+         "-maxrate", "8M", "-bufsize", "16M",  # grain is expensive to encode; keep files postable
          "-c:a", "aac", "-t", f"{total:.3f}", "-movflags", "+faststart", str(mp4)],
         stdin=subprocess.PIPE)
     timeline, t0 = [], 0.0
