@@ -194,7 +194,7 @@
   ol.stages li b { font-weight: 500; } ol.stages li small { display: block; color: var(--muted); font-size: 13px; }
   @keyframes pulse { 50% { opacity: .3; } }
   .scorebox { margin-top: 28px; border-top: 1px solid var(--ink); padding-top: 18px; }
-  .score-n { font: 300 96px/.9 var(--serif); letter-spacing: -.03em; }
+  .score-n { font: 200 88px/.9 var(--sans); letter-spacing: -.05em; }
   .score-n small { font-size: 28px; color: var(--muted); }
   .bars { display: grid; gap: 9px; margin-top: 18px; }
   .barrow { display: grid; grid-template-columns: 190px 1fr 34px; gap: 12px; align-items: center; font-size: 13px; }
@@ -236,8 +236,9 @@
 
   /* --- reveal --- */
   .revealhead { padding: 48px 0 18px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
-  .delta { font: 300 clamp(56px, 8vw, 120px)/.9 var(--serif); letter-spacing: -.03em; }
-  .delta .from { color: var(--muted); } .delta .to { color: var(--ink); font-style: italic; }
+  /* numbers in the light sans: Cormorant's old-style figures make 13 read as I3 */
+  .delta { font: 200 clamp(52px, 7vw, 108px)/.9 var(--sans); letter-spacing: -.05em; }
+  .delta .from { color: var(--muted); } .delta .to { color: var(--ink); }
   .compare { position: relative; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 10; background: var(--paper2); user-select: none; }
   .compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
   .compare .top { clip-path: inset(0 50% 0 0); }
@@ -270,7 +271,7 @@
   .scores { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .scores div { padding: 12px 6px; text-align: center; border-right: 1px solid var(--line); }
   .scores div:last-child { border-right: 0; }
-  .scores b { font: 300 36px/1 var(--serif); display: block; }
+  .scores b { font: 200 34px/1 var(--sans); letter-spacing: -.04em; display: block; }
   .remix { display: grid; grid-template-columns: auto 1fr; gap: 44px; align-items: start; padding: 0 0 56px; margin-bottom: 56px; border-bottom: 1px solid var(--line); }
   .remix h3 { font: 300 40px/1 var(--serif); letter-spacing: -.02em; margin: 8px 0 12px; }
   .beats { list-style: none; padding: 0; margin: 12px 0; font-size: 13px; border-top: 1px solid var(--line); }

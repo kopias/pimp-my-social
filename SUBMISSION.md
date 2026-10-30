@@ -5,6 +5,11 @@ the ones left behind by every shift in how people find things: first search, the
 social, now AI assistants and agents. Pimp My Social takes a business's existing
 website and hands back everything they'd need an agency for, in about ten minutes.
 
+**Try it:** https://pimpmysocial.loreto.io. The showroom opens finished makeovers for
+anyone; a live makeover needs the access code given with the submission (each run spends
+real API credit). No business to hand? The page offers our fictional demo bakery.
+**Code:** https://github.com/kopias/pimp-my-social (MIT).
+
 ## What it does
 
 1. **Inspection.** Chrome renders the site the way a customer, a search engine and an
@@ -98,6 +103,9 @@ website and hands back everything they'd need an agency for, in about ten minute
 - **Consent.** The owner confirms they own the business or have its permission.
 - **Safety.** The crawler refuses private and local addresses (the URL comes from
   strangers), and at most two makeovers run at once to cap spend.
+- **Hosted safely.** The server opens any website a visitor types, so it runs as its own
+  locked-down user with no view of the other apps on the machine; every download a page
+  points at is re-checked at each redirect, so nothing can steer it at private addresses.
 - **The demo business is fictional.** Marigold Lane Bakery and its photos were made
   for the demo, so no real business is made over without asking.
 
