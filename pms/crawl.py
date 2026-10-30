@@ -122,6 +122,9 @@ class Site:
     sitemap: bool = False
     llms_txt: bool = False
     shots: dict[str, str] = field(default_factory=dict)  # name -> png path
+    # The full product list when the shop publishes one (Shopify's public /products.json): a
+    # homepage shows a few products, this is everything they sell.
+    catalog: list[dict] = field(default_factory=list)
 
     def to_json(self) -> str:
         return json.dumps(asdict(self), indent=1)
@@ -288,6 +291,8 @@ async def inspect(url: str, out: Path, *, trusted: bool = False, follow: bool = 
     # Blocking HTTP, so off the event loop: when the site is our own server (the after
     # audit), fetching it from the loop would wait on ourselves.
     await asyncio.to_thread(_agent_files, site, final.rsplit("/", 1)[0] if trusted else None)
+    if not trusted:
+        await asyncio.to_thread(_catalog, site)
     site.images = _rank_images(site.images)
     (out / "site.json").write_text(site.to_json())
     return site
@@ -368,3 +373,27 @@ def _agent_files(site: Site, root: str | None = None) -> None:
     site.sitemap = bool(r is not None and "<urlset" in r.text[:2000] or r is not None and "<sitemapindex" in r.text[:2000])
     r = get("/llms.txt")
     site.llms_txt = bool(r is not None and "<html" not in r.text[:500].lower() and r.text.strip())
+
+
+MAX_CATALOG = 60
+
+
+def _catalog(site: Site) -> None:
+    """Shopify stores publish their products at /products.json. Other platforms: nothing."""
+    root = f"{urlparse(site.final_url).scheme}://{urlparse(site.final_url).netloc}"
+    try:
+        r = requests.get(root + "/products.json", params={"limit": MAX_CATALOG},
+                         headers={"User-Agent": UA}, timeout=10, allow_redirects=False)
+        items = r.json().get("products", []) if r.status_code == 200 else []
+    except (requests.RequestException, ValueError, AttributeError):
+        return
+    for p in items[:MAX_CATALOG]:
+        v = (p.get("variants") or [{}])[0]
+        img = (p.get("images") or [{}])[0]
+        site.catalog.append({
+            "title": (p.get("title") or "").strip(), "type": p.get("product_type") or "",
+            "price": v.get("price") or "", "compare_at": v.get("compare_at_price") or "",
+            "available": any(x.get("available") for x in p.get("variants") or []),
+            "url": f"{root}/products/{p.get('handle')}" if p.get("handle") else "",
+            "image": img.get("src") or "", "width": img.get("width") or 0, "height": img.get("height") or 0,
+        })

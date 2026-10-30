@@ -2,7 +2,8 @@
 
     uv run scripts/serve.py            # http://localhost:8000
 
-    POST /api/jobs                     {"url", "channels": [...], "tags": [...], "consent": true}
+    POST /api/jobs                     {"url", "sources": [...], "channels": [...], "tags": [...], "consent": true}
+    POST /api/sources                  {"url"}: what a pasted link is (Instagram, TikTok, a shop...)
     GET  /api/jobs/{id}                progress and results; poll it
     POST /api/jobs/{id}/direction      {"id": "<direction id>"} starts the build
     GET  /api/options                  channels, style tags and the remix format library
@@ -25,7 +26,7 @@ from pydantic import BaseModel, Field
 
 from pms.crawl import BlockedURL, check_public
 from pms.directions import STYLE_TAGS
-from pms import remix
+from pms import remix, sources
 from pms.pipeline import JOBS, Job
 from pms.social import CHANNELS
 
@@ -43,6 +44,7 @@ tasks: set[asyncio.Task] = set()
 
 class NewJob(BaseModel):
     url: str = Field(max_length=300)
+    sources: list[str] = Field(default=[], max_length=sources.MAX_SOURCES)
     channels: list[str] = []
     tags: list[str] = []
     formats: list[str] = []
@@ -51,6 +53,10 @@ class NewJob(BaseModel):
 
 class Pick(BaseModel):
     id: str
+
+
+class Link(BaseModel):
+    url: str = Field(max_length=300)
 
 
 def _spawn(coro) -> None:
@@ -105,6 +111,16 @@ async def add_format(post: UploadFile = File(...)) -> dict:
     return {k: spec.get(k) for k in ("id", "name", "essence", "why_it_works", "keep", "drop", "look", "people")}
 
 
+@app.post("/api/sources")
+async def recognise(body: Link) -> dict:
+    """The page recognises common platforms itself; this is the word on anything else
+    (and refuses addresses that aren't public)."""
+    try:
+        return await asyncio.to_thread(sources.recognise, body.url)
+    except BlockedURL as e:
+        raise HTTPException(400, str(e)) from None
+
+
 @app.post("/api/jobs")
 async def new_job(body: NewJob) -> dict:
     if not body.consent:
@@ -117,7 +133,15 @@ async def new_job(body: NewJob) -> dict:
     tags = [t for t in body.tags if t in STYLE_TAGS][:3]
     known = {f["id"] for f in remix.library()}
     formats = [f for f in body.formats if f in known][:2]
-    job = Job(url, channels, tags, formats=formats)
+    links = []
+    for raw in body.sources:
+        if not raw.strip():
+            continue
+        try:
+            links.append((await asyncio.to_thread(sources.recognise, raw[:300]))["url"])
+        except BlockedURL as e:
+            raise HTTPException(400, f"{raw.strip()[:60]}: {e}") from None
+    job = Job(url, channels, tags, formats=formats, sources=links)
     _spawn(job.act_one())
     return {"id": job.id}
 

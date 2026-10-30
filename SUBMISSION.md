@@ -10,10 +10,19 @@ website and hands back everything they'd need an agency for, in about ten minute
 1. **Inspection.** Chrome renders the site the way a customer, a search engine and an
    AI agent see it. 17 measured checks score it across search, AI answers, agent
    readiness, social sharing and speed.
-2. **Brand read.** Muse Spark reads the screenshots, photos and pages into a brand
-   profile: products with exact prices matched to their photos, voice, FAQs
-   answered from the site's own words, and what customers can't find out.
-3. **Paint job.** The owner's style tags map to a library of 25 template skills, each a
+2. **Your feeds.** A homepage shows a few products; the feed shows the rest. Under the
+   URL the owner can paste their Instagram, TikTok or shop link and the page says
+   what it is as they type (an Instagram link pasted into the website box moves itself
+   over). The Instagram their site links to is read anyway, as is a Shopify store's
+   public catalogue. Chrome opens the profile as a logged-out visitor; Muse Spark looks
+   at each post with its caption and sorts it: product, worn, event, behind the scenes,
+   announcement, someone else's post. A platform that shows a bot check (Etsy does) is
+   reported as unreadable, never worked around.
+3. **Brand read.** Muse Spark reads the screenshots, the site's photos, the catalogue,
+   the product posts and the pages into a brand profile: products chosen to cover the
+   whole range, with exact prices matched to their photos, voice, FAQs answered from
+   the site's own words, and what customers can't find out.
+4. **Paint job.** The owner's style tags map to a library of 25 template skills, each a
    measured build spec of a leading fashion site (COS, GANNI, KHY, Sézane, Dior,
    Tiffany & Co., Net-a-Porter...). Spark picks the ones that fit the brand (3 to 6
    options, fewer when the ask is precise) plus a random wildcard. Muse Image reshoots a
@@ -21,21 +30,21 @@ website and hands back everything they'd need an agency for, in about ten minute
    drawing a different headline, lead product and twist every time, so the same inputs
    never give the same set. The owner picks from the thumbnails; that sketch is the
    brief for the full build.
-4. **Photo studio.** SAM 3.1 isolates each product from the owner's photo; Muse Image
+5. **Photo studio.** SAM 3.1 isolates each product from the owner's photo; Muse Image
    reshoots it (set, light, lens, depth of field); SAM finds it again and scores
    fidelity, so a reshoot that changed the product is caught.
-5. **Logo.** Spark reads what the current logo is about; Muse Image redraws it as one
+6. **Logo.** Spark reads what the current logo is about; Muse Image redraws it as one
    clean mark; Spark checks the remake still reads as the business. The old logo is
    the reference, never the asset.
-6. **The build.** Spark writes the copy; **Muse Wonder** builds the site on the chosen
+7. **The build.** Spark writes the copy; **Muse Wonder** builds the site on the chosen
    template from its skill and screenshots. Spark then screenshots the result on desktop
    and phone and scores it against the template side by side; below 8/10 Wonder revises
    from Spark's list of differences. Code adds what must be right every time: JSON-LD, Open Graph,
    robots.txt that welcomes AI crawlers, sitemap.xml, llms.txt, and **WebMCP** tools
    so browser agents can query products, prices, hours and answers directly.
-7. **Social kit.** Posts for each chosen channel (Instagram, TikTok, Facebook,
+8. **Social kit.** Posts for each chosen channel (Instagram, TikTok, Facebook,
    LinkedIn, X) in the brand's voice, type-set in the direction's fonts.
-8. **The campaign.** One idea, every post, in the Got Milk register. Spark finds
+9. **The campaign.** One idea, every post, in the Got Milk register. Spark finds
    the brand's flip ("You are not the wrong size. You are in clothes cut for
    someone else.") and a lockup (8 AM Fashion's came back "got fit?"), then writes
    three posters (glamorous people in their element, fist under the chin, wearing
@@ -45,7 +54,7 @@ website and hands back everything they'd need an agency for, in about ten minute
    the same person from cut to cut. **SAM 3.1 finds every hand** and Spark counts
    the fingers; stray lettering is softened in place, never reshot. The browser
    sets every word. **Spark watches the film** and one revision follows its notes.
-9. **Remix a hit** (optional). Popular post formats, reverse engineered into their essence
+10. **Remix a hit** (optional). Popular post formats, reverse engineered into their essence
    (hook, beats, motion, text, sound, why it works), then rebuilt with only this
    business's products, prices and place. Owners can upload a post that's working:
    **Spark watches it** and **Muse Voice Transcribe hears its speech**, and the
@@ -54,7 +63,7 @@ website and hands back everything they'd need an agency for, in about ten minute
    **Spark watches each cut** against the format and the facts; a weak one is
    re-grounded from its notes. The library ranges from a fast fit check to a
    letterboxed, graded campaign film.
-10. **The reveal.** The same 17 checks on the new site, a before/after report with
+11. **The reveal.** The same 17 checks on the new site, a before/after report with
    what was missing, what was added, and a value calculator built on published
    figures, a brand **skill file** any AI tool can load, and one zip.
 

@@ -2,7 +2,7 @@
 
 **Give us your website. We'll give you back a makeover.**
 
-A small business types in its URL. Pimp My Social inspects the site the way a
+A small business types in its URL (and, if it likes, its Instagram or online shop). Pimp My Social inspects the site the way a
 search engine, an AI assistant and a customer would, scores what's missing, and
 rebuilds it: a new editorial website modelled on real premium brand sites,
 professional photos of their own products, a remade logo, social posts, short
@@ -18,6 +18,7 @@ unrecognisable. Built for the Meta Global AI Developer Hackathon (Oct 26 to Nov
 
 | Stage | Model | What it does |
 |---|---|---|
+| Your feeds | **Muse Spark 1.3** (vision) | Reads the owner's latest Instagram posts (and the shop's full Shopify catalogue) and sorts every post, picture and caption together: a product on its own, a product being worn, an event, behind the scenes, an announcement, someone else's post. Only the product shots join the brand read, so the makeover covers what they really make, not just what the homepage shows |
 | Inspection | **Muse Spark 1.3** (vision) | Reads the before screenshots, photos and pages into a grounded brand profile: products matched to photos, prices as stated, voice, FAQs, gaps |
 | Paint job | **Muse Spark 1.3** + **Muse Image** + **Muse Wonder** | the owner's style tags shortlist 25 fashion-site templates; Spark picks 2-5 plus a random wildcard; Image reshoots a product in each look; Wonder sketches their homepage in each, with a different headline, lead product and twist every time; the owner picks from the thumbnails |
 | Photo studio | **SAM 3.1** + **Muse Image** | SAM isolates each product from the owner's photo; Image reshoots it (set, light, lens, depth of field); SAM finds it again in the result and scores fidelity, so a reshoot that changed the product is caught |

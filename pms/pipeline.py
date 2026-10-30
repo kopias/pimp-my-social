@@ -21,7 +21,7 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
 from pathlib import Path
 
-from . import audit, brand, campaign, directions, logo, mockups, photos, remix, report, site, skill, social
+from . import audit, brand, campaign, directions, logo, mockups, photos, remix, report, site, skill, social, sources
 from .crawl import Site, inspect
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -30,7 +30,8 @@ JOBS = ROOT / "out" / "jobs"
 STAGES = [
     ("inspect", "Inspection", "Rendering the site like a visitor, a search engine and an AI agent"),
     ("audit", "Scorecard", "17 checks across search, AI answers, agents, social and speed"),
-    ("brand", "Brand read", "Muse Spark reads the screenshots, photos and pages"),
+    ("feeds", "Your feeds", "Opening your Instagram and shop like a visitor; Spark sorts every post: product, worn, event, behind the scenes"),
+    ("brand", "Brand read", "Muse Spark reads the screenshots, the full catalogue, your product posts and pages"),
     ("paint", "Paint job", "Spark shortlists looks from your tags; Muse Wonder sketches your homepage in each"),
     ("studio", "Photo studio", "SAM 3.1 isolates each product; Muse Image reshoots it; SAM checks it"),
     ("logo", "Logo", "Spark reads your logo's idea; Muse Image redraws it; Spark checks it still reads as you"),
@@ -45,12 +46,12 @@ STAGES = [
 
 class Job:
     def __init__(self, url: str, channels: list[str], tags: list[str], jid: str | None = None,
-                 formats: list[str] | None = None):
+                 formats: list[str] | None = None, sources: list[str] | None = None):
         self.id = jid or uuid.uuid4().hex[:10]
         self.dir = JOBS / self.id
         self.dir.mkdir(parents=True, exist_ok=True)
         self.state = {"id": self.id, "url": url, "channels": channels, "tags": tags,
-                      "formats": formats or [],
+                      "formats": formats or [], "sources": sources or [],
                       "status": "running", "error": None, "created": time.time(),
                       "stages": {k: {"label": label, "detail": detail, "state": "waiting",
                                      "seconds": None} for k, label, detail in STAGES},
@@ -102,10 +103,26 @@ class Job:
             checks = await self.stage("audit", audit.run, s)
             d["audit_before"] = {"score": audit.score(checks), "checks": audit.as_dicts(checks)}
 
+            def feeds() -> list[sources.Source]:
+                # The links the owner added, plus the Instagram their site links to.
+                links = sources.links_for(s.socials, self.state.get("sources", []))
+                found = asyncio.run(sources.read_all(links, self.dir / "feeds"))
+                hint = next((p.description for p in s.pages if p.description), "") or s.name_guess
+                try:
+                    sources.classify(found, hint, [c["title"] for c in s.catalog])
+                except Exception as e:  # unsorted posts are just context, never product photos
+                    print(f"classify failed: {e!r}"[:300])
+                (self.dir / "feeds.json").write_text(json.dumps([f.to_dict() for f in found], indent=1))
+                return found
+            found = await self.stage("feeds", feeds)
+            d["feeds"] = [self._feed_view(f) for f in found]
+            d["catalog"] = len(s.catalog)
+
             def read() -> dict:
-                ph = brand.download_photos(s, self.dir / "src")
-                prof = brand.read_brand(s, ph)
-                prof["socials"] = s.socials
+                ph = brand.download_photos(s, self.dir / "src", feed=sources.usable(found))
+                prof = brand.read_brand(s, ph, found)
+                # The new site's footer links every profile they have, the ones they added included.
+                prof["socials"] = {**{f.platform: f.url for f in found if f.platform != "website"}, **s.socials}
                 prof["_photos"] = [asdict(p) for p in ph]
                 return prof
             prof = await self.stage("brand", read)
@@ -152,6 +169,15 @@ class Job:
             self.save()
         except Exception as e:
             self.fail(e)
+
+    def _feed_view(self, f: "sources.Source") -> dict:
+        """A source for the page: no local paths, each post with its thumbnail and Spark's label."""
+        used = {p.url for p in sources.usable([f])}
+        return {"platform": f.platform, "name": f.name, "handle": f.handle, "url": f.url, "status": f.status,
+                "note": f.note, "followers": f.followers, "bio": f.bio, "linked_from_site": f.linked_from_site,
+                "posts": [{"thumb": self.url_of(p.image), "url": p.url, "kind": p.kind, "product": p.product,
+                           "why": p.why, "caption": p.caption[:160], "likes": p.likes, "video": p.video,
+                           "used": p.url in used} for p in f.posts]}
 
     # --- act two ----------------------------------------------------------------
 

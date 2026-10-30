@@ -1,7 +1,8 @@
 """Muse Spark reads the business: the brand profile everything else is built from.
 
-Spark gets the before screenshots, the best candidate photos and the text of the
-pages, and returns one structured profile: who they are, what they sell (each
+Spark gets the before screenshots, the best candidate photos (from the site, the
+shop's full catalogue when it publishes one, and the product posts Spark found in
+the owner's feeds) and the text of the pages, and returns one structured profile: who they are, what they sell (each
 product matched to one of the photos), how they talk, what customers ask. The
 prompt holds it to what the site says. Nothing invented: no prices, awards,
 reviews or claims that aren't on the page, because these words go on a real
@@ -12,6 +13,7 @@ from __future__ import annotations
 
 import io
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -23,7 +25,10 @@ from muse import client as m
 from .crawl import UA, Site, _allowed
 from .text import tidy_all
 
-MAX_PHOTOS = 10  # candidate photos shown to Spark
+MAX_PHOTOS = 10  # candidate photos from the rendered site
+MAX_PER_PAGE = 3  # of those, from any one page
+MAX_CATALOG_PHOTOS = 8  # more from the catalogue, products the pages didn't show
+MAX_FEED_PHOTOS = 6  # product posts from the owner's feeds
 MAX_TEXT = 14000  # characters of page text
 
 PROFILE_SCHEMA = {
@@ -51,7 +56,7 @@ PROFILE_SCHEMA = {
             },
         },
         "products": {
-            "type": "array", "description": "up to 6 products, services or offers the site sells",
+            "type": "array", "description": "up to 8 products, services or offers they sell, covering their range",
             "items": {
                 "type": "object", "additionalProperties": False,
                 "required": ["name", "description", "price", "photo", "subject"],
@@ -102,10 +107,19 @@ a redesign. The screenshots are the homepage (desktop, then phone). The other im
 candidate photos from the site, numbered 0 to {last} in the order given. The text below is \
 from the site's pages.
 
+Where each candidate photo comes from, and what we know about it:
+{photo_notes}
+
 Build the brand profile. Rules, because every word goes on a real business's site:
-- Use only what the site shows or says. Never invent prices, reviews, awards, numbers, \
-locations or claims. Empty string or empty list when the site doesn't say.
-- Products: what they actually sell. Match each to the candidate photo that shows it, or -1.
+- Use only what the site, its catalogue and the owner's own posts show or say. Never invent \
+prices, reviews, awards, numbers, locations or claims. Empty string or empty list when they don't say.
+- Products: what they actually sell, chosen so that together they show their whole range \
+(every kind of thing in the catalogue and the feed, not six of one kind). Prefer products with \
+a clear photo. Match each to the candidate photo that shows it, or -1. A product seen only in \
+the feed keeps its price '' unless its caption gives one. Prices from the catalogue are written \
+the way the site writes prices.
+- A post's caption is the owner's words about that product; a dated event in a caption is not \
+a standing fact about the business.
 - FAQs: questions a customer would ask, with answers taken from the site's text. Skip a \
 question rather than guess its answer.
 - Voice: how they sound now, so the makeover keeps it.
@@ -113,6 +127,9 @@ question rather than guess its answer.
 Colours seen in the rendered CSS, most used first: {colors}
 Fonts: {fonts}
 Social profiles linked: {socials}
+{feeds}
+The shop's catalogue (every product it publishes):
+{catalog}
 
 {pages}"""
 
@@ -125,27 +142,69 @@ class Photo:
     alt: str
     width: int
     height: int
+    source: str = "site"  # site | catalog | the feed's platform (instagram...)
+    note: str = ""  # what we know about it: the catalogue entry, or the post and Spark's read of it
 
 
-def download_photos(site: Site, out: Path, limit: int = MAX_PHOTOS) -> list[Photo]:
-    """Save the top candidate photos locally as JPEG (the reshoot works from these)."""
+def _stem(url: str) -> str:
+    """The file a CDN URL points at, without sizes or versions, to spot one photo twice."""
+    name = re.sub(r"[?#].*$", "", url).rsplit("/", 1)[-1].lower()
+    return re.sub(r"(_\d+x\d*|-\d+x\d+)(?=\.\w+$)", "", name)
+
+
+def _fetch(url: str) -> PILImage.Image | None:
+    if not _allowed(url):
+        return None
+    try:
+        r = requests.get(url, headers={"User-Agent": UA}, timeout=15)
+        r.raise_for_status()
+        return PILImage.open(io.BytesIO(r.content)).convert("RGB")
+    except Exception:
+        return None
+
+
+def download_photos(site: Site, out: Path, feed: list = (), limit: int = MAX_PHOTOS) -> list[Photo]:
+    """Save the candidate photos locally as JPEG (the reshoot works from these): the site's
+    biggest pictures, then catalogue products the pages didn't show, then the product posts
+    from the owner's feeds (`feed`: sources.Post, already sorted by Spark)."""
     out.mkdir(parents=True, exist_ok=True)
     photos: list[Photo] = []
-    for img in site.images:
-        if len(photos) >= limit:
-            break
-        if not _allowed(img.url):
-            continue
-        try:
-            r = requests.get(img.url, headers={"User-Agent": UA}, timeout=15)
-            r.raise_for_status()
-            im = PILImage.open(io.BytesIO(r.content)).convert("RGB")
-        except Exception:
-            continue
+
+    def keep(im: PILImage.Image, url: str, alt: str, source: str, note: str) -> None:
         im.thumbnail((1600, 1600))
         path = out / f"{len(photos):02d}.jpg"
         im.save(path, "JPEG", quality=90)
-        photos.append(Photo(len(photos), img.url, str(path), img.alt, im.width, im.height))
+        photos.append(Photo(len(photos), url, str(path), alt, im.width, im.height, source, note))
+
+    per_page: dict[str, int] = {}
+    for img in site.images:
+        if len(photos) >= limit:
+            break
+        if per_page.get(img.page, 0) >= MAX_PER_PAGE:  # one product page's gallery shouldn't crowd out the range
+            continue
+        im = _fetch(img.url)
+        if im:
+            per_page[img.page] = per_page.get(img.page, 0) + 1
+            keep(im, img.url, img.alt, "site", f"on the page {img.page}")
+    seen = {_stem(p.url) for p in photos}
+    added = 0
+    for item in site.catalog:
+        if added >= MAX_CATALOG_PHOTOS or not item["image"] or _stem(item["image"]) in seen:
+            continue
+        im = _fetch(item["image"])
+        if im:
+            seen.add(_stem(item["image"]))
+            keep(im, item["image"], item["title"], "catalog", f"catalogue photo of \"{item['title']}\"")
+            added += 1
+    for post in list(feed)[:MAX_FEED_PHOTOS]:
+        try:
+            im = PILImage.open(post.image).convert("RGB")
+        except Exception:
+            continue
+        what = "a product on its own" if post.kind == "product" else "a product being worn"
+        note = f"{post.source} post{' from ' + post.date if post.date else ''}: {what}, " \
+               f"\"{post.product}\" ({post.why})" + (f"; caption: \"{post.caption[:200]}\"" if post.caption else "")
+        keep(im, post.url, post.product, post.source, note)
     return photos
 
 
@@ -161,10 +220,38 @@ def _pages_text(site: Site) -> str:
     return "\n\n".join(parts)
 
 
-def read_brand(site: Site, photos: list[Photo]) -> dict:
+def _catalog_text(site: Site) -> str:
+    if not site.catalog:
+        return "none published"
+    rows = []
+    for c in site.catalog:
+        price = c["price"] + (f" (was {c['compare_at']})" if c["compare_at"] and c["compare_at"] != c["price"] else "")
+        rows.append(f"- {c['title']}" + (f" [{c['type']}]" if c["type"] else "") + f": {price}"
+                    + ("" if c["available"] else ", sold out"))
+    return "\n".join(rows)
+
+
+def _feeds_text(feeds: list) -> str:
+    """The owner's profiles (sources.Source) in a few lines: bio, followers, what they post."""
+    lines = []
+    for f in feeds:
+        if f.status != "read":
+            continue
+        kinds: dict[str, int] = {}
+        for p in f.posts:
+            kinds[p.kind] = kinds.get(p.kind, 0) + 1
+        lines.append(f"{f.name} @{f.handle}: " + (f"{f.followers} followers. " if f.followers else "")
+                     + (f'Bio: "{f.bio}". ' if f.bio else "")
+                     + "Recent posts: " + ", ".join(f"{n} {k.replace('_', ' ')}" for k, n in kinds.items()) + ".")
+    return ("Their feeds:\n" + "\n".join(lines) + "\n") if lines else ""
+
+
+def read_brand(site: Site, photos: list[Photo], feeds: list = ()) -> dict:
+    notes = "\n".join(f"[{p.index}] {p.source}: {p.note}" for p in photos) or "none"
     prompt = PROMPT.format(last=max(len(photos) - 1, 0), colors=", ".join(site.colors),
                            fonts=", ".join(site.fonts), socials=", ".join(site.socials) or "none",
-                           pages=_pages_text(site))
+                           pages=_pages_text(site), photo_notes=notes, feeds=_feeds_text(feeds),
+                           catalog=_catalog_text(site))
     images = [site.shots["desktop"], site.shots["phone"]] + [p.path for p in photos]
     raw = m.ask(prompt, images=images, schema=PROFILE_SCHEMA, effort="medium", max_tokens=12000)
     profile = json.loads(raw)

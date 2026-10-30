@@ -68,6 +68,45 @@
     transform: translateX(-120%); pointer-events: none; }
   .btn:hover:not(:disabled)::before { transform: translateX(120%); transition: transform .7s ease; }
   .consent input { accent-color: var(--hot); }
+  /* More sources: paste a profile or shop link, the page says what it is */
+  .more { margin-top: 14px; }
+  .srcs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .srcs:not(:empty) { margin-bottom: 10px; }
+  .src { display: inline-flex; align-items: center; gap: 9px; padding: 6px 6px 6px 10px; border: 1px solid var(--ink);
+    background: var(--card); font: 500 12px var(--sans); animation: bump .34s cubic-bezier(.3, 1.6, .5, 1); max-width: 100%; }
+  .src svg { width: 18px; height: 18px; flex: none; color: var(--hot); }
+  .src b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .src small { color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-size: 9.5px; }
+  .src button { border: 0; background: transparent; width: 24px; height: 24px; font-size: 16px; line-height: 1; color: var(--muted); }
+  .src button:hover { color: var(--hot); }
+  .srcfield { display: flex; align-items: center; gap: 10px; border-bottom: 1px dashed rgba(18,18,18,.35); transition: border-color .2s; }
+  .srcfield[hidden] { display: none; }
+  .srcfield:focus-within, .srcfield.known { border-bottom-style: solid; border-color: var(--ink); }
+  .srcfield .ic { width: 22px; height: 22px; flex: none; display: grid; place-items: center; color: var(--muted); font: 300 22px/1 var(--sans); transition: color .2s, transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+  .srcfield .ic svg { width: 20px; height: 20px; }
+  .srcfield.known .ic { color: var(--hot); transform: rotate(-8deg) scale(1.12); }
+  .srcfield input { flex: 1; min-width: 0; border: 0; background: transparent; outline: none; padding: 9px 0; font: 400 15px var(--sans); color: var(--ink); }
+  .srcfield input::placeholder { color: #8f8b83; }
+  .srcfield .badge { align-self: center; font: 500 10px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--hot); white-space: nowrap;
+    opacity: 0; transform: translateX(6px); transition: opacity .2s, transform .2s; }
+  .srcfield.known .badge, .srcfield.guess .badge { opacity: 1; transform: none; }
+  .srcfield.guess .badge { color: var(--muted); }
+  .srcnote { margin: 7px 0 0; font-size: 12.5px; color: var(--muted); }
+  .srcnote.flash { color: var(--hot); }
+  /* the garage: what the feeds gave */
+  .feedbox { margin-top: 28px; border-top: 1px solid var(--ink); padding-top: 18px; }
+  .feedbox h4 { margin: 6px 0 2px; font: 400 24px/1.2 var(--serif); }
+  .feedbox .sub { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+  .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+  .post { position: relative; margin: 0; background: var(--paper2); }
+  .post img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; filter: saturate(.75); opacity: .55; transition: opacity .3s, filter .3s; }
+  .post.used img { opacity: 1; filter: none; }
+  .post.used { outline: 2px solid var(--hot); outline-offset: -2px; }
+  .post figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 6px 5px; color: #fff;
+    background: linear-gradient(transparent, rgba(0,0,0,.72)); font: 500 9px/1.3 var(--sans); letter-spacing: .1em; text-transform: uppercase; }
+  .post figcaption span { display: block; text-transform: none; letter-spacing: 0; font-size: 11px; font-weight: 400; opacity: .9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .post.used figcaption b { color: #ffb4a3; }
+  .feedbox h4 svg { width: 20px; height: 20px; vertical-align: -2px; color: var(--hot); }
   .dcard .pick, .lb .go { transition: color .2s, transform .2s; }
   .dcard .pick:hover { color: var(--hot); }
   .lb .go:hover { background: var(--hot); }
@@ -378,6 +417,16 @@
             <input id="url" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" aria-label="Your website address" required>
             <button id="goBtn" class="btn" type="submit"><span class="t">Pimp it</span><span class="arrow" aria-hidden="true">→</span></button>
           </div>
+          <div class="more">
+            <div class="srcs" id="srcs" aria-live="polite"></div>
+            <label class="srcfield" id="srcField">
+              <span class="ic" id="srcIc" aria-hidden="true">+</span>
+              <input id="src" type="text" inputmode="url" autocomplete="off" spellcheck="false"
+                placeholder="Add your Instagram or shop link" aria-label="Another link: your Instagram, TikTok or online shop">
+              <span class="badge" id="srcBadge"></span>
+            </label>
+            <p class="srcnote" id="srcNote">More of what you make. Spark reads your latest posts and keeps the ones that show a product. If your site links an Instagram, we read it anyway.</p>
+          </div>
           <fieldset>
             <legend class="label muted">Channels</legend>
             <div class="chips" id="channels"><button type="button" class="chip icon locked" aria-pressed="true" disabled aria-label="Website (always included)" title="Website (always included)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M3.6 9h16.8" /><path d="M3.6 15h16.8" /><path d="M11.5 3a17 17 0 0 0 0 18" /><path d="M12.5 3a17 17 0 0 1 0 18" /></svg></button></div>
@@ -430,7 +479,11 @@
           <img id="g-before" alt="" onload="this.alt='The current website';this.classList.add('ready');this.parentNode.classList.add('loaded')" onerror="this.removeAttribute('src')">
           <span class="stamp label">Before</span>
         </div>
-        <div class="scorebox" id="scorebox" hidden>
+        <div class="feedbox" id="feedbox" hidden>
+          <div class="label muted">From your feeds</div>
+          <div id="feeds"></div>
+        </div>
+                <div class="scorebox" id="scorebox" hidden>
           <div class="label muted">Scorecard</div>
           <div class="score-n" id="score-n"></div>
           <div class="bars" id="bars"></div>
@@ -523,6 +576,86 @@ const channelIcon = (id) => { const s = document.createElement('span'); s.style.
   s.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${CHANNEL_ICONS[id] || ''}</svg>`;
   return s; };
 
+// --- more sources: a pasted link says what it is ---
+const SRC_ICONS = { ...CHANNEL_ICONS,
+  pinterest: '<path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />',
+  youtube: '<path d="M2 8a4 4 0 0 1 4 -4h12a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-12a4 4 0 0 1 -4 -4v-8z" /><path d="M10 9l5 3l-5 3z" />',
+  threads: '<path d="M19 7.5c-1.333 -3 -3.667 -4.5 -7 -4.5c-5 0 -8 2.5 -8 9s3.5 9 8 9s7 -3 7 -5s-1 -5 -7 -5c-2.5 0 -3 1.25 -3 2.5c0 1.5 1 2.5 2.5 2.5c2.5 0 3.5 -1.5 3.5 -5s-2 -4 -3 -4s-1.833 .333 -2.5 1" />',
+  shop: '<path d="M6.331 8h11.339a2 2 0 0 1 1.977 2.304l-1.255 8.152a3 3 0 0 1 -2.966 2.544h-6.852a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304z" /><path d="M9 11v-5a3 3 0 0 1 6 0v5" />',
+  links: '<path d="M9 15l6 -6" /><path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" /><path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />' };
+// Same table as pms/sources.py PLATFORMS (the server has the last word).
+const PLATFORMS = { 'instagram.com': ['instagram', 'Instagram', 'social'], 'tiktok.com': ['tiktok', 'TikTok', 'social'],
+  'facebook.com': ['facebook', 'Facebook', 'social'], 'fb.com': ['facebook', 'Facebook', 'social'],
+  'pinterest.com': ['pinterest', 'Pinterest', 'social'], 'youtube.com': ['youtube', 'YouTube', 'social'], 'youtu.be': ['youtube', 'YouTube', 'social'],
+  'x.com': ['x', 'X', 'social'], 'twitter.com': ['x', 'X', 'social'], 'linkedin.com': ['linkedin', 'LinkedIn', 'social'],
+  'threads.net': ['threads', 'Threads', 'social'], 'threads.com': ['threads', 'Threads', 'social'],
+  'etsy.com': ['etsy', 'Etsy', 'shop'], 'depop.com': ['depop', 'Depop', 'shop'], 'poshmark.com': ['poshmark', 'Poshmark', 'shop'],
+  'amazon.com': ['amazon', 'Amazon', 'shop'], 'linktr.ee': ['linktree', 'Linktree', 'links'] };
+const NOT_HANDLES = new Set(['p', 'reel', 'reels', 'explore', 'stories', 'tv', 'shop', 'listing', 'watch', 'channel', 'c', 'user', 'pin', 'in', 'company', 'share', 'hashtag']);
+const MAX_SOURCES = 3, added = [];
+function recognise(raw) {
+  let s = (raw || '').trim(); if (!s) return null;
+  if (/^@[\w.]{2,30}$/.test(s)) s = 'instagram.com/' + s.slice(1);  // a bare @handle: Instagram, the usual case
+  if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
+  let u; try { u = new URL(s); } catch { return null; }
+  const host = u.hostname.toLowerCase().replace(/^(www\.|m\.)/, '');
+  if (!/\.[a-z]{2,}$/.test(host)) return null;
+  const hit = Object.entries(PLATFORMS).find(([h]) => host === h || host.endsWith('.' + h));
+  const [platform, name, kind] = hit ? hit[1] : ['website', host, 'website'];
+  const parts = u.pathname.split('/').filter(Boolean);
+  let handle = '';
+  if (platform === 'etsy' && parts[0] === 'shop' && parts[1]) handle = parts[1];
+  else if (parts[0] && !NOT_HANDLES.has(parts[0].toLowerCase())) handle = parts[0].replace(/^@/, '');
+  return { url: u.href, platform, name, kind, handle };
+}
+const srcIcon = (r) => SRC_ICONS[r.platform] || SRC_ICONS[r.kind === 'shop' ? 'shop' : 'links'];
+const svgOf = (paths) => { const s = document.createElement('span'); s.style.display = 'contents';
+  s.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`; return s; };
+const srcLabel = (r) => r.handle ? '@' + r.handle : (r.kind === 'website' ? r.name : r.name + ' page');
+function srcNote(text, flash) { const n = $('srcNote'); n.textContent = text; n.classList.toggle('flash', !!flash); }
+function previewSrc() {
+  const r = recognise($('src').value), f = $('srcField');
+  f.classList.toggle('known', !!r && r.kind !== 'website'); f.classList.toggle('guess', !!r && r.kind === 'website');
+  $('srcIc').innerHTML = ''; $('srcIc').append(r ? svgOf(srcIcon(r)) : '+');
+  $('srcBadge').textContent = !r ? '' : r.kind === 'website' ? 'A shop or link page · ↵' : `${r.name}${r.handle ? ' · @' + r.handle : ''} · ↵`;
+}
+function addSrc(raw, why) {
+  const r = typeof raw === 'string' ? recognise(raw) : raw;
+  if (!r) { srcNote("That doesn't look like a link. Try instagram.com/yourbusiness.", true); return false; }
+  const key = (x) => x.platform + ':' + (x.handle || x.url).toLowerCase();
+  if (added.some((x) => key(x) === key(r))) { srcNote(`${srcLabel(r)} is already on the list.`, true); return false; }
+  if (added.length >= MAX_SOURCES) { srcNote(`${MAX_SOURCES} links is the most. Drop one first.`, true); return false; }
+  if (r.platform === 'instagram' && !r.handle) { srcNote('Paste the profile, like instagram.com/yourbusiness, not a single post.', true); return false; }
+  added.push(r); drawSrcs();
+  $('src').value = ''; previewSrc();
+  srcNote(why || (r.platform === 'instagram' ? `We'll read @${r.handle}'s latest posts and keep the ones that show a product.`
+    : r.kind === 'shop' ? `We'll look through ${r.name} for products your site doesn't show.`
+    : r.kind === 'website' ? `We'll look at ${r.name} for products and photos.` : `We'll read ${srcLabel(r)} on ${r.name} for context.`));
+  return true;
+}
+function drawSrcs() {
+  const box = $('srcs'); box.innerHTML = '';
+  added.forEach((r, k) => box.append(el('span', { class: 'src', title: r.url }, svgOf(srcIcon(r)),
+    el('b', { text: srcLabel(r) }), el('small', { text: r.kind === 'website' ? 'site' : r.name }),
+    el('button', { type: 'button', 'aria-label': `Remove ${srcLabel(r)}`, text: '×',
+      onclick: () => { added.splice(k, 1); drawSrcs(); srcNote('Removed.'); $('src').focus(); } }))));
+  $('srcField').hidden = added.length >= MAX_SOURCES;
+}
+$('src').addEventListener('input', previewSrc);
+$('src').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); if ($('src').value.trim()) addSrc($('src').value); } });
+// A pasted link that we recognise goes straight on the list.
+$('src').addEventListener('paste', () => setTimeout(() => { const r = recognise($('src').value); if (r && r.kind !== 'website') addSrc(r); }, 0));
+$('src').addEventListener('blur', () => { if (recognise($('src').value)) addSrc($('src').value); });
+// An Instagram (or shop) link typed where the website goes: it's a source, so move it there.
+function checkMain() {
+  const r = recognise($('url').value);
+  if (r && r.kind !== 'website' && addSrc(r, `That's your ${r.name}, so it's on the list as a source. Now your website, above.`)) {
+    $('url').value = ''; $('url').focus();
+  }
+}
+$('url').addEventListener('paste', () => setTimeout(checkMain, 0));
+$('url').addEventListener('blur', checkMain);
+
 // --- splash ---
 fetch('/api/options').then((r) => r.json()).then((o) => {
   for (const c of o.channels) {
@@ -575,7 +708,7 @@ $('form').addEventListener('submit', async (e) => {
   $('goBtn').disabled = true; $('goBtn').querySelector('.t').textContent = 'Opening the garage…';
   try {
     const r = await fetch('/api/jobs', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: $('url').value, channels: [...picked], tags: [...tags], formats: [...fmts], consent: true }) });
+      body: JSON.stringify({ url: $('url').value, sources: [...added.map((r) => r.url), $('src').value.trim()].filter(Boolean).slice(0, MAX_SOURCES), channels: [...picked], tags: [...tags], formats: [...fmts], consent: true }) });
     const d = await r.json();
     if (!r.ok) throw new Error(d.detail || 'Something went wrong.');
     open(d.id);
@@ -588,6 +721,7 @@ function open(id) {
     const img = $('g-before');
     img.removeAttribute('src'); img.classList.remove('ready'); img.alt = '';
     $('g-shot').classList.remove('loaded');
+    $('feedbox').hidden = true; $('feeds').innerHTML = '';
   }
   jobId = id; history.replaceState(null, '', '#' + id);
   show('garage'); clearInterval(poll); tick(); poll = setInterval(tick, 2000);
@@ -616,8 +750,30 @@ function drawGarage() {
       el('span', { class: 'mono muted', text: st.seconds != null ? st.seconds + 's' : st.state === 'running' ? '…' : '' })));
   }
   if (d.audit_before && $('scorebox').hidden) drawScore(d.audit_before);
+  if (d.feeds && $('feedbox').hidden) drawFeeds(d.feeds, d.catalog);
   if (job.status === 'choose' && $('choose').hidden) drawCards();
   if (job.status !== 'choose') $('choose').hidden = true;
+}
+
+const KIND = { product: 'Product', worn: 'Worn', lifestyle: 'Lifestyle', event: 'Event', behind_the_scenes: 'Behind the scenes',
+  text_graphic: 'Announcement', repost: 'Not theirs', other: 'Other' };
+function drawFeeds(feeds, catalog) {
+  const box = $('feeds'); box.innerHTML = '';
+  if (catalog) box.append(el('p', { class: 'sub', text: `Your shop publishes its full catalogue: ${catalog} products, every one of them read.` }));
+  if (!feeds.length && !catalog) return;
+  $('feedbox').hidden = false;
+  for (const f of feeds) {
+    const used = f.posts.filter((p) => p.used).length;
+    box.append(el('h4', {}, svgOf(SRC_ICONS[f.platform] || SRC_ICONS.links), ' ', f.handle ? '@' + f.handle : f.name));
+    if (f.status !== 'read') { box.append(el('p', { class: 'sub', text: f.note })); continue; }
+    box.append(el('p', { class: 'sub', text: [f.linked_from_site ? 'Linked from your site' : null, f.followers ? f.followers + ' followers' : null,
+      `${f.posts.length} latest posts, ${used} with a product we'll use`].filter(Boolean).join(' · ') }));
+    const grid = el('div', { class: 'posts' });
+    for (const p of f.posts) grid.append(el('figure', { class: 'post' + (p.used ? ' used' : ''), title: [p.why, p.caption].filter(Boolean).join(' · ') },
+      el('img', { src: p.thumb, alt: p.product || KIND[p.kind] || 'A post', loading: 'lazy' }),
+      el('figcaption', {}, el('b', { text: (KIND[p.kind] || 'Post') + (p.used ? ' ✓' : '') }), p.product ? el('span', { text: p.product }) : null)));
+    box.append(grid);
+  }
 }
 
 function drawScore(a) {

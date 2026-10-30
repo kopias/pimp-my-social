@@ -72,6 +72,7 @@ def main() -> None:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("url", help="the site to make over")
     p.add_argument("--app", default="http://127.0.0.1:8000")
+    p.add_argument("--source", action="append", default=[], help="another link to add (an Instagram, a shop); repeatable")
     p.add_argument("--channels", default="facebook,linkedin,x", help="extra channels to click on")
     p.add_argument("--vibe", default="warm", help="style tags to click, comma-separated")
     p.add_argument("--formats", default="", help="Remix-a-hit formats to click, comma-separated names")
@@ -96,6 +97,12 @@ def main() -> None:
         glide(page, "#url")
         page.keyboard.type(args.url, delay=55)
         page.wait_for_timeout(400)
+        for link in args.source:
+            glide(page, "#src")
+            page.keyboard.type(link, delay=45)
+            page.wait_for_timeout(700)  # the badge says what it recognised
+            page.keyboard.press("Enter")
+            page.wait_for_timeout(900)
         for ch in [c for c in args.channels.split(",") if c]:
             label = {"facebook": "Facebook", "linkedin": "LinkedIn", "x": "X", "instagram": "Instagram",
                      "tiktok": "TikTok"}[ch]
