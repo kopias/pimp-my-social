@@ -250,3 +250,6 @@ async def choose(jid: str, body: Pick, request: Request) -> dict:
 JOBS.mkdir(parents=True, exist_ok=True)
 app.mount("/jobs", JobFiles(directory=JOBS), name="jobs")
 app.mount("/static", StaticFiles(directory=STATIC), name="static")
+# The fictional demo bakery, so anyone with the code can watch a whole makeover without
+# making over a real business that never asked.
+app.mount("/demo", StaticFiles(directory=STATIC.parent.parent / "demo", html=True), name="demo")
