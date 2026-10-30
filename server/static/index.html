@@ -286,9 +286,59 @@
     .logos { grid-template-columns: 1fr; } .logos figure + figure { border-left: 0; border-top: 1px solid var(--line); }
     .beats li { grid-template-columns: 48px 90px 1fr; }
   }
+
+  /* --- depth: an atmosphere behind the page, glass in front of it --- */
+  html { background: var(--paper); }
+  body { background: transparent; }
+  .aura { position: fixed; inset: -20vmax; z-index: 0; pointer-events: none; filter: blur(70px) saturate(1.1); }
+  .aura i { position: absolute; border-radius: 50%; opacity: .55; animation: drift 26s ease-in-out infinite alternate; }
+  .aura i:nth-child(1) { width: 52vmax; height: 52vmax; left: 4vmax; top: 2vmax; background: #f6d9bf; }
+  .aura i:nth-child(2) { width: 38vmax; height: 38vmax; right: 6vmax; top: 18vmax; background: #f1b9a6; opacity: .45; animation-duration: 32s; animation-delay: -8s; }
+  .aura i:nth-child(3) { width: 46vmax; height: 46vmax; left: 30vmax; bottom: 0; background: #d9e2d3; opacity: .5; animation-duration: 38s; animation-delay: -15s; }
+  @keyframes drift { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(4vmax, -3vmax, 0) scale(1.12); } }
+  /* film grain, so the paper reads as paper */
+  .grain { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .07; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .wrap { position: relative; z-index: 1; }
+  header.top { position: sticky; top: 0; z-index: 30; margin: 0 -32px; padding-left: 32px; padding-right: 32px;
+    background: rgba(247, 245, 240, .62); backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3); }
+  .split { border-bottom: 0; }
+  .split .copy { position: relative; }
+  .split > * { min-width: 0; }  /* the 1080px video mustn't widen its column */
+  /* the reel floats: a card with a stack of paper behind it and a soft shadow under it */
+  .art.reel { margin: clamp(28px, 4vh, 52px) 28px clamp(36px, 5vh, 64px) clamp(8px, 2vw, 28px); border-radius: 22px;
+    aspect-ratio: 4 / 5; align-self: start; position: sticky; top: 92px; width: min(100% - 36px, calc((100vh - 150px) * .8)); justify-self: center;
+    background: var(--paper); overflow: hidden; isolation: isolate;
+    box-shadow: 14px 14px 0 -1px #efe2d2, 14px 14px 0 0 rgba(18,18,18,.07), 28px 28px 0 -1px #ead6c2,
+      28px 28px 0 0 rgba(18,18,18,.06), 0 50px 90px -40px rgba(70, 35, 10, .45), 0 18px 30px -18px rgba(70, 35, 10, .25);
+    transform: perspective(1400px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform .5s cubic-bezier(.2, .8, .2, 1); will-change: transform; }
+  /* the form sits on frosted glass */
+  form.go { position: relative; background: rgba(255, 255, 255, .5); border: 1px solid rgba(255, 255, 255, .75);
+    border-radius: 20px; padding: 26px 28px 22px; margin-left: -28px; max-width: 676px;
+    backdrop-filter: blur(16px) saturate(1.25); -webkit-backdrop-filter: blur(16px) saturate(1.25);
+    box-shadow: 0 40px 70px -45px rgba(70, 35, 10, .38), 0 1px 0 rgba(255, 255, 255, .9) inset; }
+  form.go .chip:not([aria-pressed="true"]) { background: rgba(255, 255, 255, .55); }
+  /* the five models, as glass tiles that lift */
+  .index { gap: 14px; border-bottom: 0; padding: 8px 0 72px; }
+  .index div { margin: 0; padding: 22px 22px 26px; border: 1px solid rgba(255, 255, 255, .75); border-radius: 18px;
+    background: rgba(255, 255, 255, .42); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 24px 50px -36px rgba(70, 35, 10, .4); transition: transform .3s cubic-bezier(.3, 1.4, .5, 1), box-shadow .3s; }
+  .index div:last-child { border-right: 1px solid rgba(255, 255, 255, .75); }
+  .index div:hover { transform: translateY(-6px); box-shadow: 0 34px 60px -34px rgba(70, 35, 10, .5); }
+  .index .num { color: var(--hot); }
+  @media (max-width: 900px) {
+    header.top { margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
+    .art.reel { margin: 0 14px 28px 0; border-radius: 18px; position: relative; top: 0; width: auto; justify-self: stretch; }
+    form.go { margin-left: 0; padding: 20px 18px 18px; }
+    .index { grid-template-columns: 1fr 1fr; gap: 10px; } .index div { border-bottom: 1px solid rgba(255, 255, 255, .75); }
+  }
+  @media (prefers-reduced-motion: reduce) { .aura i { animation: none; } .art.reel { transform: none; transition: none; } }
 </style>
 </head>
 <body>
+<div class="aura" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
 <div class="wrap">
   <header class="top">
     <span class="label muted l">Episode 01</span>
@@ -428,6 +478,14 @@ const el = (tag, attrs = {}, ...kids) => {
 };
 const CAT = { overall: 'Overall', seo: 'Search engines', aeo: 'Answer engines (AI search)', agents: 'AI agents', social: 'Social sharing', speed: 'Speed' };
 let job = null, jobId = null, poll = null, picked = new Set(['instagram', 'tiktok']), tags = new Set(), fmts = new Set();
+// The reel card leans a few degrees toward the cursor.
+(() => { const card = document.querySelector('.art.reel'), area = document.querySelector('.split');
+  if (!card || !area || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  area.addEventListener('pointermove', (e) => { const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    card.style.setProperty('--ry', (x * 5).toFixed(2) + 'deg'); card.style.setProperty('--rx', (-y * 4).toFixed(2) + 'deg'); });
+  area.addEventListener('pointerleave', () => { card.style.setProperty('--ry', '0deg'); card.style.setProperty('--rx', '0deg'); });
+})();
 (() => { const v = document.getElementById('reel');
   if (v && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); } })();
 const REF_NAMES = { toteme: 'Toteme', lemaire: 'Lemaire', studio_nicholson: 'Studio Nicholson', aime_leon_dore: 'Aimé Leon Dore', our_legacy: 'Our Legacy', bode: 'Bode', story_mfg: 'Story mfg.', kotn: 'Kotn' };
