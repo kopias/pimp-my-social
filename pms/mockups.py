@@ -64,8 +64,9 @@ Text over a photo must read clearly at thumbnail size: if the photo is light or 
 Reply with only the HTML document, starting with <!doctype html>."""
 
 
-def leads(cards: list[dict], profile: dict, rng: random.Random) -> list[dict | None]:
-    """A lead product per card, spread so neighbouring cards don't open on the same thing."""
+def leads(cards: list[dict], profile: dict, rng: random.Random) -> list[list[dict]]:
+    """Two products per card, lead first, spread so neighbouring cards don't open on the same
+    thing. Both get reshot in the card's look, so the sketch never shows a raw photo."""
     # Only products the studio will reshoot (it takes the first 4 with their own photo), so the
     # full build can lead with the same product the sketch did.
     with_photo, used = [], set()
@@ -74,13 +75,15 @@ def leads(cards: list[dict], profile: dict, rng: random.Random) -> list[dict | N
             used.add(p["photo"])
             with_photo.append(p)
     if not with_photo:
-        return [None] * len(cards)
+        return [[] for _ in cards]
     order = with_photo[:]
     rng.shuffle(order)
-    return [order[k % len(order)] for k in range(len(cards))]
+    n = len(order)
+    return [[order[k % n]] + ([order[(k + 1) % n]] if n > 1 else []) for k in range(len(cards))]
 
 
 def variants(cards: list[dict], firsts: list[dict | None], copy: dict, rng: random.Random) -> list[dict]:
+    """`firsts` are each card's lead product (or None)."""
     """One variant per card. Headlines and twists are dealt like cards from a shuffled deck,
     so neighbouring sketches differ and a repeat only comes once the deck runs out."""
     heads = [h for h in dict.fromkeys([copy["h1"], *copy.get("h1_options", [])]) if h]
@@ -104,20 +107,20 @@ def sketch(card: dict, profile: dict, copy: dict, out: Path) -> dict:
     v, t = card["variant"], templates.load(card["id"])
     shutil.rmtree(out, ignore_errors=True)
     (out / "img").mkdir(parents=True)
-    photos = {p["index"]: Path(p["path"]) for p in profile["_photos"]}
-    hero_src = Path(card["preview_path"]) if card.get("preview_path") else photos.get(v["hero_photo"])
+    # Only photos reshot in this look: the owner's raw photos never appear in a sketch.
+    shot = {x["product"]: Path(x["path"]) for x in card.get("reshoots", []) if x.get("path")}
     hero_img = ""
-    if hero_src and hero_src.exists():
-        w, h = _web(hero_src, out / "img" / "hero.jpg")
+    if v["hero_product"] in shot and shot[v["hero_product"]].exists():
+        w, h = _web(shot[v["hero_product"]], out / "img" / "hero.jpg")
         hero_img = f"img/hero.jpg ({w}x{h})"
     prods = []
     for k, p in enumerate(profile["products"]):
         row = {"name": p["name"], "price": p["price"]}
-        if p["photo"] in photos and p["name"] != v["hero_product"]:
-            w, h = _web(photos[p["photo"]], out / "img" / f"p{k}.jpg", 900)
-            row["photo"] = f"img/p{k}.jpg ({w}x{h})"
-        elif p["name"] == v["hero_product"] and hero_img:
+        if p["name"] == v["hero_product"] and hero_img:
             row["photo"] = hero_img
+        elif p["name"] in shot and shot[p["name"]].exists():
+            w, h = _web(shot[p["name"]], out / "img" / f"p{k}.jpg", 900)
+            row["photo"] = f"img/p{k}.jpg ({w}x{h})"
         prods.append(row)
     prompt = SKETCH_PROMPT.format(
         style=t["style"], tname=t["name"], shot_note=site._shot_note(t),

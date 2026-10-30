@@ -299,9 +299,11 @@ def _shoot(prompt: str, refs: list[str], out: Path) -> Path:
     try:
         return go(prompt)
     except Exception as e:
-        if "content" not in str(e).lower():
+        # The filter used to say "content"; since late Oct 2026 a refusal can also come back as
+        # the bare 400 "request was invalid" that survives the client's retries.
+        if "content" not in str(e).lower() and "invalid" not in str(e).lower():
             raise
-        print(f"campaign: {out.stem} refused by the content filter; Spark rewrites the prompt once")
+        print(f"campaign: {out.stem} refused ({str(e)[:60]}); Spark rewrites the prompt once")
         return go(m.ask(SOFTEN.format(prompt=prompt), effort="low", max_tokens=2000).strip())
 
 

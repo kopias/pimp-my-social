@@ -118,19 +118,25 @@ class Job:
                 # owner chooses from their own site, not from a description.
                 rng = random.Random()
                 cards = directions.pick(prof, self.state["tags"], rng)
-                firsts = mockups.leads(cards, prof, rng)
+                picks = mockups.leads(cards, prof, rng)
                 photos = {p["index"]: Path(p["path"]) for p in prof["_photos"]}
                 with ThreadPoolExecutor(max_workers=2) as pool:
                     copy_f = pool.submit(site.write_copy, prof)
                     prev_f = pool.submit(directions.previews, cards,
-                                         [photos.get(f["photo"]) if f else None for f in firsts],
-                                         [f["subject"] if f else "" for f in firsts], self.dir / "directions")
+                                         [[(photos[x["photo"]], x["subject"]) for x in row] for row in picks],
+                                         self.dir / "directions")
                     copy, outs = copy_f.result(), prev_f.result()
                 (self.dir / "copy.json").write_text(json.dumps(copy, indent=1))
-                for c, v, o in zip(cards, mockups.variants(cards, firsts, copy, rng), outs):
+                for k, done in enumerate(outs):  # a lead that wouldn't reshoot hands over to the second
+                    if len(done) > 1 and done[0] is None and done[1] is not None:
+                        picks[k], outs[k] = picks[k][::-1], done[::-1]
+                firsts = [row[0] if row else None for row in picks]
+                for c, v, row, done in zip(cards, mockups.variants(cards, firsts, copy, rng), picks, outs):
                     c["variant"] = v
-                    c["preview_path"] = str(o) if o else None
-                    c["preview"] = self.url_of(o) if o else None
+                    c["reshoots"] = [{"product": x["name"], "path": str(o) if o else None} for x, o in zip(row, done)]
+                    lead = done[0] if done else None
+                    c["preview_path"] = str(lead) if lead else None
+                    c["preview"] = self.url_of(lead) if lead else None
                 for c, sk in zip(cards, mockups.sketches(cards, prof, copy, self.dir / "directions")):
                     c["sketch"] = sk
                     if sk:
@@ -141,7 +147,7 @@ class Job:
             cards = await self.stage("paint", paint)
             (self.dir / "cards.json").write_text(json.dumps(cards, indent=1))
             # The browser gets the cards without local file paths; the build reads cards.json.
-            d["cards"] = [{k: v for k, v in c.items() if k not in ("sketch", "preview_path")} for c in cards]
+            d["cards"] = [{k: v for k, v in c.items() if k not in ("sketch", "preview_path", "reshoots")} for c in cards]
             self.state["status"] = "choose"
             self.save()
         except Exception as e:

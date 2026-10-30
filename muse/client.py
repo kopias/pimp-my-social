@@ -109,57 +109,107 @@ def ask_video(prompt: str, video: str | Path, *, model: str = TEXT_MODEL,
 
 def generate_image(prompt: str, out: str | Path, *, size: str = "auto",
                    fast: bool = True) -> Path:
-    """Muse Image, one shot. `fast` = single pass with search tools off."""
+    """Muse Image, one shot. `fast` = single pass with search tools off. A refused explicit
+    size is retried at "auto" and cropped (see edit_image)."""
     extra: dict[str, Any] = {"output_format": "png"}
     if fast:
         extra["reasoning_strength"] = "low"
         extra["tool_enablement"] = {"enable_web_search": False, "enable_shell": False}
-    kwargs: dict[str, Any] = {"model": IMAGE_MODEL, "prompt": prompt, "n": 1, "extra_body": extra}
-    if size != "auto":
-        kwargs["size"] = size
-    response = client().images.generate(**kwargs)
-    out = Path(out)
-    out.write_bytes(base64.b64decode(response.data[0].b64_json))
-    return out
+
+    def call(sz: str) -> Path:
+        kwargs: dict[str, Any] = {"model": IMAGE_MODEL, "prompt": prompt, "n": 1, "extra_body": extra}
+        if sz != "auto":
+            kwargs["size"] = sz
+        response = client().images.generate(**kwargs)
+        Path(out).write_bytes(base64.b64decode(response.data[0].b64_json))
+        return Path(out)
+    return _sized(call, size, Path(out))
 
 
-def edit_image(src: str | Path, prompt: str, out: str | Path, *, size: str = "auto") -> Path:
+def _sized(call, size: str, out: Path, tries: int = 3) -> Path:
+    """Run `call(size)`; when the API refuses the size with its bare 400, make it at "auto"
+    and crop to the size. Retry the same 400 when it comes from a burst of requests."""
+    import time
+    for k in range(tries):
+        try:
+            if size == "auto":
+                return call("auto")
+            try:
+                return call(size)
+            except Exception as e:
+                if "invalid" not in str(e).lower():
+                    raise
+                call("auto")
+                _crop_to(out, size)
+                return out
+        except Exception as e:
+            if k == tries - 1 or "invalid" not in str(e).lower():
+                raise
+            time.sleep(2 + 3 * k)
+    raise AssertionError("unreachable")
+
+
+def _crop_to(path: Path, size: str) -> None:
+    """Centre-crop and scale a picture to an exact WxH."""
+    from PIL import Image
+    w, h = (int(v) for v in size.split("x"))
+    im = Image.open(path)
+    r = max(w / im.width, h / im.height)
+    im = im.resize((round(im.width * r), round(im.height * r)), Image.LANCZOS)
+    left, top = (im.width - w) // 2, (im.height - h) // 2
+    im.crop((left, top, left + w, top + h)).save(path)
+
+
+def edit_image(src: str | Path, prompt: str, out: str | Path, *, size: str = "auto",
+               tries: int = 3) -> Path:
     """Muse Image edit of one photo. Fast mode: one pass, no web or image search.
-    The content filter is strict about words like "burnt"; it raises on refusal."""
-    kwargs: dict[str, Any] = {"model": IMAGE_MODEL, "prompt": prompt, "n": 1,
-                              "extra_body": {"output_format": "png", "reasoning_strength": "low",
-                                             "tool_enablement": {"enable_web_search": False,
-                                                                 "enable_shell": False,
-                                                                 "enable_image_search": False}}}
-    if size != "auto":
-        kwargs["size"] = size
-    with open(src, "rb") as f:
-        r = client().images.edit(image=f, **kwargs)
-    out = Path(out)
-    out.write_bytes(base64.b64decode(r.data[0].b64_json))
-    return out
+    The content filter is strict about words like "burnt"; it raises on refusal.
+
+    Since late October 2026 the edit endpoint answers an explicit size with a bare 400
+    ("The image generation request was invalid"), so a sized request that's refused is
+    made at "auto" and cropped to the size here. Bursts of requests also draw the same
+    400 now and then, so each call gets a couple of retries."""
+
+    def call(sz: str) -> Path:
+        kwargs: dict[str, Any] = {"model": IMAGE_MODEL, "prompt": prompt, "n": 1,
+                                  "extra_body": {"output_format": "png", "reasoning_strength": "low",
+                                                 "tool_enablement": {"enable_web_search": False,
+                                                                     "enable_shell": False,
+                                                                     "enable_image_search": False}}}
+        if sz != "auto":
+            kwargs["size"] = sz
+        with open(src, "rb") as f:
+            r = client().images.edit(image=f, **kwargs)
+        Path(out).write_bytes(base64.b64decode(r.data[0].b64_json))
+        return Path(out)
+
+    return _sized(call, size, Path(out), tries)
 
 
 def edit_images(srcs: list[str | Path], prompt: str, out: str | Path, *,
                 size: str = "1024x1536") -> Path:
     """Muse Image edit from several photos at once ("the person in image 1 wearing the
     dress in image 2"). The API wants the files as image[0], image[1], ..., which the
-    OpenAI SDK doesn't send, so this is a plain multipart POST."""
-    files = {f"image[{i}]": (Path(s).name, open(s, "rb"), mimetypes.guess_type(str(s))[0] or "image/png")
-             for i, s in enumerate(srcs)}
-    try:
-        r = requests.post(f"{BASE_URL}/images/edits", headers={"Authorization": f"Bearer {api_key()}"},
-                          files=files, timeout=300,
-                          data={"model": IMAGE_MODEL, "prompt": prompt, "n": "1", "size": size,
-                                "output_format": "png", "reasoning_strength": "low"})
-    finally:
-        for _, f, _ in files.values():
-            f.close()
-    if not r.ok:
-        raise RuntimeError(f"Muse Image edit {r.status_code}: {r.text[:300]}")
-    out = Path(out)
-    out.write_bytes(base64.b64decode(r.json()["data"][0]["b64_json"]))
-    return out
+    OpenAI SDK doesn't send, so this is a plain multipart POST. A refused size is made at
+    "auto" and cropped (see edit_image)."""
+    def call(sz: str) -> Path:
+        files = {f"image[{i}]": (Path(s).name, open(s, "rb"), mimetypes.guess_type(str(s))[0] or "image/png")
+                 for i, s in enumerate(srcs)}
+        data = {"model": IMAGE_MODEL, "prompt": prompt, "n": "1", "output_format": "png",
+                "reasoning_strength": "low"}
+        if sz != "auto":
+            data["size"] = sz
+        try:
+            r = requests.post(f"{BASE_URL}/images/edits", headers={"Authorization": f"Bearer {api_key()}"},
+                              files=files, timeout=300, data=data)
+        finally:
+            for _, f, _ in files.values():
+                f.close()
+        if not r.ok:
+            raise RuntimeError(f"Muse Image edit {r.status_code}: {r.text[:300]}")
+        Path(out).write_bytes(base64.b64decode(r.json()["data"][0]["b64_json"]))
+        return Path(out)
+    return _sized(call, size, Path(out))
 
 
 # --- SAM 3.1 -----------------------------------------------------------------

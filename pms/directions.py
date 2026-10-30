@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import random
+import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -121,24 +122,40 @@ RESHOOT = ("Reshoot this exact {subject} as a professional product photograph. K
            "with an 85mm lens. Photorealistic, no text, no logos added, no people.")
 
 
-def preview(card: dict, photo: Path, subject: str, out: Path) -> Path:
-    """One product photo, reshot in this direction (one Muse Image edit, $0.01)."""
-    return m.edit_image(photo, RESHOOT.format(subject=subject or "product", photo=card["photo"]), out)
-
-
-def previews(cards: list[dict], photos: list[Path | None], subjects: list[str],
-             out_dir: Path) -> list[Path | None]:
-    """Each card's lead photo reshot in that card's direction, all at once."""
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    def one(args: tuple) -> Path | None:
-        c, photo, subject = args
-        if not photo:
-            return None
+def preview(card: dict, photo: Path, subject: str, out: Path, tries: int = 2) -> Path:
+    """One product photo, reshot in this direction (one Muse Image edit, $0.01). Muse Image
+    turns down some requests in a burst with a bare 400 that succeeds moments later, so retry."""
+    for k in range(tries):
         try:
-            return preview(c, photo, subject, out_dir / f"preview_{c['id']}.png")
+            return m.edit_image(photo, RESHOOT.format(subject=subject or "product", photo=card["photo"]), out)
+        except Exception:
+            if k == tries - 1:
+                raise
+            time.sleep(2 + 3 * k)
+
+
+def previews(cards: list[dict], photos: list[list[tuple[Path, str]]], out_dir: Path) -> list[list[Path | None]]:
+    """Each card's products (lead first), reshot in that card's direction, all at once."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    jobs = [(c, k, photo, subject) for c, row in zip(cards, photos) for k, (photo, subject) in enumerate(row)]
+
+    def one(job: tuple) -> Path | None:
+        c, k, photo, subject = job
+        try:
+            return preview(c, photo, subject, out_dir / f"preview_{c['id']}_{k}.png")
         except Exception as e:
-            print(f"preview {c['id']} failed: {e!r}"[:300])
+            print(f"preview {c['id']}/{k} failed: {e!r}"[:300])
             return None
-    with ThreadPoolExecutor(max_workers=6) as pool:
-        return list(pool.map(one, zip(cards, photos, subjects)))
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        done = list(pool.map(one, jobs))
+    # Muse Image refuses some edits in a burst; once the burst is over, the misses
+    # usually go through one at a time.
+    for i, job in enumerate(jobs):
+        if done[i] is None:
+            time.sleep(3)
+            done[i] = one(job)
+    out, i = [], 0
+    for row in photos:
+        out.append(done[i:i + len(row)])
+        i += len(row)
+    return out
