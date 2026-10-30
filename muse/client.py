@@ -42,12 +42,18 @@ def api_key() -> str:
     return key
 
 
+# The SDK default is 10 minutes a try, 3 tries: one hung request could stall a makeover for half
+# an hour. Our longest healthy call (a Wonder build) takes about 3 minutes, so 5 minutes a try
+# and the retry gets its turn.
+TIMEOUT = 300
+
+
 def client() -> OpenAI:
-    return OpenAI(base_url=BASE_URL, api_key=api_key())
+    return OpenAI(base_url=BASE_URL, api_key=api_key(), timeout=TIMEOUT, max_retries=2)
 
 
 def aclient() -> AsyncOpenAI:
-    return AsyncOpenAI(base_url=BASE_URL, api_key=api_key())
+    return AsyncOpenAI(base_url=BASE_URL, api_key=api_key(), timeout=TIMEOUT, max_retries=2)
 
 
 def data_url(path: str | Path) -> str:
