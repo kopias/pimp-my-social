@@ -25,6 +25,8 @@ from urllib.parse import urljoin, urlparse
 import requests
 from playwright.async_api import Route, async_playwright
 
+from .browser import CHANNEL
+
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/141.0 Safari/537.36 PimpMySocial/0.1")
 MAX_PAGES = 5  # homepage + 4 inner pages
@@ -66,6 +68,22 @@ def _public_host(host: str) -> None:
 
 _host_ok: dict[str, bool] = {}
 _trusted: dict[str, bool] = {}  # our own server, for the after audit
+
+
+def safe_get(url: str, *, hops: int = 3, **kw) -> requests.Response:
+    """requests.get for a URL that came off someone else's page: the address is checked
+    before the request and again at every redirect, so a picture can't point the server
+    at itself, its neighbours or the cloud metadata service."""
+    kw.setdefault("headers", {"User-Agent": UA})
+    kw.setdefault("timeout", 15)
+    for _ in range(hops + 1):
+        if not _allowed(url) or urlparse(url).scheme not in ("http", "https"):
+            raise BlockedURL("That address points at a private network.")
+        r = requests.get(url, allow_redirects=False, **kw)
+        if r.status_code not in (301, 302, 303, 307, 308) or "location" not in r.headers:
+            return r
+        url = urljoin(url, r.headers["location"])
+    raise BlockedURL("Too many redirects.")
 
 
 def _allowed(url: str) -> bool:
@@ -252,7 +270,7 @@ async def inspect(url: str, out: Path, *, trusted: bool = False, follow: bool = 
         url = check_public(url)
     out.mkdir(parents=True, exist_ok=True)
     async with async_playwright() as p:
-        browser = await p.chromium.launch(channel="chrome")
+        browser = await p.chromium.launch(channel=CHANNEL)
         ctx = await browser.new_context(user_agent=UA, viewport={"width": 1440, "height": 900})
         await ctx.route("**/*", _guard)
         page = await ctx.new_page()

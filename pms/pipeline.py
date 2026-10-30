@@ -88,7 +88,9 @@ class Job:
         return result
 
     def fail(self, e: Exception) -> None:
-        self.state["status"], self.state["error"] = "error", f"{type(e).__name__}: {e}"
+        # the page shows this, so no server paths in it, and not a page of detail
+        msg = str(e).replace(str(ROOT) + "/", "").replace(str(Path.home()), "~")
+        self.state["status"], self.state["error"] = "error", f"{type(e).__name__}: {msg}"[:300]
         traceback.print_exc()
         self.save()
 

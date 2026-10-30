@@ -23,12 +23,12 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from urllib.parse import urlparse
 
-import requests
 from PIL import Image as PILImage
 
 from muse import client as m
 
-from .crawl import UA, BlockedURL, _guard, _settle, check_public
+from .crawl import UA, BlockedURL, _guard, _settle, check_public, safe_get
+from .browser import CHANNEL
 
 MAX_SOURCES = 3
 MAX_POSTS = 12  # what a logged-out profile shows, and plenty to sort
@@ -173,7 +173,7 @@ def _blocked(status: int, text: str) -> bool:
 
 def _save(url: str, out: Path) -> bool:
     try:
-        r = requests.get(url, headers={"User-Agent": UA}, timeout=15)
+        r = safe_get(url)
         r.raise_for_status()
         im = PILImage.open(io.BytesIO(r.content)).convert("RGB")
     except Exception:
@@ -192,7 +192,7 @@ async def read(link: dict, out: Path) -> Source:
     out.mkdir(parents=True, exist_ok=True)
     try:
         async with async_playwright() as p:
-            browser = await p.chromium.launch(channel="chrome")
+            browser = await p.chromium.launch(channel=CHANNEL)
             ctx = await browser.new_context(user_agent=UA, viewport={"width": 1280, "height": 900})
             await ctx.route("**/*", _guard)
             page = await ctx.new_page()

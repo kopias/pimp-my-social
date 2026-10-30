@@ -14,6 +14,8 @@ from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
+from .browser import CHANNEL
+
 MONO = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
 
 
@@ -25,7 +27,7 @@ def render(pages: list[dict]) -> list[Path]:
     work = Path(tempfile.mkdtemp(prefix="typeset-"))
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(channel="chrome")
+            browser = p.chromium.launch(channel=CHANNEL)
             for k, pg in enumerate(pages):
                 for a in pg.get("assets", []):
                     shutil.copy(a, work / Path(a).name)

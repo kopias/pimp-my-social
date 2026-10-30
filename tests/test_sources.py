@@ -60,3 +60,21 @@ def test_usable_keeps_products_first_and_one_per_name():
         post("worn", "Kimono", 50), post("product", "Denim jacket", 2), post("event", "", 90),
         post("worn", "kimono", 10), post("product", "Tee", 9)])
     assert [p.product for p in sources.usable([src])] == ["Tee", "Denim jacket", "Kimono"]
+
+
+def test_safe_get_refuses_private_addresses_and_redirects_into_them(monkeypatch):
+    """A picture URL off someone's page must not reach the server's own network."""
+    from pms import crawl
+    monkeypatch.delenv("PMS_ALLOW_PRIVATE")
+    crawl._host_ok.clear()
+    for url in ("http://169.254.169.254/computeMetadata/v1/", "http://127.0.0.1:27150/", "file:///etc/passwd"):
+        with pytest.raises(crawl.BlockedURL):
+            crawl.safe_get(url)
+
+    class Hop:  # a public page that redirects to the metadata service
+        status_code, headers = 302, {"location": "http://169.254.169.254/latest/"}
+    monkeypatch.setattr(crawl, "_public_host", lambda host: None if host == "public.example" else (_ for _ in ()).throw(crawl.BlockedURL("private")))
+    monkeypatch.setattr(crawl.requests, "get", lambda *a, **k: Hop())
+    crawl._host_ok.clear()
+    with pytest.raises(crawl.BlockedURL):
+        crawl.safe_get("http://public.example/photo.jpg")

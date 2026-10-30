@@ -349,6 +349,35 @@
   .md .palette i { display: block; height: 66px; }
   .md .palette span { display: block; padding: 8px 10px; font: 500 10px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
   .md .palette code { display: block; background: none; padding: 0 10px 10px; font-size: 12px; color: var(--ink); }
+  .codefield { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: end; margin-top: 22px; }
+  .codefield[hidden] { display: none; }
+  .codefield input { border: 0; border-bottom: 1px solid var(--ink); background: transparent; font: 400 15px var(--mono); padding: 6px 0; outline: none; color: var(--ink); min-width: 0; }
+  .codefield input:focus { border-color: var(--hot); }
+  .codefield small { grid-column: 1 / -1; color: var(--muted); font-size: 12.5px; }
+  .peek { align-self: flex-start; margin-top: 18px; border: 0; border-bottom: 1px solid var(--ink); background: none; padding: 2px 0;
+    font: 500 11px var(--sans); letter-spacing: .16em; text-transform: uppercase; }
+  .peek:hover { color: var(--hot); border-color: var(--hot); }
+  .peek[hidden] { display: none; }
+  .showroom { padding: 8px 0 96px; scroll-margin-top: 90px; }
+  .showroom[hidden] { display: none; }
+  .showroom h2.big i { color: var(--hot); }
+  .showroom > p { max-width: 40em; margin: 0 0 28px; }
+  .rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 22px; }
+  .room { text-align: left; border: 1px solid rgba(255, 255, 255, .78); border-radius: 22px; padding: 10px 10px 18px; cursor: pointer;
+    background: rgba(255, 255, 255, .5); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 34px 60px -42px rgba(70, 35, 10, .45); transition: transform .3s cubic-bezier(.3, 1.4, .5, 1), box-shadow .3s; }
+  .room:hover { transform: translateY(-6px); box-shadow: 0 44px 70px -40px rgba(70, 35, 10, .55); }
+  .room .pics { position: relative; aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden; background: var(--paper2); }
+  .room .pics img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .room .pics .was { position: absolute; left: 10px; bottom: 10px; width: 34%; height: auto; aspect-ratio: 16 / 10; border: 3px solid var(--paper);
+    border-radius: 8px; box-shadow: 0 10px 20px -8px rgba(0,0,0,.4); filter: saturate(.7); }
+  .room .meta { display: flex; justify-content: space-between; align-items: end; gap: 14px; padding: 14px 8px 0; }
+  .room h3 { font: 400 30px/1 var(--serif); letter-spacing: -.015em; margin: 6px 0 0; }
+  .room .sc { font: 200 34px/1 var(--sans); letter-spacing: -.04em; white-space: nowrap; }
+  .room .sc s { color: var(--muted); text-decoration-color: var(--hot); }
+  .room .sc em { font: 300 26px var(--serif); color: var(--hot); margin: 0 4px; font-style: normal; }
+  .room .go { display: block; padding: 10px 8px 0; color: var(--muted); }
+  .room:hover .go { color: var(--hot); }
   .copied { color: var(--good); font-size: 13px; opacity: 0; transition: opacity .2s; } .copied.on { opacity: 1; }
   @media (max-width: 900px) {
     .howto { grid-template-columns: 1fr; } .skilldoc { grid-template-columns: 1fr; }
@@ -466,6 +495,7 @@
         <p class="lede">Give us your website. We hand back a makeover: a new site built to be found by search
           engines and AI agents, studio photos of your own products, a remade logo, videos remixed from
           formats that are working right now, and a report on what changed.</p>
+        <button type="button" class="peek" id="peek" hidden>See finished makeovers <span aria-hidden="true">↓</span></button>
         <form class="go" id="form">
           <div class="field">
             <input id="url" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" aria-label="Your website address" required>
@@ -494,6 +524,9 @@
             <div class="chips" id="formats"></div>
             <div class="upload"><label for="post">Upload a post that's working</label><input id="post" type="file" accept="video/mp4,video/quicktime,video/webm,image/jpeg,image/png,image/webp"><span id="postNote">Spark takes it apart; we rebuild its essence with your products.</span></div>
           </fieldset>
+          <label class="codefield" id="codeField" hidden><span class="label muted">Access code</span>
+            <input id="code" type="text" autocomplete="off" spellcheck="false" placeholder="for live makeovers" aria-label="Access code for a live makeover">
+            <small>A live makeover spends real API credit, so it needs the code from the submission. Or open a finished one below.</small></label>
           <label class="consent"><input type="checkbox" id="consent"> I own this business, or have its permission to remake its website, logo and photos.</label>
           <p class="err" id="err" role="alert"></p>
         </form>
@@ -516,6 +549,12 @@
       <div><span class="num muted">04</span><b>SAM 3.1</b><span>isolates each product and checks the reshoot is still yours</span></div>
       <div><span class="num muted">05</span><b>Voice Transcribe</b><span>hears the hit posts you remix, so their shape carries over</span></div>
     </div>
+    <section class="showroom" id="showroom" hidden>
+      <div class="label muted">The showroom</div>
+      <h2 class="big">Finished <i>makeovers</i></h2>
+      <p class="muted">Real runs, start to finish. Open one to see the new site, the photos, the campaign, the report and the brand skill.</p>
+      <div class="rooms" id="rooms"></div>
+    </section>
   </section>
 
   <!-- 2. garage (also hosts the choose step) -->
@@ -732,7 +771,7 @@ function addFormat(f, on) {
 $('post').addEventListener('change', async (e) => {
   const file = e.target.files[0]; if (!file) return;
   $('postNote').textContent = 'Spark is watching it and Transcribe is listening…';
-  const fd = new FormData(); fd.append('post', file);
+  const fd = new FormData(); fd.append('post', file); fd.append('code', liveCode());
   try {
     const r = await fetch('/api/formats', { method: 'POST', body: fd });
     const d = await r.json();
@@ -755,6 +794,23 @@ function toggle(btn, set, id, max) {
   anim('bump');
 }
 
+// Hosted, live makeovers need an access code and the showroom holds finished ones.
+const liveCode = () => $('code').value.trim();
+fetch('/api/config').then((r) => r.json()).then((c) => {
+  $('codeField').hidden = c.live !== 'code';
+  if (c.live === 'off') { $('goBtn').disabled = true; $('goBtn').querySelector('.t').textContent = 'Showroom only'; }
+  if (!c.showroom.length) return;
+  for (const m of c.showroom) $('rooms').append(el('button', { class: 'room', type: 'button', onclick: () => open(m.id), 'aria-label': 'Open the ' + m.name + ' makeover' },
+    el('div', { class: 'pics' }, el('img', { src: m.after, alt: m.name + ' after the makeover', loading: 'lazy' }),
+      el('img', { class: 'was', src: m.before, alt: m.name + ' before', loading: 'lazy' })),
+    el('div', { class: 'meta' }, el('div', {}, el('div', { class: 'label muted', text: m.note || m.direction }), el('h3', { text: m.name })),
+      el('div', { class: 'sc' }, el('s', { text: String(m.from) }), el('em', { text: '→' }), String(m.to))),
+    el('span', { class: 'go label', text: 'Open the makeover →' })));
+  $('showroom').hidden = false;
+  $('peek').hidden = false;
+  $('peek').onclick = () => $('showroom').scrollIntoView({ behavior: 'smooth' });
+}).catch(() => {});
+
 $('form').addEventListener('submit', async (e) => {
   e.preventDefault();
   $('err').textContent = '';
@@ -762,7 +818,7 @@ $('form').addEventListener('submit', async (e) => {
   $('goBtn').disabled = true; $('goBtn').querySelector('.t').textContent = 'Opening the garage…';
   try {
     const r = await fetch('/api/jobs', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: $('url').value, sources: [...added.map((r) => r.url), $('src').value.trim()].filter(Boolean).slice(0, MAX_SOURCES), channels: [...picked], tags: [...tags], formats: [...fmts], consent: true }) });
+      body: JSON.stringify({ url: $('url').value, sources: [...added.map((r) => r.url), $('src').value.trim()].filter(Boolean).slice(0, MAX_SOURCES), channels: [...picked], tags: [...tags], formats: [...fmts], consent: true, code: liveCode() }) });
     const d = await r.json();
     if (!r.ok) throw new Error(d.detail || 'Something went wrong.');
     open(d.id);
@@ -889,8 +945,13 @@ function zoom(c) {
 
 async function choose(id) {
   $('choose').hidden = true;
-  await fetch(`/api/jobs/${jobId}/direction`, { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id }) });
+  const r = await fetch(`/api/jobs/${jobId}/direction`, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, code: liveCode() }) });
+  if (!r.ok) {  // e.g. a shared link to someone else's picker: looking is free, building isn't
+    $('choose').hidden = false;
+    $('g-err').textContent = (await r.json().catch(() => ({}))).detail || 'That pick did not go through.';
+    return;
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
   clearInterval(poll); poll = setInterval(tick, 2000);
 }

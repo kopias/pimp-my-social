@@ -34,6 +34,7 @@ from . import inspo, templates
 from .audit import AI_BOTS
 from .photos import Shot
 from .text import tidy_all
+from .browser import CHANNEL
 
 COPY_SCHEMA = {
     "type": "object", "additionalProperties": False,
@@ -406,7 +407,7 @@ def snapshot_screens(page: Path, out_dir: Path) -> list[Path]:
     from playwright.sync_api import sync_playwright
     shots = [out_dir / "desktop.jpg", out_dir / "phone.jpg"]
     with sync_playwright() as p:
-        b = p.chromium.launch(channel="chrome")
+        b = p.chromium.launch(channel=CHANNEL)
         for path, vp, mobile in ((shots[0], {"width": 1440, "height": 900}, False),
                                  (shots[1], {"width": 390, "height": 844}, True)):
             ctx = b.new_context(viewport=vp, is_mobile=mobile, has_touch=mobile,
@@ -431,7 +432,7 @@ def snapshot(page: Path, out_dir: Path, tag: str) -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     shots = []
     with sync_playwright() as p:
-        b = p.chromium.launch(channel="chrome")
+        b = p.chromium.launch(channel=CHANNEL)
         for name, vp, mobile in (("desktop", {"width": 1440, "height": 900}, False),
                                  ("mobile", {"width": 390, "height": 844}, True)):
             ctx = b.new_context(viewport=vp, is_mobile=mobile, has_touch=mobile,

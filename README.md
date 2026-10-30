@@ -8,6 +8,7 @@
 </p>
 
 <p align="center">
+  <a href="https://pimpmysocial.loreto.io"><b>Open the showroom ↗</b></a> ·
   <a href="#what-you-get">What you get</a> ·
   <a href="#how-it-works">How it works</a> ·
   <a href="#run-it">Run it</a> ·
@@ -86,6 +87,10 @@ uv run scripts/serve.py --demo                                  # http://localho
 # in the page: http://127.0.0.1:8765/  -> Pimp it
 ```
 
+Hosted at [pimpmysocial.loreto.io](https://pimpmysocial.loreto.io) as a showroom: finished makeovers open for
+anyone, and a live makeover (which spends API credit) needs an access code. The settings are in
+`server/app.py`'s docstring, and `scripts/showroom.py` picks which finished runs are on show.
+
 `--demo` sets `PMS_ALLOW_PRIVATE=1` so the crawler can reach the local demo site. Never set it in production:
 by default the crawler refuses private and local addresses. Playwright drives the installed Google Chrome
 (`channel="chrome"`), so no browser download is needed.
@@ -157,6 +162,8 @@ server/            FastAPI app + the splash page (server/static/index.html)
 scripts/serve.py   run it (--demo lets the crawler reach the local demo site)
 scripts/record_demo.py  Playwright records a full makeover, waits sped up
 scripts/readme_art.py   the README's banner and framed screenshots, rendered by Chrome
+scripts/showroom.py     which finished makeovers the hosted site shows (a real business's stays hidden until they agree)
+deploy/                 the hosted showroom: systemd unit, nginx vhost, deploy script
 muse/client.py     thin helpers over the Meta Model API
 demo/              the fictional "before" site
 ```

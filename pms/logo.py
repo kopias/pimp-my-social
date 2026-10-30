@@ -15,12 +15,11 @@ import json
 from pathlib import Path
 
 import numpy as np
-import requests
 from PIL import Image
 
 from muse import client as m
 
-from .crawl import UA, _allowed
+from .crawl import safe_get
 
 READ_SCHEMA = {
     "type": "object", "additionalProperties": False,
@@ -57,10 +56,10 @@ REDRAW = ("Redesign this logo as a premium, minimal brand mark, the way a top de
 
 def fetch(url: str | None, out: Path) -> Path | None:
     """Their current logo as a trimmed transparent PNG, or None."""
-    if not url or not _allowed(url):
+    if not url:
         return None
     try:
-        r = requests.get(url, headers={"User-Agent": UA}, timeout=15)
+        r = safe_get(url)
         r.raise_for_status()
         im = Image.open(io.BytesIO(r.content)).convert("RGBA")
     except Exception:

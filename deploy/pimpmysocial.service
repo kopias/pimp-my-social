@@ -1,0 +1,40 @@
+# Pimp My Social, hosted at pimpmysocial.loreto.io.
+#
+# It runs as its own user, not as jeremy like the other apps on this box. It opens any
+# website a visitor types in a real browser, which makes it the riskiest app here, so
+# it gets no view of /home (every other app's code and .env lives there) and can write
+# only its own out/ folder.
+[Unit]
+Description=Pimp My Social
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=pms
+Group=pms
+WorkingDirectory=/srv/pimp-my-social/app
+EnvironmentFile=/srv/pimp-my-social/app/.env
+Environment=HOME=/srv/pimp-my-social/home
+Environment=PLAYWRIGHT_BROWSERS_PATH=/srv/pimp-my-social/browsers
+Environment=PMS_CHROME_CHANNEL=
+ExecStart=/srv/pimp-my-social/venv/bin/uvicorn server.app:app --host 127.0.0.1 --port 8180 --proxy-headers --forwarded-allow-ips 127.0.0.1
+Restart=always
+RestartSec=3
+
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+ProtectSystem=strict
+ReadWritePaths=/srv/pimp-my-social/app/out /srv/pimp-my-social/app/inspo/social/formats /srv/pimp-my-social/home
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryMax=3G
+CPUQuota=150%
+TasksMax=400
+
+[Install]
+WantedBy=multi-user.target

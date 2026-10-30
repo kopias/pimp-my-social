@@ -17,12 +17,11 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-import requests
 from PIL import Image as PILImage
 
 from muse import client as m
 
-from .crawl import UA, Site, _allowed
+from .crawl import Site, safe_get
 from .text import tidy_all
 
 MAX_PHOTOS = 10  # candidate photos from the rendered site
@@ -153,10 +152,8 @@ def _stem(url: str) -> str:
 
 
 def _fetch(url: str) -> PILImage.Image | None:
-    if not _allowed(url):
-        return None
     try:
-        r = requests.get(url, headers={"User-Agent": UA}, timeout=15)
+        r = safe_get(url)
         r.raise_for_status()
         return PILImage.open(io.BytesIO(r.content)).convert("RGB")
     except Exception:
