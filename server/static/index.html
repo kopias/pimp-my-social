@@ -58,16 +58,56 @@
   .field input::placeholder { color: #aaa69d; }
   .btn { border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 15px 28px; border-radius: 0;
     font: 500 11px var(--sans); letter-spacing: .18em; text-transform: uppercase; white-space: nowrap; margin-bottom: 10px; }
-  .btn:hover { background: var(--hot); border-color: var(--hot); }
+  .btn { position: relative; overflow: hidden; transition: background-color .2s, border-color .2s, transform .18s cubic-bezier(.3, 1.6, .5, 1); }
+  .btn:hover:not(:disabled) { background: var(--hot); border-color: var(--hot); transform: translateY(-2px); }
+  .btn:active:not(:disabled) { transform: translateY(1px) scale(.97); }
+  .btn .arrow { display: inline-block; margin-left: 10px; transition: transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+  .btn:hover:not(:disabled) .arrow { transform: translateX(6px); }
+  /* a quick shine across the button on hover */
+  .btn::before { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%);
+    transform: translateX(-120%); pointer-events: none; }
+  .btn:hover:not(:disabled)::before { transform: translateX(120%); transition: transform .7s ease; }
+  .consent input { accent-color: var(--hot); }
+  .dcard .pick, .lb .go { transition: color .2s, transform .2s; }
+  .dcard .pick:hover { color: var(--hot); }
+  .lb .go:hover { background: var(--hot); }
+  @media (prefers-reduced-motion: reduce) {
+    .chip, .chip.icon svg, .btn, .btn .arrow, .btn::before { transition: none !important; animation: none !important; }
+    .chip.bump, .chip.nope, .chip[aria-pressed="true"]::after { animation: none !important; }
+  }
   .btn:disabled { opacity: .5; }
   fieldset { border: 0; padding: 0; margin: 28px 0 0; }
   legend { margin-bottom: 10px; padding: 0; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chip { border: 1px solid var(--line); background: transparent; border-radius: 0; padding: 8px 13px;
-    font: 500 12px var(--sans); letter-spacing: .04em; color: #3a3833; }
-  .chip:hover { border-color: var(--ink); }
+  /* Chips with a bit of swagger: they lift when you point at them, pop when picked, wear a
+     red tick while on, and shake their head when you've already picked the most allowed. */
+  .chip { position: relative; border: 1px solid var(--line); background: transparent; border-radius: 0; padding: 8px 13px;
+    font: 500 12px var(--sans); letter-spacing: .04em; color: #3a3833;
+    transition: transform .22s cubic-bezier(.3, 1.6, .5, 1), background-color .2s, color .2s, border-color .2s, box-shadow .2s; }
+  .chip:hover:not(:disabled) { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 4px 0 -1px var(--ink); }
+  .chip:active:not(:disabled) { transform: translateY(1px) scale(.96); box-shadow: none; }
+  .chip:focus-visible { outline: 2px solid var(--hot); outline-offset: 2px; }
   .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .chip[aria-pressed="true"]::after { content: ""; position: absolute; top: -5px; right: -5px; width: 10px; height: 10px;
+    background: var(--hot); border-radius: 50%; border: 2px solid var(--paper); animation: tick .32s cubic-bezier(.3, 1.8, .5, 1); }
+  .chip.bump { animation: bump .34s cubic-bezier(.3, 1.6, .5, 1); }
+  .chip.nope { animation: nope .36s ease; }
+  @keyframes tick { from { transform: scale(0); } }
+  @keyframes bump { 40% { transform: scale(1.08) rotate(-1.5deg); } }
+  @keyframes nope { 20%, 60% { transform: translateX(-4px); } 40%, 80% { transform: translateX(4px); } }
   .chip.locked { opacity: .6; cursor: default; }
+  .chip.locked::after { display: none; }
+  .chip.icon { display: inline-flex; align-items: center; justify-content: center; padding: 9px 13px; }
+  .chip.icon svg { width: 21px; height: 21px; display: block; transition: transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+  .chip.icon:hover:not(:disabled) svg { transform: rotate(-10deg) scale(1.12); }
+  /* the vibe words are moods, so they're set like one: the display italic */
+  #tags .chip { font: italic 400 19px/1 var(--serif); letter-spacing: 0; padding: 7px 15px 9px; color: var(--ink); }
+  #tags .chip[aria-pressed="true"] { color: var(--paper); }
+  #formats .chip::before { content: "↻ "; color: var(--hot); }
+  #formats .chip[aria-pressed="true"]::before { color: inherit; }
+  .hint { color: var(--hot); font: italic 400 15px var(--serif); letter-spacing: 0; text-transform: none; margin-left: 8px;
+    opacity: 0; transition: opacity .2s; }
+  .hint.on { opacity: 1; }
   .chip small { display: block; font-weight: 400; letter-spacing: 0; color: inherit; opacity: .7; }
   .upload { display: flex; gap: 12px; align-items: center; margin-top: 10px; font-size: 13px; color: var(--muted); }
   .upload label { border-bottom: 1px solid var(--ink); color: var(--ink); cursor: pointer; }
@@ -268,18 +308,18 @@
         <form class="go" id="form">
           <div class="field">
             <input id="url" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" aria-label="Your website address" required>
-            <button id="goBtn" class="btn" type="submit">Pimp it</button>
+            <button id="goBtn" class="btn" type="submit"><span class="t">Pimp it</span><span class="arrow" aria-hidden="true">→</span></button>
           </div>
           <fieldset>
             <legend class="label muted">Channels</legend>
-            <div class="chips" id="channels"><button type="button" class="chip locked" aria-pressed="true" disabled>Website</button></div>
+            <div class="chips" id="channels"><button type="button" class="chip icon locked" aria-pressed="true" disabled aria-label="Website (always included)" title="Website (always included)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M3.6 9h16.8" /><path d="M3.6 15h16.8" /><path d="M11.5 3a17 17 0 0 0 0 18" /><path d="M12.5 3a17 17 0 0 1 0 18" /></svg></button></div>
           </fieldset>
           <fieldset>
-            <legend class="label muted">Vibe · optional, up to 3</legend>
+            <legend class="label muted">Vibe · optional, up to 3<span class="hint" aria-live="polite"></span></legend>
             <div class="chips" id="tags"></div>
           </fieldset>
           <fieldset>
-            <legend class="label muted">Remix a hit · optional, up to 2</legend>
+            <legend class="label muted">Remix a hit · optional, up to 2<span class="hint" aria-live="polite"></span></legend>
             <div class="chips" id="formats"></div>
             <div class="upload"><label for="post">Upload a post that's working</label><input id="post" type="file" accept="video/mp4,video/quicktime,video/webm,image/jpeg,image/png,image/webp"><span id="postNote">Spark takes it apart; we rebuild its essence with your products.</span></div>
           </fieldset>
@@ -397,11 +437,18 @@ function show(view) {
   window.scrollTo({ top: 0 });
 }
 
+// Channel icons: Tabler Icons outline brand set (MIT), drawn in currentColor so a picked chip inverts.
+const CHANNEL_ICONS = {"instagram": "<path d=\"M4 4m0 4a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z\" /><path d=\"M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\" /><path d=\"M16.5 7.5l0 .01\" />", "tiktok": "<path d=\"M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917z\" />", "facebook": "<path d=\"M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3\" />", "linkedin": "<path d=\"M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z\" /><path d=\"M8 11l0 5\" /><path d=\"M8 8l0 .01\" /><path d=\"M12 16l0 -5\" /><path d=\"M16 16v-3a2 2 0 0 0 -4 0\" />", "x": "<path d=\"M4 4l11.733 16h4.267l-11.733 -16z\" /><path d=\"M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772\" />"};
+const channelIcon = (id) => { const s = document.createElement('span'); s.style.display = 'contents';
+  s.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${CHANNEL_ICONS[id] || ''}</svg>`;
+  return s; };
+
 // --- splash ---
 fetch('/api/options').then((r) => r.json()).then((o) => {
   for (const c of o.channels) {
-    $('channels').append(el('button', { type: 'button', class: 'chip', 'aria-pressed': String(picked.has(c.id)),
-      text: c.name, onclick: (e) => toggle(e.currentTarget, picked, c.id, 9) }));
+    $('channels').append(el('button', { type: 'button', class: CHANNEL_ICONS[c.id] ? 'chip icon' : 'chip',
+      'aria-pressed': String(picked.has(c.id)), 'aria-label': c.name, title: c.name,
+      onclick: (e) => toggle(e.currentTarget, picked, c.id, 9) }, CHANNEL_ICONS[c.id] ? channelIcon(c.id) : c.name));
   }
   for (const t of o.tags) {
     $('tags').append(el('button', { type: 'button', class: 'chip', 'aria-pressed': 'false', text: t,
@@ -428,15 +475,24 @@ $('post').addEventListener('change', async (e) => {
   } catch (err) { $('postNote').textContent = err.message; }
 });
 function toggle(btn, set, id, max) {
-  if (set.has(id)) set.delete(id); else if (set.size < max) set.add(id); else return;
+  const anim = (c) => { btn.classList.remove('bump', 'nope'); void btn.offsetWidth; btn.classList.add(c); };
+  if (set.has(id)) set.delete(id);
+  else if (set.size < max) set.add(id);
+  else {  // already at the limit: shake, and say so in the legend
+    anim('nope');
+    const h = btn.closest('fieldset')?.querySelector('.hint');
+    if (h) { h.textContent = `${max} is the most. Drop one first.`; h.classList.add('on'); clearTimeout(h._t); h._t = setTimeout(() => h.classList.remove('on'), 2200); }
+    return;
+  }
   btn.setAttribute('aria-pressed', String(set.has(id)));
+  anim('bump');
 }
 
 $('form').addEventListener('submit', async (e) => {
   e.preventDefault();
   $('err').textContent = '';
   if (!$('consent').checked) { $('err').textContent = 'Please confirm you own this business or have its permission.'; return; }
-  $('goBtn').disabled = true; $('goBtn').textContent = 'Opening the garage…';
+  $('goBtn').disabled = true; $('goBtn').querySelector('.t').textContent = 'Opening the garage…';
   try {
     const r = await fetch('/api/jobs', { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url: $('url').value, channels: [...picked], tags: [...tags], formats: [...fmts], consent: true }) });
@@ -444,7 +500,7 @@ $('form').addEventListener('submit', async (e) => {
     if (!r.ok) throw new Error(d.detail || 'Something went wrong.');
     open(d.id);
   } catch (err) { $('err').textContent = err.message; }
-  finally { $('goBtn').disabled = false; $('goBtn').textContent = 'Pimp it'; }
+  finally { $('goBtn').disabled = false; $('goBtn').querySelector('.t').textContent = 'Pimp it'; }
 });
 
 function open(id) {

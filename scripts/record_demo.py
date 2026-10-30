@@ -99,7 +99,7 @@ def main() -> None:
         for ch in [c for c in args.channels.split(",") if c]:
             label = {"facebook": "Facebook", "linkedin": "LinkedIn", "x": "X", "instagram": "Instagram",
                      "tiktok": "TikTok"}[ch]
-            glide(page, f"#channels .chip:text-is('{label}')")
+            glide(page, f"#channels .chip[aria-label='{label}']")
             page.wait_for_timeout(200)
         for v in [v for v in args.vibe.split(",") if v]:
             glide(page, f"#tags .chip:text-is('{v}')")
