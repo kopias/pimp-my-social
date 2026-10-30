@@ -310,6 +310,10 @@
   .backdrop .light { position: absolute; inset: 0;
     background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 20%), rgba(255, 255, 255, .6), transparent 62%); }
   @keyframes turn { to { transform: rotate(360deg); } }
+  /* the halo is the landing page's; behind the working screens it steps right back */
+  .backdrop .halo, .backdrop .dots { transition: opacity .8s ease; }
+  body:not(:has(#v-splash.on)) .backdrop .halo { opacity: .1; }
+  body:not(:has(#v-splash.on)) .backdrop .dots { opacity: .35; }
   /* film grain, so the paper reads as paper */
   .grain { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .07; mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
