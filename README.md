@@ -1,20 +1,63 @@
-# Pimp My Social
+<p align="center">
+  <img src="docs/readme/banner.png" alt="Pimp My Social: give it your website, get back a new site, studio photos, a campaign and a brand skill. The fictional Marigold Lane Bakery goes from 13 to 96." width="100%">
+</p>
 
-**Give us your website. We'll give you back a makeover.**
+<p align="center">
+  <b>Give us your website. We'll give you back a makeover.</b><br>
+  <sub>Built for the Meta Global AI Developer Hackathon, Indie track · Oct 26 to Nov 4, 2026</sub>
+</p>
 
-A small business types in its URL (and, if it likes, its Instagram or online shop). Pimp My Social inspects the site the way a
-search engine, an AI assistant and a customer would, scores what's missing, and
-rebuilds it: a new editorial website modelled on real premium brand sites,
-professional photos of their own products, a remade logo, social posts, short
-videos remixed from formats that are working right now, a report on what changed
-and what it could be worth, and a brand skill file any AI tool can use to stay
-on-brand afterwards.
+<p align="center">
+  <a href="#what-you-get">What you get</a> ·
+  <a href="#how-it-works">How it works</a> ·
+  <a href="#run-it">Run it</a> ·
+  <a href="#under-the-hood">Under the hood</a>
+</p>
 
-Named for the show where a crew takes a beat-up car and hands back something
-unrecognisable. Built for the Meta Global AI Developer Hackathon (Oct 26 to Nov
-4, 2026), Indie track.
+<br>
 
-## Every Meta model has a job
+A small business types in its URL, and, if it likes, its Instagram or online shop. Pimp My Social inspects
+the site the way a search engine, an AI assistant and a customer would, scores what's missing, and rebuilds it:
+
+- **a new editorial website** modelled on real premium brand sites, built for search engines, AI answers and AI agents
+- **studio photos of their own products**, reshot and checked so the product never changes
+- **a campaign** in the Got Milk register, with posters, a still and a film
+- **a report** on what changed and what it could be worth
+- **a brand skill** to download into Claude, so whatever AI writes or designs next stays on brand
+
+It is named for the show where a crew takes a beat-up car and hands back something unrecognisable.
+
+<p align="center">
+  <img src="server/static/hero-reel.gif" alt="The makeover in motion: a link goes in, sketches appear, one is picked, the new site, photos and campaign come out." width="62%">
+</p>
+
+## What you get
+
+<p align="center"><img src="docs/readme/01-picker.png" alt="The sketch picker: the homepage drawn in several templates" width="100%"></p>
+<p align="center"><img src="docs/readme/02-reveal.png" alt="The reveal: before and after, with the score going from 13 to 96" width="100%"></p>
+<p align="center"><img src="docs/readme/03-campaign.png" alt="The got loaf? campaign posters" width="100%"></p>
+<p align="center"><img src="docs/readme/04-photos.png" alt="The owner's product photo and the studio reshoots" width="100%"></p>
+<p align="center"><img src="docs/readme/05-report.png" alt="The makeover report with its score board" width="100%"></p>
+<p align="center"><img src="docs/readme/06-skill.png" alt="The brand skill, rendered, with download buttons" width="100%"></p>
+
+<sub>Every screen above is a real run on <b>Marigold Lane Bakery</b>, a fictional business made for this demo (<code>demo/marigold-lane/</code>), so no real business is made over without asking.</sub>
+
+## How it works
+
+<p align="center"><img src="docs/readme/models.png" alt="Five Meta models: Muse Spark 1.3, Muse Wonder 1.0, Muse Image, SAM 3.1, Muse Voice Transcribe" width="100%"></p>
+
+1. **Paste a link.** The page recognises Instagram, TikTok, Etsy, Pinterest and more as you type, and reads the
+   site's own linked Instagram anyway.
+2. **The garage.** The site is rendered like a visitor, a search engine and an AI agent see it, and scored on 17 checks.
+   Muse Spark reads the pages, the feed and the shop's catalogue into a grounded brand profile.
+3. **The paint job.** Your style picks shortlist 25 measured templates; Muse Wonder sketches your homepage in three to six of them. You pick one.
+4. **The build.** The site, photos, logo, campaign and posts are made, and each is checked by a second model before you see it.
+5. **The reveal.** Before and after, side by side, with a downloadable kit: the site, photos, posts, report and brand skill.
+
+<details>
+<summary><b>Every Meta model's job, stage by stage</b></summary>
+
+<br>
 
 | Stage | Model | What it does |
 |---|---|---|
@@ -28,7 +71,33 @@ unrecognisable. Built for the Meta Global AI Developer Hackathon (Oct 26 to Nov
 | The campaign | **Muse Spark**, **Muse Image**, **SAM 3.1** | A "got ___?" campaign in the Got Milk register, ported from the Loreto "got skills?" work: Spark writes one thesis ("You are not X. You are Y.") and a brief (a poster roster, a deprivation still, a four-beat metaphor film), code gates the copy; Image casts it, wearing the real products, with one cast reference passed into every film shot so the person stays the same; SAM finds every hand so Spark can count fingers; the browser sets all type; Spark watches the film and one revision follows its notes |
 | Remix a hit (optional) | **Muse Spark** (video), **Muse Voice Transcribe**, Muse Image | A popular post is reverse engineered into its essence (Spark watches it, Transcribe hears its speech), then rebuilt with only this business's products, prices and place; Image shoots any new angle the format needs; Spark reviews each cut against the format |
 
-## The inspiration library (`inspo/`)
+</details>
+
+## Run it
+
+```bash
+uv sync
+# put MODEL_API_KEY in .env (dev.meta.ai/platform -> API keys)
+uv run scripts/smoke.py      # one live call per Meta model
+uv run pytest -q             # offline tests, no API calls
+
+uv run scripts/serve.py --demo                                  # http://localhost:8000
+(cd demo/marigold-lane && python3 -m http.server 8765 --bind 127.0.0.1)
+# in the page: http://127.0.0.1:8765/  -> Pimp it
+```
+
+`--demo` sets `PMS_ALLOW_PRIVATE=1` so the crawler can reach the local demo site. Never set it in production:
+by default the crawler refuses private and local addresses. Playwright drives the installed Google Chrome
+(`channel="chrome"`), so no browser download is needed.
+
+```bash
+uv run scripts/record_demo.py http://127.0.0.1:8765/            # a full makeover as video: out/demo/<name>.mp4
+uv run scripts/readme_art.py <finished job> --picker <job at the picker>   # these README images
+```
+
+## Under the hood
+
+### The inspiration library (`inspo/`)
 
 A skill folder future makeovers build from:
 
@@ -55,35 +124,18 @@ A skill folder future makeovers build from:
   location lookbook, fit check, made by hand, guess the price, three details, POV.
   Every post an owner uploads is added here.
 
-## The demo business
+### The demo business
 
 `demo/marigold-lane/` is the "before" site: **Marigold Lane Bakery is fictional**,
 built for this demo with photos generated by Muse Image, so no real business is
 made over without asking. It scores 13/100 on the audit.
 
-```bash
-cd demo/marigold-lane && python3 -m http.server 8765 --bind 127.0.0.1
-# PMS_ALLOW_PRIVATE=1 lets the crawler reach localhost. Never set it in production:
-# by default the crawler refuses private and local addresses.
-```
-
-## Setup
-
-```bash
-uv sync
-# put MODEL_API_KEY in .env (dev.meta.ai/platform -> API keys)
-uv run scripts/smoke.py      # one live call per Meta model
-uv run pytest -q             # offline tests, no API calls
-```
-
-Playwright drives the installed Google Chrome (`channel="chrome"`), so no browser
-download is needed.
-
-## Layout
+### Layout
 
 ```
 pms/crawl.py       render the site in Chrome: text, photos, colours, fonts, schema, speed, before screenshots
 pms/audit.py       17 measured checks across search, AI answers, agents, social and speed; scores 0-100
+pms/sources.py     the owner's extra links: platform recognition, the Instagram feed, Spark sorting each post
 pms/brand.py       Muse Spark: the grounded brand profile
 pms/templates.py   the 25 template skills: loader, tag ranking, screenshots
 pms/directions.py  style tags -> template shortlist (3-6 options), Spark's picks + a wildcard, Muse Image previews
@@ -97,30 +149,20 @@ pms/typeset.py     every word on a poster, caption or end card, set in HTML by a
 pms/remix.py       reverse engineer a post -> ground it to the business -> shoot angles -> cut -> Spark review
 pms/inspo.py       loads the inspiration library for the builder
 pms/video.py       the earlier voiced slideshow (kept for reference; the pipeline uses remix.py)
-pms/report.py      before/after report with a value calculator on cited figures
+pms/report.py      the before/after report, set in the landing page's type, with a value calculator on cited figures
 pms/skill.py       the brand skill folder (SKILL.md + references)
 pms/text.py        house style: calms shouting, never touches facts
 pms/pipeline.py    a job in two acts, state in out/jobs/<id>/job.json
 server/            FastAPI app + the splash page (server/static/index.html)
 scripts/serve.py   run it (--demo lets the crawler reach the local demo site)
 scripts/record_demo.py  Playwright records a full makeover, waits sped up
+scripts/readme_art.py   the README's banner and framed screenshots, rendered by Chrome
 muse/client.py     thin helpers over the Meta Model API
 demo/              the fictional "before" site
 ```
 
-## Run it
-
-```bash
-uv run scripts/serve.py --demo                      # http://localhost:8000
-(cd demo/marigold-lane && python3 -m http.server 8765 --bind 127.0.0.1)
-# in the page: http://127.0.0.1:8765/  -> Pimp it
-
-uv run scripts/record_demo.py http://127.0.0.1:8765/   # out/demo/<name>.mp4
-```
-
 Remixed videos ship silent with a sound suggestion: trending sounds are licensed
-inside each platform, so the owner picks one there. Cost per makeover is not measured yet; my estimate is $1-2 in Meta API calls (Wonder's page
-is most of it).
+inside each platform, so the owner picks one there. Cost per makeover is not measured yet; my estimate is $1-2 in Meta API calls (Wonder's page is most of it).
 
 ## Rules this repo follows
 

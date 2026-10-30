@@ -285,6 +285,8 @@ class Job:
                 zip_path = self.make_zip(folder)
                 return {"report": self.url_of(self.dir / "report.html"),
                         "skill": self.url_of(folder / "SKILL.md"),
+                        "skill_zip": self.url_of(self.zip_skill(folder)),
+                        "skill_name": folder.name,
                         "skill_md": (folder / "SKILL.md").read_text(),
                         "zip": self.url_of(zip_path), "value": r["value"],
                         "fixed": r["fixed"], "agent_ready": r["agent_ready"]}
@@ -293,6 +295,10 @@ class Job:
             self.save()
         except Exception as e:
             self.fail(e)
+
+    def zip_skill(self, folder: Path) -> Path:
+        """The skill on its own, as Claude takes it: one zip with the skill folder at its root."""
+        return Path(shutil.make_archive(str(self.dir / folder.name), "zip", self.dir, folder.name))
 
     def make_zip(self, skill_folder: Path) -> Path:
         stage = self.dir / "package"
