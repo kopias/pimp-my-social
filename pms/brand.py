@@ -253,8 +253,16 @@ def read_brand(site: Site, photos: list[Photo], feeds: list = ()) -> dict:
                            pages=_pages_text(site), photo_notes=notes, feeds=_feeds_text(feeds),
                            catalog=_catalog_text(site))
     images = [site.shots["desktop"], site.shots["phone"]] + [p.path for p in photos]
-    raw = m.ask(prompt, images=images, schema=PROFILE_SCHEMA, effort="medium", max_tokens=12000)
-    profile = json.loads(raw)
+    # Reasoning counts against max_tokens, and two dozen photos make for long reasoning: a
+    # tight cap cuts the JSON off mid-string. Room to spare, and one more try if it still does.
+    for attempt in (1, 2):
+        raw = m.ask(prompt, images=images, schema=PROFILE_SCHEMA, effort="medium", max_tokens=32000)
+        try:
+            profile = json.loads(raw)
+            break
+        except json.JSONDecodeError:
+            if attempt == 2:
+                raise
     n = len(photos)
     for prod in profile["products"]:
         if not 0 <= prod["photo"] < n:

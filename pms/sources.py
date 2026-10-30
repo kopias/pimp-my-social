@@ -329,7 +329,7 @@ def classify(sources: list[Source], profile_hint: str, catalogue: list[str]) -> 
     raw = m.ask(CLASSIFY_PROMPT.format(who=who, about=profile_hint or "unknown", last=len(posts) - 1,
                                        catalogue=", ".join(catalogue[:40]) or "none found",
                                        posts="\n".join(lines)),
-                images=[p.image for p in posts], schema=CLASSIFY_SCHEMA, effort="low", max_tokens=6000)
+                images=[p.image for p in posts], schema=CLASSIFY_SCHEMA, effort="low", max_tokens=16000)
     for row in json.loads(raw)["posts"]:
         if 0 <= row["index"] < len(posts):
             p = posts[row["index"]]

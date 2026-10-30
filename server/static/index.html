@@ -97,15 +97,15 @@
   .feedbox { margin-top: 28px; border-top: 1px solid var(--ink); padding-top: 18px; }
   .feedbox h4 { margin: 6px 0 2px; font: 400 24px/1.2 var(--serif); }
   .feedbox .sub { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
-  .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
-  .post { position: relative; margin: 0; background: var(--paper2); }
-  .post img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; filter: saturate(.75); opacity: .55; transition: opacity .3s, filter .3s; }
-  .post.used img { opacity: 1; filter: none; }
-  .post.used { outline: 2px solid var(--hot); outline-offset: -2px; }
-  .post figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 6px 5px; color: #fff;
+  .feedposts { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+  .feedposts .post { position: relative; margin: 0; background: var(--paper2); }
+  .feedposts .post img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; filter: saturate(.75); opacity: .55; transition: opacity .3s, filter .3s; }
+  .feedposts .post.used img { opacity: 1; filter: none; }
+  .feedposts .post.used { outline: 2px solid var(--hot); outline-offset: -2px; }
+  .feedposts .post figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 6px 5px; color: #fff;
     background: linear-gradient(transparent, rgba(0,0,0,.72)); font: 500 9px/1.3 var(--sans); letter-spacing: .1em; text-transform: uppercase; }
-  .post figcaption span { display: block; text-transform: none; letter-spacing: 0; font-size: 11px; font-weight: 400; opacity: .9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .post.used figcaption b { color: #ffb4a3; }
+  .feedposts .post figcaption span { display: block; text-transform: none; letter-spacing: 0; font-size: 11px; font-weight: 400; opacity: .9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .feedposts .post.used figcaption b { color: #ffb4a3; }
   .feedbox h4 svg { width: 20px; height: 20px; vertical-align: -2px; color: var(--hot); }
   .dcard .pick, .lb .go { transition: color .2s, transform .2s; }
   .dcard .pick:hover { color: var(--hot); }
@@ -768,7 +768,7 @@ function drawFeeds(feeds, catalog) {
     if (f.status !== 'read') { box.append(el('p', { class: 'sub', text: f.note })); continue; }
     box.append(el('p', { class: 'sub', text: [f.linked_from_site ? 'Linked from your site' : null, f.followers ? f.followers + ' followers' : null,
       `${f.posts.length} latest posts, ${used} with a product we'll use`].filter(Boolean).join(' · ') }));
-    const grid = el('div', { class: 'posts' });
+    const grid = el('div', { class: 'feedposts' });
     for (const p of f.posts) grid.append(el('figure', { class: 'post' + (p.used ? ' used' : ''), title: [p.why, p.caption].filter(Boolean).join(' · ') },
       el('img', { src: p.thumb, alt: p.product || KIND[p.kind] || 'A post', loading: 'lazy' }),
       el('figcaption', {}, el('b', { text: (KIND[p.kind] || 'Post') + (p.used ? ' ✓' : '') }), p.product ? el('span', { text: p.product }) : null)));
