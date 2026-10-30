@@ -290,12 +290,26 @@
   /* --- depth: an atmosphere behind the page, glass in front of it --- */
   html { background: var(--paper); }
   body { background: transparent; }
-  .aura { position: fixed; inset: -20vmax; z-index: 0; pointer-events: none; filter: blur(70px) saturate(1.1); }
-  .aura i { position: absolute; border-radius: 50%; opacity: .55; animation: drift 26s ease-in-out infinite alternate; }
-  .aura i:nth-child(1) { width: 52vmax; height: 52vmax; left: 4vmax; top: 2vmax; background: #f6d9bf; }
-  .aura i:nth-child(2) { width: 38vmax; height: 38vmax; right: 6vmax; top: 18vmax; background: #f1b9a6; opacity: .45; animation-duration: 32s; animation-delay: -8s; }
-  .aura i:nth-child(3) { width: 46vmax; height: 46vmax; left: 30vmax; bottom: 0; background: #d9e2d3; opacity: .5; animation-duration: 38s; animation-delay: -15s; }
-  @keyframes drift { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(4vmax, -3vmax, 0) scale(1.12); } }
+  /* the backdrop, in layers: a designer's column grid, a halftone corner, a slowly turning
+     colour halo behind the reel, and a soft light that follows the cursor */
+  .backdrop { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .backdrop .grid { position: absolute; inset: 0;
+    background-image: linear-gradient(to right, rgba(18, 18, 18, .055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(18, 18, 18, .035) 1px, transparent 1px);
+    background-size: calc(100% / 12) 100%, 100% 96px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 65% at 45% 35%, #000 25%, transparent 78%);
+    mask-image: radial-gradient(ellipse 70% 65% at 45% 35%, #000 25%, transparent 78%); }
+  .backdrop .dots { position: absolute; left: -4vw; bottom: -6vh; width: 46vw; height: 52vh;
+    background-image: radial-gradient(rgba(200, 54, 27, .32) 1.1px, transparent 1.6px); background-size: 13px 13px;
+    -webkit-mask-image: radial-gradient(circle at 0% 100%, #000 0%, transparent 70%);
+    mask-image: radial-gradient(circle at 0% 100%, #000 0%, transparent 70%); }
+  .backdrop .halo { position: absolute; right: -2vw; top: 2vh; width: min(58vw, 860px); aspect-ratio: 1; border-radius: 50%;
+    background: conic-gradient(from 0deg, #c8361b, #e7a541, #f2dcc6 30%, #8ea38c, #2b3a55 70%, #b2675a, #c8361b);
+    filter: blur(70px) saturate(1.15); opacity: .5; animation: turn 48s linear infinite; }
+  .backdrop .halo::after { content: ""; position: absolute; inset: 30%; border-radius: 50%; background: var(--paper); filter: blur(40px); }
+  .backdrop .light { position: absolute; inset: 0;
+    background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 20%), rgba(255, 255, 255, .6), transparent 62%); }
+  @keyframes turn { to { transform: rotate(360deg); } }
   /* film grain, so the paper reads as paper */
   .grain { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .07; mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
@@ -333,11 +347,11 @@
     form.go { margin-left: 0; padding: 20px 18px 18px; }
     .index { grid-template-columns: 1fr 1fr; gap: 10px; } .index div { border-bottom: 1px solid rgba(255, 255, 255, .75); }
   }
-  @media (prefers-reduced-motion: reduce) { .aura i { animation: none; } .art.reel { transform: none; transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .backdrop .halo { animation: none; } .art.reel { transform: none; transition: none; } }
 </style>
 </head>
 <body>
-<div class="aura" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="backdrop" aria-hidden="true"><div class="halo"></div><div class="grid"></div><div class="dots"></div><div class="light"></div></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="wrap">
   <header class="top">
@@ -478,6 +492,10 @@ const el = (tag, attrs = {}, ...kids) => {
 };
 const CAT = { overall: 'Overall', seo: 'Search engines', aeo: 'Answer engines (AI search)', agents: 'AI agents', social: 'Social sharing', speed: 'Speed' };
 let job = null, jobId = null, poll = null, picked = new Set(['instagram', 'tiktok']), tags = new Set(), fmts = new Set();
+// A soft light follows the cursor across the backdrop.
+(() => { const bd = document.querySelector('.backdrop'); if (!bd || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  addEventListener('pointermove', (e) => { bd.style.setProperty('--mx', e.clientX + 'px'); bd.style.setProperty('--my', e.clientY + 'px'); }, { passive: true });
+})();
 // The reel card leans a few degrees toward the cursor.
 (() => { const card = document.querySelector('.art.reel'), area = document.querySelector('.split');
   if (!card || !area || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
